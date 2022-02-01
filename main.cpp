@@ -4,6 +4,7 @@
 #include "src/utils/GameCookie.h"
 #include "src/utils/Enums.h"
 #include "src/Astarok.h"
+#include "src/utils/DuelPalette.h"
 
 using PC = Pokitto::Core;
 using PD = Pokitto::Display;
@@ -19,7 +20,7 @@ int main() {
     cookie.begin("Astarok", sizeof(cookie), (char*)&cookie);
 
     PC::begin();
-    PD::loadRGBPalette(palettePico);  
+    PD::loadRGBPalette(duel);  
     PD::persistence = true;
     PD::setColor(5);
     PD::setInvisibleColor(14);

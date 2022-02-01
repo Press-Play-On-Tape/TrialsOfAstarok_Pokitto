@@ -60,7 +60,7 @@ void Game::seed() {
 
         if (PC::buttons.pressed(BTN_A) || PC::buttons.pressed(BTN_B)) {
 
-            //SJHrandomSeed(seedVars.getSeedValue());
+            srand(seedVars.getSeedValue());
             for (uint8_t a = 0; a < Constants::GameSeeds; a++ ) game.seeds[a] = random(0, 255);
 
             //sound.tones(Sounds::ButtonPress);

@@ -10,6 +10,7 @@
 #include "sounds/Sounds.h"
 #include "AstarokGame.h"
 #include "font/Font4x6.h"
+#include "src/utils/DuelPalette.h"
 
 using PC=Pokitto::Core;
 using PD=Pokitto::Display;
