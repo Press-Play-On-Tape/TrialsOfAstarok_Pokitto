@@ -1,0 +1,11 @@
+// Automatically generated file, do not edit.
+
+#pragma once
+
+inline constexpr uint8_t Pixel_03[] = {
+4, 4,
+0x00,0x00,
+0x00,0x70,
+0x07,0x00,
+0x00,0x00
+};
