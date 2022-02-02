@@ -73,7 +73,7 @@ void AstarokGame::drawMap_Background() {
     if (this->mapNumber % 2 == MapLevel::AboveGround) {
 
         for (uint8_t i = 0; i <= 128; i += 64) {
-            PD::drawBitmap(i - backgroundXOffset, backgroundYOffset + 2, Images::Sky);
+            PD::drawBitmap(i - backgroundXOffset, backgroundYOffset - 6, Images::Sky);
         }
 
     }

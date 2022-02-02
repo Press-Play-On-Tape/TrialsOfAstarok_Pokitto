@@ -23,7 +23,7 @@ int main() {
     PD::loadRGBPalette(duel);  
     PD::persistence = true;
     PD::setColor(5);
-    PD::setInvisibleColor(14);
+    PD::setInvisibleColor(149);
     PC::setFrameRate(20);
     PD::textWrap = false;
 
