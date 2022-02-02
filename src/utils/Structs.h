@@ -121,7 +121,6 @@ struct SeedVars {
 
         }
 
-        //EEPROM.update(Constants::EEPROM_Seeds + this->index, this->seed[this->index]);
         this->spinIndex = 17;
         
     }
@@ -139,7 +138,6 @@ struct SeedVars {
 
         }
 
-        //EEPROM.update(Constants::EEPROM_Seeds + this->index, this->seed[this->index]);
         this->spinIndex = 17;
         
     }

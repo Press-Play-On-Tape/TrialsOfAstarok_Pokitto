@@ -112,7 +112,7 @@ void Game::loop() {
         case GameState::Game_Mini:
 
             if (game.mapNumber % 2) {
-                PD::fillScreen(7);
+                PD::fillScreen(31);
             }
             else {
                 PD::clear();

@@ -5,8 +5,8 @@
 #include <LibSchedule>
 #include "images/Images.h"
 #include "utils/Enums.h"
-#include "utils/Structs.h"
 #include "utils/GameCookie.h"
+#include "utils/Structs.h"
 #include "AstarokGame.h"
 #include "font/Font4x6.h"
 #include "src/utils/DuelPalette.h"

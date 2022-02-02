@@ -1,8 +1,8 @@
 #pragma once
 
-#define NO_DEATH
+#define _NO_DEATH
 #define SOUNDS
-#define COOKIE_INITIALISED 39
+#define COOKIE_INITIALISED 41
 
 namespace Constants {
     

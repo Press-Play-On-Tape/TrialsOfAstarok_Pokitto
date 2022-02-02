@@ -93,7 +93,7 @@ void AstarokGame::processButtons() {
         }
     }
 
-    if (PC::buttons.pressed(BTN_B)) {
+    if (PC::buttons.pressed(BTN_A)) {
 
         if (!this->player.isFalling()) {
             if (this->player.jump()) {
@@ -104,7 +104,7 @@ void AstarokGame::processButtons() {
 
     }
 
-    else if (this->player.continuousBButton && (PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1))) {
+    else if (this->player.continuousBButton && (PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1))) {
 
         if (this->player.isFalling()) {
 
@@ -285,14 +285,13 @@ void AstarokGame::cycle(GameState &gameState) {
 
                         obj.deactivate();
                         this->score += Constants::Points_Coin;
-                        printf("start of PUC\n");
                         sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
 
                         break;
 
                     case ObjectTypes::Chest_Closed:
                         
-                        if (PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1)) {
+                        if (PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1)) {
                             
                             gameState = GameState::Game_Mini;
 
@@ -433,7 +432,7 @@ void AstarokGame::cycle(GameState &gameState) {
 
                                 // Get a bounce if we are pressing 'A' ..
 
-                                if ((PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1))) { 
+                                if ((PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1))) { 
                                     this->player.vy = -8;
                                 }
                                 else { 
@@ -631,23 +630,46 @@ void AstarokGame::playMiniGame(GameState &gameState) {
 
     }
 
-    if (this->ballDelay == 0) {
+    switch (this->ballDelay) {
         
-        if (this->ballDirection != Direction::None) {
-
-            if (PC::buttons.pressed(BTN_A)) {
-
-                this->ballDirection = Direction::None;
-                this->ballDelay = 24;
-                sounds.playSoundEffect(Sounds::Effects::OpenChest);
-
-            } 
-
-        }
-        else  {
+        case 0:
             
-            gameState = GameState::Game_Play;
-            this->chestObj->type = ObjectTypes::Chest_Open;
+            if (this->ballDirection != Direction::None) {
+
+                if (PC::buttons.pressed(BTN_B)) {
+
+                    this->ballDirection = Direction::None;
+                    this->ballDelay = 24;
+                    sounds.playSoundEffect(Sounds::Effects::OpenChest);
+
+                } 
+
+            }
+            else  {
+                
+                gameState = GameState::Game_Play;
+                this->chestObj->type = ObjectTypes::Chest_Open;
+
+                if (this->ballIdx >= 4 && ballIdx <= 6) {
+
+                    this->addMob(Data::Health, this->chestObj->x, this->chestObj->y - 1);
+
+                }
+                else {
+
+                    for (uint8_t i = 0; i < 5; i++) {
+
+                        this->addMob(Data::Coin, this->chestObj->x, this->chestObj->y - 1);
+
+                    }
+
+                }
+
+            }
+
+            break;
+
+        case 6:
 
             for (int i = 0; i < Constants::ParticlesMax; i++) {
                 particles[i].setX((this->chestObj->x * Constants::TileSize) - this->camera.x + 8 + random(0, 7));
@@ -657,25 +679,16 @@ void AstarokGame::playMiniGame(GameState &gameState) {
                 particles[i].setCounter(random(15, 46));
             
             }
+                        
+            this->ballDelay--;
 
-            if (this->ballIdx >= 4 && ballIdx <= 6) {
-                this->addMob(Data::Health, this->chestObj->x, this->chestObj->y - 1);
-            }
-            else {
+            break;
 
-                for (uint8_t i = 0; i < 5; i++) {
+        default:
 
-                    this->addMob(Data::Coin, this->chestObj->x, this->chestObj->y - 1);
+            this->ballDelay--;
+            break;
 
-                }
-
-            }
-
-        }
-
-    }
-    else {
-        this->ballDelay--;
     }
 
 }

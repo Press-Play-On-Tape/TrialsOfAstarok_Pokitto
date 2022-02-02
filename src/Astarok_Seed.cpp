@@ -3,6 +3,11 @@
 void Game::seed_Init() {
 
     seedVars.reset();
+
+    for (uint8_t i = 0; i < 5; i++) {
+        seedVars.seed[i] = cookie->seeds[i];
+    }
+    
     gameState = GameState::Seed;
 
 }
@@ -40,11 +45,15 @@ void Game::seed() {
 
         if (PC::buttons.pressed(BTN_UP)) {
             seedVars.incValue();
+            cookie->seeds[seedVars.index] = seedVars.seed[seedVars.index];
+            cookie->saveCookie();
             //sound.tones(Sounds::ButtonPress);
         }
 
         if (PC::buttons.pressed(BTN_DOWN)) { 
             seedVars.decValue();
+            cookie->seeds[seedVars.index] = seedVars.seed[seedVars.index];
+            cookie->saveCookie();
             //sound.tones(Sounds::ButtonPress);
         }
 
