@@ -98,7 +98,7 @@ void AstarokGame::processButtons() {
         if (!this->player.isFalling()) {
             if (this->player.jump()) {
                 this->player.continuousBButton = true;
-                //this->sound->tones(Sounds::Jump);
+                sounds.playSoundEffect(Sounds::Effects::Jump);
             }
         }
 
@@ -287,7 +287,6 @@ void AstarokGame::cycle(GameState &gameState) {
                         this->score += Constants::Points_Coin;
                         printf("start of PUC\n");
                         sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
-                        //this->sound->tones(Sounds::Coin);
 
                         break;
 
@@ -376,7 +375,7 @@ void AstarokGame::cycle(GameState &gameState) {
                     case ObjectTypes::Coin:
                         obj.deactivate(false);
                         this->score += Constants::Points_Coin;
-                        //this->sound->tones(Sounds::Coin);
+                        sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
                         break;
                         
                     default: break;
@@ -429,7 +428,7 @@ void AstarokGame::cycle(GameState &gameState) {
 
                                 obj.deactivate(true);
                                 this->score += Constants::Points_Skill;
-                                //this->sound->tones(Sounds::LandOnTop);
+                                sounds.playSoundEffect(Sounds::Effects::LandOnTop);
 
 
                                 // Get a bounce if we are pressing 'A' ..
@@ -640,7 +639,7 @@ void AstarokGame::playMiniGame(GameState &gameState) {
 
                 this->ballDirection = Direction::None;
                 this->ballDelay = 24;
-                //this->sound->tones(Sounds::OpenChest);
+                sounds.playSoundEffect(Sounds::Effects::OpenChest);
 
             } 
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#define _NO_DEATH
+#define NO_DEATH
 #define SOUNDS
 #define COOKIE_INITIALISED 39
 

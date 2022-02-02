@@ -5,6 +5,8 @@
 
 #include "OpenChest.h"
 #include "PickUpCoin.h"
+#include "LandOnTop.h"
+#include "Jump.h"
 
 extern File mainThemeFile;
 extern Audio::RAWFileSource *music;
@@ -14,6 +16,8 @@ struct Sounds {
     enum class Effects : uint8_t {
         OpenChest,
         PickUpCoin,
+        LandOnTop,
+        Jump,
     };
 
 
@@ -64,7 +68,15 @@ struct Sounds {
                 case Sounds::Effects::PickUpCoin:
                     Audio::play<1>(sfx_PickUpCoin, 255, 1);        
                     break;
-                                        
+
+                case Sounds::Effects::LandOnTop:
+                    Audio::play<1>(sfx_LandOnTop, 255, 1);        
+                    break;
+
+                case Sounds::Effects::Jump:
+                    Audio::play<1>(sfx_Jump, 255, 1);        
+                    break;
+
             }
 
         #endif
