@@ -1,8 +1,11 @@
 #pragma once
 
+#include "Pokitto.h"
+#include <LibAudio>
+#include <LibSchedule>
+
 #include "data/SpriteData.h"
 #include "images/Images.h"
-#include "sounds/Sounds.h"
 #include "utils/Enums.h"
 #include "utils/Constants.h"
 #include "utils/Utils.h"
@@ -13,6 +16,7 @@
 #include "entities/Room.h"
 #include "entities/Map.h"
 #include "entities/Particle.h"
+#include "sounds/Sounds.h"
 
 class AstarokGame {
 
@@ -41,6 +45,7 @@ class AstarokGame {
     private:
         uint8_t               cameraOffset;
         Direction             cameraPan;
+        Sounds                sounds;
         
         Particle particles[Constants::ParticlesMax];
 

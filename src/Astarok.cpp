@@ -6,6 +6,7 @@
 #include "src/utils/Enums.h"
 #include "src/utils/Structs.h"
 #include "src/font/Font4x6.h"
+#include "sounds/Sounds.h"
 
 using PC = Pokitto::Core;
 using PD = Pokitto::Display;

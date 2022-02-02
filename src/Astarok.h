@@ -7,7 +7,6 @@
 #include "utils/Enums.h"
 #include "utils/Structs.h"
 #include "utils/GameCookie.h"
-#include "sounds/Sounds.h"
 #include "AstarokGame.h"
 #include "font/Font4x6.h"
 #include "src/utils/DuelPalette.h"
@@ -15,7 +14,6 @@
 using PC=Pokitto::Core;
 using PD=Pokitto::Display;
 using PB=Pokitto::Buttons;
-
 
 class Game {
 
@@ -32,9 +30,12 @@ class Game {
         GameCookie *cookie;
 
     public:
+        File mainThemeFile;
+        Audio::RAWFileSource *music;
+
+    public:
         void setup(GameCookie *cookie);
         void loop();
-
 
     private:
         void checkHighScoreSlot(uint16_t score);

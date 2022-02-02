@@ -1,4 +1,5 @@
 #include "AstarokGame.h"
+
 #include "utils/Utils.h"
 
 
@@ -284,6 +285,8 @@ void AstarokGame::cycle(GameState &gameState) {
 
                         obj.deactivate();
                         this->score += Constants::Points_Coin;
+                        printf("start of PUC\n");
+                        sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
                         //this->sound->tones(Sounds::Coin);
 
                         break;
