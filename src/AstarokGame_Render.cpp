@@ -21,9 +21,7 @@ void AstarokGame::drawMobs() {
         if (obj.explodeCounter > 0) {
 
             PD::drawBitmap(obj.x - this->camera.x - 2, obj.y - this->camera.y - 2, 
-                           Images::Puffs[(21 - obj.explodeCounter) / 3]); 
-                        //    pgm_read_word_near(&Images::Puff_Masks[(21 - obj.explodeCounter) / 3]), 
-                        //    this->mapNumber % 2 == 0 ? 0 : 1, 0);
+                           Images::Puffs[(((21 - obj.explodeCounter) / 3) * 2) + (this->mapNumber % 2 ? 1 : 0)]); 
 
         }
 
@@ -79,11 +77,11 @@ void AstarokGame::drawMap_Background() {
     }
     else {
 
-        for (uint8_t i = 0; i <= 128; i += 64) {
+        for (uint8_t i = 0; i <= 110; i += 55) {
 
-            PD::drawBitmap(i + 7 - backgroundXOffset, backgroundYOffset, Images::Underground_Chain);
-            PD::drawBitmap(i + 22 - backgroundXOffset, backgroundYOffset + 6, Images::Underground_Brick);
-            PD::drawBitmap(i + 42 - backgroundXOffset, backgroundYOffset + 11, Images::Underground_Brick);
+            PD::drawBitmap(i + 2 - backgroundXOffset, backgroundYOffset, Images::Underground_Chain);
+            PD::drawBitmap(i + 17 - backgroundXOffset, backgroundYOffset + 6, Images::Underground_Brick);
+            PD::drawBitmap(i + 37 - backgroundXOffset, backgroundYOffset + 11, Images::Underground_Brick);
 
         }
 
@@ -217,9 +215,7 @@ void AstarokGame::drawPlayer() {
     if (this->event == EventType::StartLevel) { 
 
         PD::drawBitmap(this->player.x - this->camera.x - 2, this->player.y - this->camera.y - 4, 
-                                  Images::Puffs[(28 - this->eventCounter) / 4]); 
-                                //   pgm_read_word_near(&Images::Puff_Masks[(28 - this->eventCounter) / 4]), 
-                                //   this->mapNumber % 2 == 0 ? 0 : 1, 0);
+                       Images::Puffs[(((21 - this->eventCounter) / 3) * 2) + (this->mapNumber % 2 ? 1 : 0)]); 
 
     }
 

@@ -32,7 +32,7 @@ namespace Constants {
 
     constexpr uint8_t EventCounter_Death        = 50;
     constexpr uint8_t EventCounter_Flash        = 50;
-    constexpr uint8_t EventCounter_LevelStart   = 28;
+    constexpr uint8_t EventCounter_LevelStart   = 21;
 
     constexpr uint8_t NoPlatform                = 255;
 

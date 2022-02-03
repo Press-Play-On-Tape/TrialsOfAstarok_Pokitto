@@ -180,7 +180,8 @@ void AstarokGame::adjustCamera() {
 
 void AstarokGame::cycle(GameState &gameState) {
 
-    int mapPixelHeight = this->level.maxYPixel();
+    bool evenFrame = PC::frameCount % 2;
+    int16_t mapPixelHeight = this->level.maxYPixel();
 
     this->processButtons();
 
@@ -188,124 +189,128 @@ void AstarokGame::cycle(GameState &gameState) {
 
     // Handle any events that are still active ..
 
-    switch (this->event) {
-
-        case EventType::Death_Init:
-        case EventType::Death:
-
-            switch (this->eventCounter) {
-
-                case Constants::EventCounter_Death - 2 ... Constants::EventCounter_Death:  // bump up before going down
-                    this->player.y--;
-                    break;
-
-                case 1 ... Constants::EventCounter_Death - 3:
-                    this->player.y+=2;
-                    break;
-
-            }
-
-            if (this->player.y > mapPixelHeight) {
-                this->eventCounter = 0;
-            }
-            else {
-                this->eventCounter--;
-            }
-
-            break;
-
-        case EventType::Playing:
-            this->player.move();
-            adjustCamera();
-            break;
-
-        case EventType::StartLevel:
-            if (this->eventCounter > 0) {
-                this->eventCounter--;
-                if (this->eventCounter == 0) {
-                    this->event = EventType::Playing;
-                }
-            }
-            break;
-
-        case EventType::Flash:
-            this->player.move();
-            adjustCamera();
-            if (this->eventCounter > 0) {
-                this->eventCounter--;
-                if (this->eventCounter == 0) {
-                    this->event = EventType::Playing;
-                }
-            }
-            break;
-
-        default: break;
-
-    }
-
-
-    // Have we touched any interactive objects (EOL, chests, etc) ..
-
-    for (InteractiveObject &obj : this->level.objects) {
-
-        if (obj.x >= 0) {
-
-            Rect playerRect = this->player.getRect();
-            Rect objRect = { obj.x * Constants::TileSize, obj.y * Constants::TileSize, Constants::TileSize, Constants::TileSize };
-
-            switch (obj.getType()) {
-
-                case ObjectTypes::Chest_Closed:
-                    objRect.width = 20;
-                    break;
-
-                case ObjectTypes::AboveGroundExit:
-                case ObjectTypes::UnderGroundExit:
-                    objRect.x = (obj.x * Constants::TileSize) - 2;
-                    playerRect.width = 12;
-                    break;
-
-                default: break;
-
-            }
+    if (evenFrame) {
             
-            if (Utils::collide(playerRect, objRect)) {
-                    
+        switch (this->event) {
+
+            case EventType::Death_Init:
+            case EventType::Death:
+
+                switch (this->eventCounter) {
+
+                    case Constants::EventCounter_Death - 2 ... Constants::EventCounter_Death:  // bump up before going down
+                        this->player.y--;
+                        break;
+
+                    case 1 ... Constants::EventCounter_Death - 3:
+                        this->player.y+=2;
+                        break;
+
+                }
+
+                if (this->player.y > mapPixelHeight) {
+                    this->eventCounter = 0;
+                }
+                else {
+                    this->eventCounter--;
+                }
+
+                break;
+
+            case EventType::Playing:
+                this->player.move();
+                adjustCamera();
+                break;
+
+            case EventType::StartLevel:
+                if (this->eventCounter > 0) {
+                    this->eventCounter--;
+                    if (this->eventCounter == 0) {
+                        this->event = EventType::Playing;
+                    }
+                }
+                break;
+
+            case EventType::Flash:
+                this->player.move();
+                adjustCamera();
+                if (this->eventCounter > 0) {
+                    this->eventCounter--;
+                    if (this->eventCounter == 0) {
+                        this->event = EventType::Playing;
+                    }
+                }
+                break;
+
+            default: break;
+
+        }
+
+
+        // Have we touched any interactive objects (EOL, chests, etc) ..
+
+        for (InteractiveObject &obj : this->level.objects) {
+
+            if (obj.x >= 0) {
+
+                Rect playerRect = this->player.getRect();
+                Rect objRect = { obj.x * Constants::TileSize, obj.y * Constants::TileSize, Constants::TileSize, Constants::TileSize };
+
                 switch (obj.getType()) {
+
+                    case ObjectTypes::Chest_Closed:
+                        objRect.width = 20;
+                        break;
 
                     case ObjectTypes::AboveGroundExit:
                     case ObjectTypes::UnderGroundExit:
-
-                        this->event = EventType::LevelExit;
-                        this->eventCounter = 0;
-
-                        break;
-
-                    case ObjectTypes::Coin:
-
-                        obj.deactivate();
-                        this->score += Constants::Points_Coin;
-                        sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
-
-                        break;
-
-                    case ObjectTypes::Chest_Closed:
-                        
-                        if (PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1)) {
-                            
-                            gameState = GameState::Game_Mini;
-
-                            this->chestObj = &obj;
-                            this->ballDirection = Direction::Left;
-                            this->ballX = 15;
-                            this->ballIdx = 5;
-                            this->ballDelay = 4;
-
-                        }
-
+                        objRect.x = (obj.x * Constants::TileSize) - 2;
+                        playerRect.width = 12;
                         break;
 
                     default: break;
+
+                }
+                
+                if (Utils::collide(playerRect, objRect)) {
+                        
+                    switch (obj.getType()) {
+
+                        case ObjectTypes::AboveGroundExit:
+                        case ObjectTypes::UnderGroundExit:
+
+                            this->event = EventType::LevelExit;
+                            this->eventCounter = 0;
+
+                            break;
+
+                        case ObjectTypes::Coin:
+
+                            obj.deactivate();
+                            this->score += Constants::Points_Coin;
+                            sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
+
+                            break;
+
+                        case ObjectTypes::Chest_Closed:
+                            
+                            if (PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1)) {
+                                
+                                gameState = GameState::Game_Mini;
+
+                                this->chestObj = &obj;
+                                this->ballDirection = Direction::Left;
+                                this->ballX = 15;
+                                this->ballIdx = 5;
+                                this->ballDelay = 4;
+
+                            }
+
+                            break;
+
+                        default: break;
+
+                    }
 
                 }
 
@@ -313,157 +318,157 @@ void AstarokGame::cycle(GameState &gameState) {
 
         }
 
-    }
 
+        // Handle the movement of sprites ..
 
-    // Handle the movement of sprites ..
+        bool isFalling = this->player.isFalling() && this->player.vy >= 0;
 
-    bool isFalling = this->player.isFalling() && this->player.vy >= 0;
+        for (AISprite &obj : this->mobs) {
 
-    for (AISprite &obj : this->mobs) {
+            // Adjust explode counter if explostion is in action ..
 
-        // Adjust explode counter if explostion is in action ..
+            obj.updateExplosion();
 
-        obj.updateExplosion();
+            if (obj.getActive()) {
 
-        if (obj.getActive()) {
+                switch (obj.getType()) {
 
-            switch (obj.getType()) {
-
-                case ObjectTypes::Fireball:
-                    if (this->event == EventType::Playing) {
-                        obj.move();
-                    }
-                    break;
-
-                case ObjectTypes::Health:
-                    // Do nothing ..
-                    break;
-
-                default:
-
-                    if (obj.y > mapPixelHeight) {
-                        obj.deactivate(true);
-                    }
-
-                    obj.think();
-
-                    if (obj.y > mapPixelHeight) {
-                        obj.deactivate(true);
-                    }
-
-                    break;
-
-            }
-
-
-            // Have we touched another object?
-
-            if (obj.getActive() && testCollision(&player, &obj)) {
-              
-                uint8_t type = obj.getType();
-
-                switch (type) {
+                    case ObjectTypes::Fireball:
+                        if (this->event == EventType::Playing) {
+                            obj.move();
+                        }
+                        break;
 
                     case ObjectTypes::Health:
-                        obj.deactivate(true);
-                        this->score += Constants::Points_Health;
-                        if (this->lives < 3) this->lives++;
+                        // Do nothing ..
                         break;
 
-                    case ObjectTypes::Coin:
-                        obj.deactivate(false);
-                        this->score += Constants::Points_Coin;
-                        sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
+                    default:
+
+                        if (obj.y > mapPixelHeight) {
+                            obj.deactivate(true);
+                        }
+
+                        obj.think();
+
+                        if (obj.y > mapPixelHeight) {
+                            obj.deactivate(true);
+                        }
+
                         break;
-                        
-                    default: break;
 
                 }
 
-                if (obj.getActive()) { // May have been deativated just above (ie. a health) ..
 
-                    if (isFalling) { // And therefore landing on top of an object
+                // Have we touched another object?
 
-                        switch (type) {
+                if (obj.getActive() && testCollision(&player, &obj)) {
+                
+                    uint8_t type = obj.getType();
 
-                            case ObjectTypes::Fireball:
+                    switch (type) {
 
-                                #ifndef NO_DEATH
+                        case ObjectTypes::Health:
+                            obj.deactivate(true);
+                            this->score += Constants::Points_Health;
+                            if (this->lives < 3) this->lives++;
+                            break;
 
-                                if (event != EventType::Flash) {
+                        case ObjectTypes::Coin:
+                            obj.deactivate(false);
+                            this->score += Constants::Points_Coin;
+                            sounds.playSoundEffect(Sounds::Effects::PickUpCoin);
+                            break;
+                            
+                        default: break;
 
-                                    if (this->lives > 0) this->lives--; 
+                    }
 
-                                    if (this->lives == 0) {
+                    if (obj.getActive()) { // May have been deativated just above (ie. a health) ..
 
-                                        if (this->eventCounter == 0) {
-                                            
-                                            this->event = EventType::Death_Init; 
-                                            this->eventCounter = Constants::EventCounter_Death;   
+                        if (isFalling) { // And therefore landing on top of an object
+
+                            switch (type) {
+
+                                case ObjectTypes::Fireball:
+
+                                    #ifndef NO_DEATH
+
+                                    if (event != EventType::Flash) {
+
+                                        if (this->lives > 0) this->lives--; 
+
+                                        if (this->lives == 0) {
+
+                                            if (this->eventCounter == 0) {
+                                                
+                                                this->event = EventType::Death_Init; 
+                                                this->eventCounter = Constants::EventCounter_Death;   
+                                                //this->sound->tones(Sounds::Dying);
+                                                obj.deactivate(true);
+
+                                            }
+
+                                        }
+                                        else {
+
+                                            #ifndef NO_DEATH
+                                            this->event = EventType::Flash; 
+                                            this->eventCounter = Constants::EventCounter_Flash;
                                             //this->sound->tones(Sounds::Dying);
-                                            obj.deactivate(true);
+                                            #endif
 
                                         }
 
                                     }
-                                    else {
 
-                                        #ifndef NO_DEATH
-                                        this->event = EventType::Flash; 
-                                        this->eventCounter = Constants::EventCounter_Flash;
-                                        //this->sound->tones(Sounds::Dying);
-                                        #endif
+                                    #endif
 
+                                    break;
+
+                                default:
+
+                                    obj.deactivate(true);
+                                    this->score += Constants::Points_Skill;
+                                    sounds.playSoundEffect(Sounds::Effects::LandOnTop);
+
+
+                                    // Get a bounce if we are pressing 'A' ..
+
+                                    if ((PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1))) { 
+                                        this->player.vy = -8;
                                     }
+                                    else { 
+                                        this->player.vy = -3; 
+                                    } 
 
-                                }
+                                    break;
 
+                            }
+
+                        }
+                        else if (this->eventCounter == 0) {
+
+                            if (this->lives > 0) this->lives--; 
+
+                            if (this->lives == 0) {
+
+                                #ifndef NO_DEATH
+                                this->event = EventType::Death_Init; 
+                                this->eventCounter = Constants::EventCounter_Death;
+                                //this->sound->tones(Sounds::Dying);
                                 #endif
 
-                                break;
+                            }
+                            else {
 
-                            default:
+                                #ifndef NO_DEATH
+                                this->event = EventType::Flash; 
+                                this->eventCounter = Constants::EventCounter_Flash;
+                                //this->sound->tones(Sounds::Dying);
+                                #endif
 
-                                obj.deactivate(true);
-                                this->score += Constants::Points_Skill;
-                                sounds.playSoundEffect(Sounds::Effects::LandOnTop);
-
-
-                                // Get a bounce if we are pressing 'A' ..
-
-                                if ((PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1))) { 
-                                    this->player.vy = -8;
-                                }
-                                else { 
-                                    this->player.vy = -3; 
-                                } 
-
-                                break;
-
-                        }
-
-                    }
-                    else if (this->eventCounter == 0) {
-
-                        if (this->lives > 0) this->lives--; 
-
-                        if (this->lives == 0) {
-
-                            #ifndef NO_DEATH
-                            this->event = EventType::Death_Init; 
-                            this->eventCounter = Constants::EventCounter_Death;
-                            //this->sound->tones(Sounds::Dying);
-                            #endif
-
-                        }
-                        else {
-
-                            #ifndef NO_DEATH
-                            this->event = EventType::Flash; 
-                            this->eventCounter = Constants::EventCounter_Flash;
-                            //this->sound->tones(Sounds::Dying);
-                            #endif
+                            }
 
                         }
 
@@ -475,46 +480,46 @@ void AstarokGame::cycle(GameState &gameState) {
 
         }
 
-    }
+        switch (this->event) {
 
-    switch (this->event) {
+            case EventType::Playing:
 
-        case EventType::Playing:
+                if (this->player.y > mapPixelHeight) { 
 
-            if (this->player.y > mapPixelHeight) { 
+                    this->lives = 0;
+                    this->event = EventType::Death_Init; 
+                    //this->sound->tones(Sounds::Dying);
+                    this->eventCounter = Constants::EventCounter_Death - 3; 
 
-                this->lives = 0;
-                this->event = EventType::Death_Init; 
-                //this->sound->tones(Sounds::Dying);
-                this->eventCounter = Constants::EventCounter_Death - 3; 
+                }
 
-            }
+                if (this->eventCounter > 0) this->eventCounter--;
+                break;
 
-            if (this->eventCounter > 0) this->eventCounter--;
-            break;
+            case EventType::Death_Init:
+            case EventType::Death:
 
-        case EventType::Death_Init:
-        case EventType::Death:
+                if (this->eventCounter == 0) {
 
-            if (this->eventCounter == 0) {
+                    die(gameState);
 
-                die(gameState);
+                }
+                break;
 
-            }
-            break;
+            case EventType::LevelExit:
+            
+                this->eventCounter = 0;
+                this->mapNumber++;
+                this->player.x = 10;
+                this->player.y = spawnY();
+                startLevel();
+                break;
 
-        case EventType::LevelExit:
-        
-            this->eventCounter = 0;
-            this->mapNumber++;
-            this->player.x = 10;
-            this->player.y = spawnY();
-            startLevel();
-            break;
+            default: break;
 
-        default: break;
+        }
 
-    }
+    }    
 
 }
 
