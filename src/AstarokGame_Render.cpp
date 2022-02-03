@@ -2,7 +2,7 @@
 
 void AstarokGame::drawScorePanel() {
 
-    PD::drawBitmap(6, 27, Images::GameOver);
+    PD::drawBitmap(6, 20, Images::GameOver);
 
 }
 
@@ -67,13 +67,13 @@ void AstarokGame::drawHUD() {
 
 void AstarokGame::drawMap_Background() {
 
-    int16_t backgroundXOffset = (this->camera.x / 4) % 64;
-    int16_t backgroundYOffset = (this->camera.y / 12) - 8;
+    int16_t backgroundXOffset = (this->camera.x / 4) % 110;
+    int16_t backgroundYOffset = this->camera.y / 12;
 
     if (this->mapNumber % 2 == MapLevel::AboveGround) {
 
-        for (uint8_t i = 0; i <= 128; i += 64) {
-            PD::drawBitmap(i - backgroundXOffset, backgroundYOffset - 6, Images::Sky);
+        for (uint8_t i = 0; i < 2; i++) {
+            PD::drawBitmap((i * 110) - backgroundXOffset, backgroundYOffset + 8, Images::Sky_Background);
         }
 
     }
@@ -97,18 +97,11 @@ void AstarokGame::drawMap_Background() {
 
                 if (y == 15 || this->level.isTile(x, y + 1)) {
 
-                    if (this->mapNumber % 2 == MapLevel::AboveGround) {   
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, 
-                                                  Images::Tile_Brick[MapLevel::AboveGround]);
-                    }
-                    else {
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, 
-                                                  Images::Tile_Brick[MapLevel::BelowGround]);
-                    }
+                    PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Tile_Brick[this->mapNumber % 2 == MapLevel::AboveGround]);
 
                 }
                 else {
-                    PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Platform);
+                    PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Platform[this->mapNumber % 2 == MapLevel::AboveGround]);
 
                 }
 

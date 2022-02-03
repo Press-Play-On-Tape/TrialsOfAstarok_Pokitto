@@ -3,10 +3,10 @@
 #include <LibAudio>
 #include "../Utils/SFXVolumeSource.hpp"
 
-#include "OpenChest.h"
-#include "PickUpCoin.h"
-#include "LandOnTop.h"
-#include "Jump.h"
+#include "01_Coin.h"
+// #include "PickUpCoin.h"
+// #include "LandOnTop.h"
+// #include "Jump.h"
 
 extern File mainThemeFile;
 extern Audio::RAWFileSource *music;
@@ -53,33 +53,33 @@ struct Sounds {
 
     void playSoundEffect(Sounds::Effects soundEffect) {
 
-        #ifdef SOUNDS
+        // #ifdef SOUNDS
             
-            uint8_t vol = 255;
+        //     uint8_t vol = 255;
 
-            //if (!music->ended()) { return; }
+        //     //if (!music->ended()) { return; }
 
-            switch (soundEffect) {
+        //     switch (soundEffect) {
                 
-                case Sounds::Effects::OpenChest:
-                    Audio::play<1>(sfx_OpenChest, 128, 1);        
-                    break;
+        //         case Sounds::Effects::OpenChest:
+        //             Audio::play<1>(sfx_OpenChest, 128, 1);        
+        //             break;
                 
-                case Sounds::Effects::PickUpCoin:
-                    Audio::play<1>(sfx_PickUpCoin, 255, 1);        
-                    break;
+        //         case Sounds::Effects::PickUpCoin:
+        //             Audio::play<1>(sfx_PickUpCoin, 255, 1);        
+        //             break;
 
-                case Sounds::Effects::LandOnTop:
-                    Audio::play<1>(sfx_LandOnTop, 255, 1);        
-                    break;
+        //         case Sounds::Effects::LandOnTop:
+        //             Audio::play<1>(sfx_LandOnTop, 255, 1);        
+        //             break;
 
-                case Sounds::Effects::Jump:
-                    Audio::play<1>(sfx_Jump, 255, 1);        
-                    break;
+        //         case Sounds::Effects::Jump:
+        //             Audio::play<1>(sfx_Jump, 255, 1);        
+        //             break;
 
-            }
+        //     }
 
-        #endif
+        // #endif
 
     }    
     

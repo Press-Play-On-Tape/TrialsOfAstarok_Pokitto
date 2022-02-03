@@ -56,6 +56,11 @@ void Game::writeHighScoreEntry(HighScoreVars &highScoreVars) {
     Slot &slot = this->cookie->slots[highScoreVars.slot];
     slot.reset();
     slot.score = highScoreVars.score;
+
+    for (uint8_t i = 0; i < 5; i++) {
+        slot.seeds[i] = seedVars.seed[i];
+    }
+
     this->cookie->saveCookie();
 
 }

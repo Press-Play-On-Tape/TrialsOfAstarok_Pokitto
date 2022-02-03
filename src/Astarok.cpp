@@ -94,7 +94,11 @@ void Game::loop() {
         case GameState::Game_Play:
 
             if (game.mapNumber % 2) {
-                PD::fillScreen(31);
+                PD::setColor(0xd6);
+                PD::fillRect(0, 0, 110, 44);
+                PD::setColor(0x07);
+                PD::fillRect(0, 44, 110, 44);
+                // PD::fillScreen(31);
             }
             else {
                 PD::clear();
@@ -125,6 +129,7 @@ void Game::loop() {
         case GameState::HighScore_Check:
 
             PD::clear();
+            
             highScoreVars.reset();
             checkHighScoreSlot(game.score + game.player.x / Constants::TileSize);
 
