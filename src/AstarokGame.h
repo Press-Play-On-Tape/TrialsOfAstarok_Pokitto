@@ -18,9 +18,6 @@
 #include "entities/Particle.h"
 #include "sounds/Sounds.h"
 
-extern File mainThemeFile;
-extern Audio::RAWFileSource *music;
-
 class AstarokGame {
 
     public:  // Variables
@@ -31,7 +28,7 @@ class AstarokGame {
         int16_t               score;
         uint16_t              mapNumber;
         Point                 camera;
-        bool                  * mute;
+        SoundSettings         soundSettings;
 
         InteractiveObject     * chestObj;
         Direction             ballDirection;
@@ -42,12 +39,13 @@ class AstarokGame {
         Sprite                player;
         AISprite              mobs[Constants::SpriteCap];
         Map                   level;
+        Sounds                * sounds;
+        bool                  pause = false;
 
     private:
         uint8_t               cameraOffset;
         Direction             cameraPan;
-        Sounds                sounds;
-        
+
         Particle particles[Constants::ParticlesMax];
 
 
@@ -61,6 +59,7 @@ class AstarokGame {
         uint8_t addMob(const uint8_t *data, int16_t x, uint8_t y, uint8_t maxHeight = 255);
         uint8_t getSpareMobCount();
         void renderTrialOver();
+        void renderPause();
         void playMiniGame(GameState &gameState);
 
     private:  // Methods

@@ -12,11 +12,10 @@ namespace Images {
     #include "EnterRunes_01.h"
     #include "EnterRunes_02.h"
     #include "EnterRunes_03.h"
-    #include "Sound_On.h"
-    #include "Sound_Off.h"
     #include "ArrowUp.h"
     #include "ArrowDown.h"
     #include "GameOver.h"
+    #include "Pause.h"
     #include "TopThree.h"
     #include "HighScore_Pattern.h"
     #include "HighScore_Pattern2.h"
@@ -39,6 +38,15 @@ namespace Images {
     #include "Numbers7.h"
     #include "Numbers8.h"
     #include "Numbers9.h"
+
+    #include "Sound_Both_Inactive.h"
+    #include "Sound_Both_White.h"
+    #include "Sound_Music_Inactive.h"
+    #include "Sound_Music_White.h"
+    #include "Sound_None_Inactive.h"
+    #include "Sound_None_White.h"
+    #include "Sound_SFX_Inactive.h"
+    #include "Sound_SFX_White.h"
 
     const uint8_t * const Torch[] = { 
         Torch_00,

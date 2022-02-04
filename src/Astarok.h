@@ -10,6 +10,7 @@
 #include "AstarokGame.h"
 #include "font/Font4x6.h"
 #include "src/utils/DuelPalette.h"
+#include "src/sounds/Sounds.h"
 
 using PC=Pokitto::Core;
 using PD=Pokitto::Display;
@@ -29,10 +30,11 @@ class Game {
         SeedVars seedVars;
 
         GameCookie *cookie;
+        Sounds sounds;
 
-    public:
-        File mainThemeFile;
-        Audio::RAWFileSource *music;
+    // public:
+    //     File mainThemeFile;
+    //     Audio::RAWFileSource *music;
 
     public:
         void setup(GameCookie *cookie);

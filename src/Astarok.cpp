@@ -22,7 +22,8 @@ SeedVars seedVars;
 void Game::setup(GameCookie *cookie) {
 
     this->cookie = cookie;
-    this->game.mute = &mute;
+    this->game.soundSettings = this->cookie->sfx;
+    this->game.sounds = &this->sounds;
 
 }
 
@@ -30,7 +31,7 @@ void Game::loop() {
 
     PC::buttons.pollButtons();
 
-    switch (gameState) {
+    switch (this->gameState) {
 
         case GameState::SplashScreen_Init:
 
@@ -49,7 +50,7 @@ void Game::loop() {
 
 //            sound.tones(Sounds::Theme);
             PD::clear();
-            gameState = GameState::Title;
+            this->gameState = GameState::Title;
             [[fallthrough]]
 
         case GameState::Title:
@@ -89,7 +90,7 @@ void Game::loop() {
 
             PD::clear();
             this->game.newGame();
-            gameState = GameState::Game_Play;
+            this->gameState = GameState::Game_Play;
             [[fallthrough]]
 
         case GameState::Game_Play:
@@ -104,7 +105,7 @@ void Game::loop() {
                 PD::clear();
             }
 
-            game.cycle(gameState);
+            game.cycle(this->gameState);
             game.draw();
 
             if (game.event == EventType::Death) {
@@ -126,7 +127,7 @@ void Game::loop() {
             }
 
             game.draw();
-            game.playMiniGame(gameState);
+            game.playMiniGame(this->gameState);
             break;
 
         case GameState::HighScore_Check:
@@ -138,10 +139,10 @@ void Game::loop() {
 
             if (highScoreVars.slot != Constants::No_Slot) {
                 PC::frameCount = 0;
-                gameState = GameState::HighScore_Flash;
+                this->gameState = GameState::HighScore_Flash;
             } 
             else {
-                gameState = GameState::HighScore_NoFlash;
+                this->gameState = GameState::HighScore_NoFlash;
             }
 
             highScores();

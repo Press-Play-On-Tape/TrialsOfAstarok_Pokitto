@@ -2,7 +2,7 @@
 
 #define _NO_DEATH
 #define SOUNDS
-#define COOKIE_INITIALISED 41
+#define COOKIE_INITIALISED 42
 
 namespace Constants {
     

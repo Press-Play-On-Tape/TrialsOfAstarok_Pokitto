@@ -6,8 +6,8 @@ void Game::drawBackground() {
     PD::drawBitmap(-5, 12, Images::Underground_Brick);
     PD::drawBitmap(97, 12, Images::Underground_Brick);
 
-    PD::drawBitmap(-5, 66, Images::Underground_Brick);
-    PD::drawBitmap(97, 66, Images::Underground_Brick);
+    PD::drawBitmap(-5, 62, Images::Underground_Brick);
+    PD::drawBitmap(97, 62, Images::Underground_Brick);
 
     PD::drawBitmap(2, 37, Images::Torch[Utils::getFrameCount(16) / 4]);
     PD::drawBitmap(103, 37, Images::Torch[Utils::getFrameCount(16) / 4]);
@@ -21,21 +21,48 @@ void Game::titleScreen() {
     PD::drawBitmap(81, 12, Images::Underground_Chain);    
     drawBackground();
 
-    PD::drawBitmap(titleScreenVars.index == TitleScreenMode::Play ? 26 : 56, 71, Images::Title_Highlight);
+    switch (titleScreenVars.index) {
 
-    if (mute) {
-        PD::drawBitmap(119, 56, Images::Sound_On);
+        case TitleScreenMode::Play:
+            PD::drawBitmap(26, 71, Images::Title_Highlight);
+            break;
+
+        case TitleScreenMode::HighScore:
+            PD::drawBitmap(56, 71, Images::Title_Highlight);
+            break;
+
+        default: break;
+
     }
-    else {
-        PD::drawBitmap(119, 56, Images::Sound_Off);
+
+    switch (this->cookie->sfx) {
+
+        case SoundSettings::Music:
+            PD::drawBitmap(89, 79, titleScreenVars.index == TitleScreenMode::SoundEffects ? Images::Sound_Music_White: Images::Sound_Music_Inactive);
+            break;
+
+        case SoundSettings::SFX:
+            PD::drawBitmap(89, 79, titleScreenVars.index == TitleScreenMode::SoundEffects ? Images::Sound_SFX_White: Images::Sound_SFX_Inactive);
+            break;
+
+        case SoundSettings::Both:
+            PD::drawBitmap(89, 79, titleScreenVars.index == TitleScreenMode::SoundEffects? Images::Sound_Both_White: Images::Sound_Both_Inactive);
+            break;
+
+        default:
+            PD::drawBitmap(89, 79, titleScreenVars.index == TitleScreenMode::SoundEffects ? Images::Sound_None_White: Images::Sound_None_Inactive);
+            break;
+
     }
+
 
     if (PC::buttons.pressed(BTN_A) || PC::buttons.pressed(BTN_B)) {
 
         switch (titleScreenVars.index) {
 
             case TitleScreenMode::Play:
-                gameState = GameState::IntroText_Init;
+                this->game.soundSettings = this->cookie->sfx;
+                this->gameState = GameState::IntroText_Init;
                 break;
 
             case TitleScreenMode::HighScore:
@@ -46,21 +73,60 @@ void Game::titleScreen() {
 
     }
 
-    if (PC::buttons.pressed(BTN_UP) || PC::buttons.pressed(BTN_DOWN)) {
+
+    if (titleScreenVars.index == TitleScreenMode::SoundEffects && (PC::buttons.pressed(BTN_UP) || PC::buttons.pressed(BTN_DOWN))) {
         
-        mute = !mute;
+        if (PC::buttons.pressed(BTN_UP)) {
+
+            this->cookie->sfx--;
+            this->cookie->saveCookie();
+
+            if (this->cookie->sfx != SoundSettings::Both && this->cookie->sfx != SoundSettings::Music) {
+
+                // this->playTheme();
+                
+            }
+            else {
+
+                // this->playTheme();
+
+            }
+
+        }
+
+        if (PC::buttons.pressed(BTN_DOWN)) {
+
+            this->cookie->sfx++;
+            this->cookie->saveCookie();
+
+            if (this->cookie->sfx != SoundSettings::Both && this->cookie->sfx != SoundSettings::Music) {
+
+                // this->muteTheme();
+                
+            }
+            else {
+
+                // this->playTheme();
+                
+            }
+            
+        }
 
     }
 
     if (PC::buttons.pressed(BTN_LEFT)) {
 
-        titleScreenVars.index = TitleScreenMode::Play;
+        if (titleScreenVars.index > TitleScreenMode::Play) {
+            titleScreenVars.index--;
+        }
 
     }
 
     if (PC::buttons.pressed(BTN_RIGHT)) {
 
-        titleScreenVars.index = TitleScreenMode::HighScore;
+        if (titleScreenVars.index < TitleScreenMode::SoundEffects) {
+            titleScreenVars.index++;
+        }
 
     }
 

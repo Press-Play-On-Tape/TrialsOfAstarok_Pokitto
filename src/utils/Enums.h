@@ -1,5 +1,38 @@
 #pragma once
 
+enum class SoundSettings : uint8_t {
+    Both,
+    Music,
+    SFX,
+    None
+};
+
+inline SoundSettings &operator++(SoundSettings &c ) {
+    c = static_cast<SoundSettings>( (static_cast<uint8_t>(c) + 1) % 4 );
+    return c;
+}
+
+inline SoundSettings operator++(SoundSettings &c, int ) {
+    SoundSettings result = c;
+    ++c;
+    return result;
+}
+
+inline SoundSettings &operator--(SoundSettings &c ) {
+    if (static_cast<uint8_t>(c) > 0) {
+        c = static_cast<SoundSettings>( (static_cast<uint8_t>(c) - 1) % 4 );
+    }
+    else {
+        c = static_cast<SoundSettings>( 3 );
+    }
+    return c;
+}
+
+inline SoundSettings operator--(SoundSettings &c, int ) {
+    SoundSettings result = c;
+    --c;
+    return result;
+}
 
 enum class SoundEffects : uint8_t {
     Introduction,
@@ -34,8 +67,36 @@ enum GameState {
 
 enum TitleScreenMode {
 	Play,
-	HighScore
+	HighScore,
+  SoundEffects
 };
+
+inline TitleScreenMode &operator++(TitleScreenMode &c ) {
+    c = static_cast<TitleScreenMode>( (static_cast<uint8_t>(c) + 1) % 4 );
+    return c;
+}
+
+inline TitleScreenMode operator++(TitleScreenMode &c, int ) {
+    TitleScreenMode result = c;
+    ++c;
+    return result;
+}
+
+inline TitleScreenMode &operator--(TitleScreenMode &c ) {
+    if (static_cast<uint8_t>(c) > 0) {
+        c = static_cast<TitleScreenMode>( (static_cast<uint8_t>(c) - 1) % 4 );
+    }
+    else {
+        c = static_cast<TitleScreenMode>( 3 );
+    }
+    return c;
+}
+
+inline TitleScreenMode operator--(TitleScreenMode &c, int ) {
+    TitleScreenMode result = c;
+    --c;
+    return result;
+}
 
 enum MapLevel {
 	BelowGround,
