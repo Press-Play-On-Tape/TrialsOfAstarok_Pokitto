@@ -9,7 +9,7 @@ void AstarokGame::renderTrialOver() {
 void AstarokGame::renderPause() {
 
     if (this->pause) {
-        PD::drawBitmap(6, 20, Images::Pause);
+        PD::drawBitmap(20, 20, Images::Pause);
     }
 
 }

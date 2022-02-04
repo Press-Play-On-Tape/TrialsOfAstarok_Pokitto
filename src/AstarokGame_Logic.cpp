@@ -194,11 +194,12 @@ void AstarokGame::cycle(GameState &gameState) {
 
     if (PC::buttons.pressed(BTN_C)) {
         this->pause = ! this->pause;
-        return;
     }
     else if (PC::buttons.repeat(BTN_C, 64)) {
         gameState = GameState::Title_Init;
     }
+
+    if (this->pause) return;
 
 
     // Handle any events that are still active ..
