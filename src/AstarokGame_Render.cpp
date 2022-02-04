@@ -1,6 +1,6 @@
 #include "AstarokGame.h"
 
-void AstarokGame::drawScorePanel() {
+void AstarokGame::renderTrialOver() {
 
     PD::drawBitmap(6, 20, Images::GameOver);
 
@@ -31,12 +31,14 @@ void AstarokGame::drawMobs() {
 
 void AstarokGame::drawHUD() {
 
-    uint16_t tmpScore = this->score + this->player.x / Constants::TileSize; 
-    uint8_t digits[6] = {};
-    Utils::extractDigits(digits, tmpScore);
+    int16_t tmpScore = this->score + this->player.x / Constants::TileSize; 
+    if (tmpScore > 32000) tmpScore = 0;
+
+    uint8_t digits[5] = {};
+    Utils::extractDigits(digits, static_cast<uint16_t>(tmpScore));
 
     PD::setColor(0);
-    PD::fillRect(0, 0, 58, 8);
+    PD::fillRect(0, 0, 53, 8);
 
     if (this->mapNumber % 2 == MapLevel::AboveGround) {
 
@@ -44,8 +46,8 @@ void AstarokGame::drawHUD() {
         PD::drawBitmap(9, 1, Images::Heart[this->lives >= 2 ? Hearts::FilledIn : Hearts::Outline]);
         PD::drawBitmap(17, 1, Images::Heart[this->lives >= 3 ? Hearts::FilledIn : Hearts::Outline]);
 
-        for (uint8_t x = 6; x > 0; x--) {
-            PD::drawBitmap(27 + ((6 - x) * 5), 1, Images::Numbers[digits[x - 1]]);
+        for (uint8_t x = 5; x > 0; x--) {
+            PD::drawBitmap(27 + ((5 - x) * 5), 1, Images::Numbers[digits[x - 1]]);
         }
 
     }
@@ -55,8 +57,8 @@ void AstarokGame::drawHUD() {
         PD::drawBitmap(9, 1, Images::Heart[this->lives >= 2 ? Hearts::FilledIn : Hearts::Outline]);
         PD::drawBitmap(17, 1, Images::Heart[this->lives >= 3 ? Hearts::FilledIn : Hearts::Outline]);
 
-        for (uint8_t x = 6; x > 0; x--) {
-            PD::drawBitmap(27 + ((6 - x) * 5), 1, Images::Numbers[digits[x - 1]]);
+        for (uint8_t x = 5; x > 0; x--) {
+            PD::drawBitmap(27 + ((5 - x) * 5), 1, Images::Numbers[digits[x - 1]]);
         }
 
     }
@@ -77,7 +79,7 @@ void AstarokGame::drawMap_Background() {
     }
     else {
 
-        for (uint8_t i = 0; i <= 110; i += 55) {
+        for (uint8_t i = 0; i <= 165; i += 55) {
 
             PD::drawBitmap(i + 2 - backgroundXOffset, backgroundYOffset, Images::Underground_Chain);
             PD::drawBitmap(i + 17 - backgroundXOffset, backgroundYOffset + 6, Images::Underground_Brick);

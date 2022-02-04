@@ -114,11 +114,11 @@ void Game::highScores() {
 
             // Render score always ..
 
-            uint8_t digits[6] = {};
+            uint8_t digits[5] = {};
             Utils::extractDigits(digits, slot.score);
             
-            for (uint8_t j = 0; j < 6; j++) {
-                PD::drawBitmap(69 + ((6 - j) * 5), 15 + (i * 17) + 4, Images::Numbers[digits[j]]);
+            for (uint8_t j = 0; j < 5; j++) {
+                PD::drawBitmap(69 + ((5 - j) * 5), 15 + (i * 17) + 4, Images::Numbers[digits[j]]);
             }
 
         }

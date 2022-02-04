@@ -18,6 +18,7 @@ using PB=Pokitto::Buttons;
 class Game {
 
     private:
+        bool mute = false;
         AstarokGame game;
         GameState gameState = GameState::SplashScreen_Init;
 

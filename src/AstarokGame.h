@@ -18,19 +18,20 @@
 #include "entities/Particle.h"
 #include "sounds/Sounds.h"
 
-class AstarokGame {
+extern File mainThemeFile;
+extern Audio::RAWFileSource *music;
 
-    public:  // Constructor
-        AstarokGame();
+class AstarokGame {
 
     public:  // Variables
         EventType             event;
         uint8_t               eventCounter;
         uint8_t               seeds[Constants::GameSeeds];
         uint8_t               lives;
-        uint16_t              score;
+        int16_t               score;
         uint16_t              mapNumber;
         Point                 camera;
+        bool                  * mute;
 
         InteractiveObject     * chestObj;
         Direction             ballDirection;
@@ -49,13 +50,17 @@ class AstarokGame {
         
         Particle particles[Constants::ParticlesMax];
 
+
+    public:  // Constructor
+        AstarokGame();
+
     public:  // Methods
         void newGame();
         void cycle(GameState &gameState);
         void draw();
         uint8_t addMob(const uint8_t *data, int16_t x, uint8_t y, uint8_t maxHeight = 255);
         uint8_t getSpareMobCount();
-        void drawScorePanel();
+        void renderTrialOver();
         void playMiniGame(GameState &gameState);
 
     private:  // Methods

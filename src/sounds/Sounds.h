@@ -17,6 +17,10 @@
 // #include "12_Get_Skateboard_Fairy-Mushroom.h"
 // #include "13_Unknown.h"
 // #include "14_Unknown_2.h"
+#include "smb_stomp.h"
+#include "smb_jump_small.h"
+#include "smb_bump.h"
+#include "OpenChest.h"
 
 extern File mainThemeFile;
 extern Audio::RAWFileSource *music;
@@ -34,29 +38,23 @@ struct Sounds {
 
     // Sound effects.
 
-    void playTheme(uint8_t themeToPlay, uint8_t &currentTheme, bool mute, bool updateTheme) {
+    void playTheme(uint8_t themeToPlay, bool mute) {
 
-        constexpr char sounds[2][19] = { "music/Astaro01.raw", "music/Astaro02.raw" };
+        // constexpr char sounds[2][19] = { "music/Astaro01.raw", "music/Astaro02.raw" };
 
-        if (!mute) {
+        // if (!mute) {
 
-            if (!updateTheme || currentTheme != themeToPlay) {
+        //     if (mainThemeFile.openRO(sounds[themeToPlay])) {
+        //         auto& music = Audio::play<0>(mainThemeFile);
+        //         music.setLoop(true);
+        //     }
 
-                if (mainThemeFile.openRO(sounds[themeToPlay])) {
-                    auto& music = Audio::play<0>(mainThemeFile);
-                    music.setLoop(true);
-                }
+        // }
+        // else {
 
-                if (updateTheme) currentTheme = themeToPlay;
+        //     Audio::stop<0>();
 
-            }
-
-        }
-        else {
-
-            Audio::stop<0>();
-
-        }
+        // }
 
     }
 
@@ -70,21 +68,21 @@ struct Sounds {
 
             switch (soundEffect) {
                 
-                // case Sounds::Effects::OpenChest:
-                //     Audio::play<1>(sfx_OpenChest, 128, 1);        
-                //     break;
+                case Sounds::Effects::OpenChest:
+                    Audio::play<1>(sfx_OpenChest, 128, 1);        
+                    break;
                 
                 case Sounds::Effects::PickUpCoin:
                     Audio::play<1>(sfx_01_Coin, 255, 1);        
                     break;
 
-                // case Sounds::Effects::LandOnTop:
-                //     Audio::play<1>(sfx_LandOnTop, 255, 1);        
-                //     break;
+                case Sounds::Effects::LandOnTop:
+                    Audio::play<1>(sfx_smb_stomp, 255, 1);        
+                    break;
 
-                // case Sounds::Effects::Jump:
-                //     Audio::play<1>(sfx_Jump, 255, 1);        
-                //     break;
+                case Sounds::Effects::Jump:
+                    Audio::play<1>(sfx_smb_jump_small, 255, 1);        
+                    break;
 
                 case Sounds::Effects::Die:
                     Audio::play<1>(sfx_09_Die, 255, 1);        

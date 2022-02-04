@@ -22,6 +22,7 @@ SeedVars seedVars;
 void Game::setup(GameCookie *cookie) {
 
     this->cookie = cookie;
+    this->game.mute = &mute;
 
 }
 
@@ -107,7 +108,7 @@ void Game::loop() {
             game.draw();
 
             if (game.event == EventType::Death) {
-                game.drawScorePanel();
+                game.renderTrialOver();
             }
 
             break;

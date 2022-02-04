@@ -71,7 +71,7 @@
 // A higher rate sounds better but takes up more CPU
 // and Flash space.
 // Optional. Default is 22050.
-#define PROJ_AUD_FREQ 22050
+#define PROJ_AUD_FREQ 16000
 
 
 // Automatically restart streaming music when it ends.

@@ -23,12 +23,12 @@ void Game::titleScreen() {
 
     PD::drawBitmap(titleScreenVars.index == TitleScreenMode::Play ? 26 : 56, 71, Images::Title_Highlight);
 
-    // if (arduboy.audio.enabled()) {
-    //     PD::drawBitmap(119, 56, Images::Sound_On);
-    // }
-    // else {
-    //     PD::drawBitmap(119, 56, Images::Sound_Off);
-    // }
+    if (mute) {
+        PD::drawBitmap(119, 56, Images::Sound_On);
+    }
+    else {
+        PD::drawBitmap(119, 56, Images::Sound_Off);
+    }
 
     if (PC::buttons.pressed(BTN_A) || PC::buttons.pressed(BTN_B)) {
 
@@ -48,18 +48,7 @@ void Game::titleScreen() {
 
     if (PC::buttons.pressed(BTN_UP) || PC::buttons.pressed(BTN_DOWN)) {
         
-        // if (arduboy.audio.enabled()) {
-
-        //     arduboy.audio.off(); 
-        //     arduboy.audio.saveOnOff();
-
-        // }
-        // else {
-
-        //     arduboy.audio.on(); 
-        //     arduboy.audio.saveOnOff();
-
-        // }
+        mute = !mute;
 
     }
 

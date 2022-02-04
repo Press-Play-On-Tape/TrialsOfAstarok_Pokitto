@@ -180,9 +180,11 @@ void Sprite::move() {
         case ObjectTypes::Player:
 
             if (this->vx == 0 && this->vy == 0) {
-                if (Utils::getFrameCount(6) == 0) {
-                this->frame = (this->frame + 1) % 3;
+
+                if (Utils::getFrameCount(12) <= 1) {
+                    this->frame = (this->frame + 1) % 3;
                 }
+
             }
 
             break;
@@ -206,7 +208,7 @@ void Sprite::move() {
 
         case ObjectTypes::Spider:
 
-            if (this->vy == 0 && random(0, 20) == 0) {
+            if (this->vy == 0 && !this->isFalling() && random(0, 20) == 0) {
                 this->vy = random(-8, 0);
             }
 
