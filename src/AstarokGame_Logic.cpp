@@ -57,7 +57,7 @@ void AstarokGame::startLevel() {
     this->event = EventType::StartLevel;
     this->eventCounter = Constants::EventCounter_LevelStart;
 
-    this->sounds->playTheme(PC::frameCount % 2, this->cookie->sfx);
+    this->sounds->playTheme(this->mapNumber % 2, this->cookie->sfx);
     PC::buttons.pollButtons();
 
 }
@@ -192,14 +192,18 @@ void AstarokGame::cycle(GameState &gameState) {
 
     // Pause?
 
-    if (PC::buttons.pressed(BTN_C)) {
-        this->pause = ! this->pause;
-    }
-    else if (PC::buttons.repeat(BTN_C, 64)) {
-        gameState = GameState::Title_Init;
-    }
+    if (this->event == EventType::Playing) {
 
-    if (this->pause) return;
+        if (PC::buttons.pressed(BTN_C)) {
+            this->pause = ! this->pause;
+        }
+        else if (PC::buttons.repeat(BTN_C, 64)) {
+            gameState = GameState::Title_Init;
+        }
+
+        if (this->pause) return;
+
+    }
 
 
     // Handle any events that are still active ..
@@ -631,26 +635,30 @@ void AstarokGame::playMiniGame(GameState &gameState) {
     PD::drawBitmap(x + this->ballX + 4, y + 5, Images::Ball);
 
 
-    switch (this->ballDirection) {
+    if (PC::frameCount % 2 == 0) {
 
-        case Direction::Left:
-            this->ballX = this->ballX - increments[ballIdx];
-            this->ballIdx--;
-            if (this->ballIdx == 0) {
-                this->ballDirection = Direction::Right;
-            }
-            break;
+        switch (this->ballDirection) {
 
-        case Direction::Right:
-            this->ballX = this->ballX + increments[ballIdx];
-            this->ballIdx++;
-            if (this->ballIdx == 10) {
-                this->ballDirection = Direction::Left;
-            }
-            break;
-        
-        default:
-            break;
+            case Direction::Left:
+                this->ballX = this->ballX - increments[ballIdx];
+                this->ballIdx--;
+                if (this->ballIdx == 0) {
+                    this->ballDirection = Direction::Right;
+                }
+                break;
+
+            case Direction::Right:
+                this->ballX = this->ballX + increments[ballIdx];
+                this->ballIdx++;
+                if (this->ballIdx == 10) {
+                    this->ballDirection = Direction::Left;
+                }
+                break;
+            
+            default:
+                break;
+
+        }
 
     }
 
