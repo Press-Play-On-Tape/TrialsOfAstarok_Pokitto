@@ -22,8 +22,8 @@ SeedVars seedVars;
 void Game::setup(GameCookie *cookie) {
 
     this->cookie = cookie;
-    this->game.soundSettings = this->cookie->sfx;
     this->game.sounds = &this->sounds;
+    this->game.cookie = this->cookie;
 
 }
 

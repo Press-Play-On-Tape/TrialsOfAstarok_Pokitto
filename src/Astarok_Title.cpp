@@ -2,7 +2,6 @@
 
 void Game::drawBackground() {
 
-
     PD::drawBitmap(-5, 12, Images::Underground_Brick);
     PD::drawBitmap(97, 12, Images::Underground_Brick);
 
@@ -61,7 +60,6 @@ void Game::titleScreen() {
         switch (titleScreenVars.index) {
 
             case TitleScreenMode::Play:
-                this->game.soundSettings = this->cookie->sfx;
                 this->gameState = GameState::IntroText_Init;
                 break;
 

@@ -68,6 +68,12 @@ struct Sounds {
 
     }
 
+    void muteTheme() {
+
+        Audio::stop<0>();        
+        
+    }
+
     void playSoundEffect(Sounds::Effects soundEffect, SoundSettings soundSettings) {
 
         switch (soundSettings) {

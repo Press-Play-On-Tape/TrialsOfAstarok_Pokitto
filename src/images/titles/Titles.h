@@ -17,8 +17,8 @@ namespace Images {
     #include "GameOver.h"
     #include "Pause.h"
     #include "TopThree.h"
-    #include "HighScore_Pattern.h"
-    #include "HighScore_Pattern2.h"
+    #include "Intro_Brick_00.h"
+    #include "Intro_Brick_01.h"
 
     #include "Torch_00.h"
     #include "Torch_01.h"

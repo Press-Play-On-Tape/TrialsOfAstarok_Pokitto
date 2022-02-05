@@ -82,15 +82,18 @@ void Game::highScores() {
 
     // Render screen ..
 
-    PD::drawBitmap(1, 0, Images::Underground_Chain);
-    PD::drawBitmap(9, 1, Images::TopThree);
-    PD::drawBitmap(65, 0, Images::Underground_Chain);
+    PD::drawBitmap(21, 0, Images::Underground_Chain);
+    PD::drawBitmap(85, 0, Images::Underground_Chain);
+    PD::drawBitmap(21, 8, Images::Underground_Chain);
+    PD::drawBitmap(85, 8, Images::Underground_Chain);
+    PD::drawBitmap(29, 5, Images::TopThree);
 
-    for (uint8_t x = 74; x < 128; x = x + 4) {
+    PD::drawBitmap(3, 1, Images::Intro_Brick_00);
+    PD::drawBitmap(94, 1, Images::Intro_Brick_01);
 
-        PD::drawBitmap(x, 1, Images::HighScore_Pattern);
+    PD::drawBitmap(9, 6, Images::Torch[Utils::getFrameCount(16) / 4]);
+    PD::drawBitmap(95, 6, Images::Torch[Utils::getFrameCount(16) / 4]);
 
-    }
 
     for (uint8_t i = 0; i < Constants::NumberOfScores; i++) {
 
@@ -103,11 +106,11 @@ void Game::highScores() {
             for (uint8_t j = 0; j < 5; j++) {
 
                 if ((i * 5) + j == highScoreVars.index && highScoreVars.spinIndex > 0) {
-                    PD::drawBitmap(1 + (j * 14), 15 + (i * 17), Images::Rune_Frame[16 - highScoreVars.spinIndex]);
+                    PD::drawBitmap(7 + (j * 14), 26 + (i * 17), Images::Rune_Frame[16 - highScoreVars.spinIndex]);
                 }
                 else {
-                    PD::drawBitmap(1 + (j * 14), 15 + (i * 17), Images::Rune_Frame_00);
-                    PD::drawBitmap(4 + (j * 14), 15 + (i * 17) + 4, Images::Runes[slot.seeds[j]]);
+                    PD::drawBitmap(7 + (j * 14), 26 + (i * 17), Images::Rune_Frame_00);
+                    PD::drawBitmap(10 + (j * 14), 26 + (i * 17) + 4, Images::Runes[slot.seeds[j]]);
                 }
 
             }
@@ -118,15 +121,12 @@ void Game::highScores() {
             Utils::extractDigits(digits, slot.score);
             
             for (uint8_t j = 0; j < 5; j++) {
-                PD::drawBitmap(69 + ((5 - j) * 5), 15 + (i * 17) + 4, Images::Numbers[digits[j]]);
+                PD::drawBitmap(75 + ((5 - j) * 5), 26 + (i * 17) + 4, Images::Numbers[digits[j]]);
             }
 
         }
 
     }
-
-    PD::drawBitmap(105, 16, Images::Outside_Exit_00);
-    PD::drawBitmap(108, 53, Images::HighScore_Pattern2);
 
 
     // Handle player input ..

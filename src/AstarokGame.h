@@ -9,6 +9,7 @@
 #include "utils/Enums.h"
 #include "utils/Constants.h"
 #include "utils/Utils.h"
+#include "utils/GameCookie.h"
 
 #include "entities/Sprite.h"
 #include "entities/AISprite.h"
@@ -28,7 +29,6 @@ class AstarokGame {
         int16_t               score;
         uint16_t              mapNumber;
         Point                 camera;
-        SoundSettings         soundSettings;
 
         InteractiveObject     * chestObj;
         Direction             ballDirection;
@@ -40,6 +40,7 @@ class AstarokGame {
         AISprite              mobs[Constants::SpriteCap];
         Map                   level;
         Sounds                * sounds;
+        GameCookie            * cookie;
         bool                  pause = false;
 
     private:

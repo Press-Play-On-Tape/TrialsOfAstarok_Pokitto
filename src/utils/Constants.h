@@ -2,7 +2,7 @@
 
 #define _NO_DEATH
 #define SOUNDS
-#define COOKIE_INITIALISED 42
+#define COOKIE_INITIALISED 43
 
 namespace Constants {
     
@@ -25,7 +25,7 @@ namespace Constants {
     constexpr uint8_t Points_Coin               = 20;
 
     constexpr uint8_t No_Slot                   = 255;
-    constexpr uint8_t NumberOfScores            = 4;
+    constexpr uint8_t NumberOfScores            = 3;
 
     constexpr uint8_t Fireball_NotMoving        = 127;
     constexpr int8_t Fireball_StartPos          = -20;

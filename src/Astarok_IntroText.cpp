@@ -29,16 +29,27 @@ void Game::introText() {
     uint8_t line = 0;
     uint8_t x = 0;
     
-    PD::drawBitmap(103, 13, Images::EnterRunes_01);
-    PD::drawBitmap(103, 66, Images::EnterRunes_03);
-    PD::drawBitmap(0, 13, Images::EnterRunes_00);
-    PD::drawBitmap(0, 66, Images::EnterRunes_02);
+    PD::drawBitmap(22, 0, Images::Underground_Chain);
+    PD::drawBitmap(85, 0, Images::Underground_Chain);
+    PD::drawBitmap(22, 8, Images::Underground_Chain);
+    PD::drawBitmap(85, 8, Images::Underground_Chain);
 
-    PD::setColor(2);
-    PD::drawFastHLine(0, 13, 110);
-    PD::drawFastHLine(0, 73, 110);
-    PD::drawFastHLine(2, 75, 106);
+    PD::drawBitmap(29, 5, Images::Intro_Brick_00);
+    PD::drawBitmap(68, 5, Images::Intro_Brick_01);
 
+    PD::drawBitmap(10, 3, Images::Torch[Utils::getFrameCount(16) / 4]);
+    PD::drawBitmap(94, 3, Images::Torch[Utils::getFrameCount(16) / 4]);
+
+
+    PD::drawBitmap(103, 20, Images::EnterRunes_01);
+    PD::drawBitmap(103, 73, Images::EnterRunes_03);
+    PD::drawBitmap(0, 20, Images::EnterRunes_00);
+    PD::drawBitmap(0, 73, Images::EnterRunes_02);
+
+    PD::setColor(0xf8);
+    PD::drawFastHLine(7, 20, 96);
+    PD::drawFastHLine(7, 80, 96);
+    PD::drawFastHLine(2, 82, 106);
 
     for (uint8_t i = 0; i < introTextVars.index; i++) {
 
@@ -60,7 +71,7 @@ void Game::introText() {
             case 't':
             case '!':
             case '.':
-                PD::drawBitmap(1 + x, 25 + (line * 10), Font::Images[Font::getIndex(c)]);
+                PD::drawBitmap(1 + x, 32 + (line * 10), Font::Images[Font::getIndex(c)]);
                 x = x + 4;
                 break;
 
@@ -69,7 +80,7 @@ void Game::introText() {
                 break;
             
             default:
-                PD::drawBitmap(1 + x, 25 + (line * 10), Font::Images[Font::getIndex(c)]);
+                PD::drawBitmap(1 + x, 32 + (line * 10), Font::Images[Font::getIndex(c)]);
                 x = x + 5;
                 break;
 

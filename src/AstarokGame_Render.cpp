@@ -1,5 +1,8 @@
 #include "AstarokGame.h"
 
+#include "utils/Enums.h"
+#include "utils/GameCookie.h"
+
 void AstarokGame::renderTrialOver() {
 
     PD::drawBitmap(6, 20, Images::GameOver);
@@ -9,8 +12,74 @@ void AstarokGame::renderTrialOver() {
 void AstarokGame::renderPause() {
 
     if (this->pause) {
+
         PD::drawBitmap(20, 20, Images::Pause);
+
+        PD::setColor(0);
+        PD::fillRect(88, 79, 22, 10);
+
+        switch (this->cookie->sfx) {
+
+            case SoundSettings::Music:
+                PD::drawBitmap(89, 80, Images::Sound_Music_White);
+                break;
+
+            case SoundSettings::SFX:
+                PD::drawBitmap(89, 80, Images::Sound_SFX_White);
+                break;
+
+            case SoundSettings::Both:
+                PD::drawBitmap(89, 80, Images::Sound_Both_White);
+                break;
+
+            default:
+                PD::drawBitmap(89, 80, Images::Sound_None_White);
+                break;
+
+        }
+
+        if (PC::buttons.pressed(BTN_UP) || PC::buttons.pressed(BTN_DOWN)) {
+            
+            if (PC::buttons.pressed(BTN_UP)) {
+
+                this->cookie->sfx--;
+                this->cookie->saveCookie();
+
+                if (this->cookie->sfx != SoundSettings::Both && this->cookie->sfx != SoundSettings::Music) {
+
+                    this->sounds->muteTheme();
+                    
+                }
+                else {
+
+                    this->sounds->playTheme(PC::frameCount % 2, this->cookie->sfx);
+
+                }
+
+            }
+
+            if (PC::buttons.pressed(BTN_DOWN)) {
+
+                this->cookie->sfx++;
+                this->cookie->saveCookie();
+
+                if (this->cookie->sfx != SoundSettings::Both && this->cookie->sfx != SoundSettings::Music) {
+
+                    this->sounds->muteTheme();
+                    
+                }
+                else {
+
+                    this->sounds->playTheme(PC::frameCount % 2, this->cookie->sfx);
+                    
+                }
+                
+            }
+
+        }
+
     }
+
 
 }
 
