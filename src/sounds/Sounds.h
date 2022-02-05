@@ -17,6 +17,7 @@
 // #include "12_Get_Skateboard_Fairy-Mushroom.h"
 // #include "13_Unknown.h"
 // #include "14_Unknown_2.h"
+#include "15_Beep.h"
 #include "smb_stomp.h"
 #include "smb_jump_small.h"
 #include "smb_bump.h"
@@ -107,6 +108,10 @@ struct Sounds {
                     case Sounds::Effects::OneUp:
                         Audio::play<1>(sfx_11_One_Up, 255, 1);        
                         break;
+
+                    case Sounds::Effects::ButtonPress:
+                        Audio::play<1>(sfx_15_Beep, 255, 1);        
+                        break;                        
                 }
 
                 break;

@@ -41,8 +41,6 @@ void AstarokGame::newGame() {
 
 void AstarokGame::startLevel() {
 
-    //this->sound->tones(Sounds::NewLevel);
-
     this->level.newMap();
     this->player.init(Data::Astarok, 24, spawnY());
     this->player.facing = Direction::Right;
