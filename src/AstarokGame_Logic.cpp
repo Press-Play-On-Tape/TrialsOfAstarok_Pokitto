@@ -358,7 +358,7 @@ void AstarokGame::cycle(GameState &gameState) {
                         break;
 
                     case ObjectTypes::Health:
-                        // Do nothing ..
+                        obj.move();
                         break;
 
                     default:

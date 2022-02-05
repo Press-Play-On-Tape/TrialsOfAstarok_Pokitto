@@ -11,7 +11,7 @@ void AISprite::activate(const uint8_t * data, int tX, int tY) {
     this->active = true;
     this->facing = Direction::Left;
 
-    init(data, tX * Constants::TileSize, tY * Constants::TileSize);
+    this->init(data, tX * Constants::TileSize, tY * Constants::TileSize);
 
     switch (this->getType()) {
 

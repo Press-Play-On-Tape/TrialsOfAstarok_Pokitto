@@ -54,6 +54,7 @@ void Sprite::init(const uint8_t * data, int tX, int tY) {
     this->vx = 0; 
     this->vy = 0;
     this->facing = Direction::Right;
+    this->autoExpire = 0;
 
 }
 
@@ -230,6 +231,9 @@ void Sprite::move() {
  
     switch (this->getType()) {
 
+        case ObjectTypes::Health:
+            break;
+            
         case ObjectTypes::Fireball:
 
             if (this->vy == Constants::Fireball_NotMoving && random(0, 40) == 0) {
@@ -426,7 +430,9 @@ void Sprite::draw() {
 
         case ObjectTypes::Health:
 
-            PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Health);
+            if (this->autoExpire > 20 || (this->autoExpire / 4) % 2 == 0) {
+                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Health);
+            }
             break;
             
     }
