@@ -55,6 +55,7 @@ void Sprite::init(const uint8_t * data, int tX, int tY) {
     this->vy = 0;
     this->facing = Direction::Right;
     this->autoExpire = 0;
+    this->explodeCounter = 0;
 
 }
 
@@ -65,6 +66,7 @@ void Sprite::clear() {
     this->y = -1;
     this->vx = 0;
     this->vy = 0;
+    this->explodeCounter = 0;
 
 }
 
@@ -429,7 +431,6 @@ void Sprite::draw() {
             break;
 
         case ObjectTypes::Health:
-
             if (this->autoExpire > 20 || (this->autoExpire / 4) % 2 == 0) {
                 PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Health);
             }

@@ -634,7 +634,7 @@ void AstarokGame::playMiniGame(GameState &gameState) {
     PD::drawBitmap(x + this->ballX + 4, y + 5, Images::Ball);
 
 
-    if (PC::frameCount % 2 == 0) {
+    if (PC::frameCount % 3 > 0) {
 
         switch (this->ballDirection) {
 

@@ -42,7 +42,7 @@ void AISprite::activate(const uint8_t * data, int tX, int tY) {
             break;
 
         default: 
-            y = y - 1;
+            y = y - 2;
             this->vx = 0;
             this->vy = 0;            
             break;
