@@ -707,7 +707,7 @@ void AstarokGame::playMiniGame(GameState &gameState) {
                 particles[i].setY((this->chestObj->y * Constants::TileSize) - this->camera.y - 5 - random(0, 7));
                 particles[i].setVelX(random(-5, 6));
                 particles[i].setVelY(random(1, 5));
-                particles[i].setCounter(random(15, 46));
+                particles[i].setCounter(random(30, 75));
             
             }
                         
