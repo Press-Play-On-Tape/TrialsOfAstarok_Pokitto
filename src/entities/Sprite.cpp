@@ -66,6 +66,7 @@ void Sprite::clear() {
     this->y = -1;
     this->vx = 0;
     this->vy = 0;
+    this->autoExpire = 0;
     this->explodeCounter = 0;
 
 }
