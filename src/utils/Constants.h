@@ -8,7 +8,7 @@ namespace Constants {
     
     constexpr uint8_t ParticlesMax              = 35;
     constexpr uint8_t TileSize                  = 12;
-    constexpr uint8_t GameSeeds                  = 4;
+    constexpr uint8_t GameSeeds                 = 4;
     constexpr uint8_t MinLevelWidth             = 12;
 
     constexpr uint8_t RoomWidth                 = 12; 
@@ -35,12 +35,13 @@ namespace Constants {
     constexpr uint8_t EventCounter_LevelStart   = 21;
 
     constexpr uint8_t NoPlatform                = 255;
+    constexpr uint8_t Collision_Platform        = 255;
 
-    constexpr uint8_t UpperPlatform[] = { 3, 3, 3, 3, 
-                                          3, 3, 3, 4, 
-                                          3, 4, 4, 0,                                              
-                                          3, 4, 4, 3,  
-                                          3, 3, 4, 4, 
-                                          };   
+    constexpr uint8_t UpperPlatform[]           = { 3, 3, 3, 3, 
+                                                    3, 3, 3, 4, 
+                                                    3, 4, 4, 0,                                              
+                                                    3, 4, 4, 3,  
+                                                    3, 3, 4, 4, 
+                                                  };   
 
 }
