@@ -156,11 +156,15 @@ void AstarokGame::drawMap_Background() {
     }
     else {
 
-        for (uint8_t i = 0; i <= 165; i += 55) {
+        // for (uint8_t i = 0; i <= 165; i += 55) {
+        for (uint16_t i = 0; i <= 220; i += 110) {
 
             PD::drawBitmap(i + 2 - backgroundXOffset, backgroundYOffset, Images::Underground_Chain);
-            PD::drawBitmap(i + 17 - backgroundXOffset, backgroundYOffset + 6, Images::Underground_Brick);
-            PD::drawBitmap(i + 37 - backgroundXOffset, backgroundYOffset + 11, Images::Underground_Brick);
+            PD::drawBitmap(i + 57 - backgroundXOffset, backgroundYOffset, Images::Underground_Chain);
+            PD::drawBitmap(i + 13 - backgroundXOffset, backgroundYOffset + 4, Images::Underground_Brick);
+            PD::drawBitmap(i + 63 - backgroundXOffset, backgroundYOffset + 22, Images::Underground_Brick);
+            PD::drawBitmap(i + 29 - backgroundXOffset, backgroundYOffset, Images::Torch[Utils::getFrameCount(16) / 4]);
+            PD::drawBitmap(i + 80 - backgroundXOffset, backgroundYOffset + 26, Images::Torch[Utils::getFrameCount(16) / 4]);
 
         }
 
