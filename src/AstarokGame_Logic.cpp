@@ -197,6 +197,7 @@ void AstarokGame::cycle(GameState &gameState) {
         }
         else if (PC::buttons.repeat(BTN_C, 64)) {
             gameState = GameState::Title_Init;
+            this->pause = false;
         }
 
         if (this->pause) return;
@@ -436,7 +437,7 @@ void AstarokGame::cycle(GameState &gameState) {
                                             #ifndef NO_DEATH
                                             this->event = EventType::Flash; 
                                             this->eventCounter = Constants::EventCounter_Flash;
-                                            this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
+                                            // this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                                             #endif
 
                                         }
@@ -486,7 +487,7 @@ void AstarokGame::cycle(GameState &gameState) {
                                 #ifndef NO_DEATH
                                 this->event = EventType::Flash; 
                                 this->eventCounter = Constants::EventCounter_Flash;
-                                this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
+                                // this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                                 #endif
 
                             }

@@ -4,27 +4,13 @@
 #include "../Utils/SFXVolumeSource.hpp"
 
 #include "01_Coin.h"
-//#include "02_Level_Theme.h"
-//#include "03_Level Theme.h"
-// #include "04_Invincible.h"
-// #include "05_Round_Cleared.h"
-// #include "06_Boss.h"
-// #include "07_Ending.h"
-// #include "08_Name_Entry.h"
-#include "09_Die.h"
-// #include "10_Game_Over.h"
-#include "11_One_Up.h"
-// #include "12_Get_Skateboard_Fairy-Mushroom.h"
-// #include "13_Unknown.h"
-// #include "14_Unknown_2.h"
-#include "15_Beep.h"
-#include "smb_stomp.h"
-#include "smb_jump_small.h"
-#include "smb_bump.h"
-#include "OpenChest.h"
-
-// extern File mainThemeFile;
-// extern Audio::RAWFileSource *music;
+#include "02_Die.h"
+#include "03_One_Up.h"
+#include "04_Beep.h"
+#include "05_Stomp.h"
+#include "06_Jump.h"
+#include "07_Bump.h"
+#include "08_OpenChest.h"
 
 struct Sounds {
 
@@ -38,6 +24,7 @@ struct Sounds {
         Jump,
         Die,
         OneUp,
+        ButtonPress
     };
 
 
@@ -85,7 +72,7 @@ struct Sounds {
                 switch (soundEffect) {
                     
                     case Sounds::Effects::OpenChest:
-                        Audio::play<1>(sfx_OpenChest, 255, 1);        
+                        Audio::play<1>(sfx_08_OpenChest, 255, 1);        
                         break;
                     
                     case Sounds::Effects::PickUpCoin:
@@ -93,24 +80,24 @@ struct Sounds {
                         break;
 
                     case Sounds::Effects::LandOnTop:
-                        Audio::play<1>(sfx_smb_stomp, 255, 1);        
+                        Audio::play<1>(sfx_05_Stomp, 255, 1);        
                         break;
 
                     case Sounds::Effects::Jump:
-                        Audio::play<1>(sfx_smb_jump_small, 255, 1);        
+                        Audio::play<1>(sfx_06_Jump, 255, 1);        
                         break;
 
                     case Sounds::Effects::Die:
                         Audio::stop<0>();
-                        Audio::play<1>(sfx_09_Die, 255, 1);        
+                        Audio::play<1>(sfx_02_Die, 255, 1);        
                         break;
 
                     case Sounds::Effects::OneUp:
-                        Audio::play<1>(sfx_11_One_Up, 255, 1);        
+                        Audio::play<1>(sfx_03_One_Up, 255, 1);        
                         break;
 
                     case Sounds::Effects::ButtonPress:
-                        Audio::play<1>(sfx_15_Beep, 255, 1);        
+                        Audio::play<1>(sfx_04_Beep, 255, 1);        
                         break;                        
                 }
 

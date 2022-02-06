@@ -56,23 +56,23 @@ void Game::seed() {
             seedVars.incValue();
             cookie->seeds[seedVars.index] = seedVars.seed[seedVars.index];
             cookie->saveCookie();
-            this->sounds->playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
+            this->sounds.playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
         }
 
         if (PC::buttons.pressed(BTN_DOWN)) { 
             seedVars.decValue();
             cookie->seeds[seedVars.index] = seedVars.seed[seedVars.index];
             cookie->saveCookie();
-            this->sounds->playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
+            this->sounds.playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
         }
 
         if (PC::buttons.pressed(BTN_LEFT)) { 
-            if (seedVars.decIndex()) this->sounds->playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
+            if (seedVars.decIndex()) this->sounds.playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
 
         }
 
         if (PC::buttons.pressed(BTN_RIGHT)) { 
-            if (seedVars.incIndex()) this->sounds->playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
+            if (seedVars.incIndex()) this->sounds.playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
         }
 
         if (PC::buttons.pressed(BTN_A) || PC::buttons.pressed(BTN_B)) {

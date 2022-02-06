@@ -16,18 +16,20 @@ void AISprite::activate(const uint8_t * data, int tX, int tY) {
     switch (this->getType()) {
 
         case ObjectTypes::Bolt:
-            vx = -4;
-            vy = 2;
+            this->vx = -4;
+            this->vy = 2;
             break;
 
         case ObjectTypes::Fireball:
-            vx = 0;
-            vy = Constants::Fireball_NotMoving;
+            this->vx = 0;
+            this->vy = Constants::Fireball_NotMoving;
             break;
 
         case ObjectTypes::Health:
-            x = x + 6;
-            y = y - 4;
+            this->x = x + 6;
+            this->y = y - 4;
+            this->vx = 0;
+            this->vy = 0;            
             this->autoExpire = random(12, 24) * 5;
             break;
             
@@ -37,6 +39,12 @@ void AISprite::activate(const uint8_t * data, int tX, int tY) {
             this->vx = random(-2, 3);
             this->vy = random(-4, 0);
             this->autoExpire = random(12, 24) * 5;
+            break;
+
+        default: 
+            y = y - 1;
+            this->vx = 0;
+            this->vy = 0;            
             break;
 
     }
