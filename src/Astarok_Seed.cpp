@@ -77,8 +77,13 @@ void Game::seed() {
 
         if (PC::buttons.pressed(BTN_A) || PC::buttons.pressed(BTN_B)) {
 
-            srand(seedVars.getSeedValue());
-            for (uint8_t a = 0; a < Constants::GameSeeds; a++ ) game.seeds[a] = random(0, 255);
+            cookie->sex = (cookie->sex == Sex::Male ? Sex::Female : Sex::Male);
+            cookie->saveCookie();
+
+            game.seed = seedVars.getSeedValue();
+            for (uint8_t a = 0; a < Constants::GameSeeds; a++ ) {
+                game.seeds[a] = Utils::hash(game.seed);
+            }
 
             //sound.tones(Sounds::ButtonPress);
             gameState = GameState::Game_Init;

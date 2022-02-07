@@ -146,3 +146,8 @@ enum EventType {
   LevelExit,
   StartLevel
 };
+
+enum Sex {
+  Male = 0,
+  Female,
+};

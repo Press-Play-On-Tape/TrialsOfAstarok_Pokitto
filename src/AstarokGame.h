@@ -42,6 +42,7 @@ class AstarokGame {
         Sounds                * sounds;
         GameCookie            * cookie;
         bool                  pause = false;
+        uint16_t              seed = 0;
 
     private:
         uint8_t               cameraOffset;

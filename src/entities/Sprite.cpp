@@ -220,8 +220,8 @@ void Sprite::move() {
 
         case ObjectTypes::Spider:
 
-            if (this->vy == 0 && !this->isFalling() && random(0, 20) == 0) {
-                this->vy = random(-8, 0);
+            if (this->vy == 0 && !this->isFalling() && (Utils::hash(this->game->seed) % 20) == 0) {
+                this->vy = -(Utils::hash(this->game->seed) % 8);
             }
 
             break;
@@ -247,7 +247,7 @@ void Sprite::move() {
             
         case ObjectTypes::Fireball:
 
-            if (this->vy == Constants::Fireball_NotMoving && random(0, 40) == 0) {
+            if (this->vy == Constants::Fireball_NotMoving && (Utils::hash(this->game->seed) % 40) == 0) {
                 this->vy = Constants::Fireball_StartPos;
             }
 
@@ -389,14 +389,31 @@ void Sprite::draw() {
 
        case ObjectTypes::Player:
 
-            if (this->isFalling()) {
-                PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::Player_Jumping[this->facing == Direction::Right]);
-            }
-            else if (this->vx == 0 && this->vy == 0) {
-                PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::Player_Idle[this->getFrame() + (this->facing == Direction::Right ? 3 : 0)]);
+            if (this->game->cookie->sex == Sex::Male) {
+
+                if (this->isFalling()) {
+                    PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::MalePlayer_Jumping[this->facing == Direction::Right]);
+                }
+                else if (this->vx == 0 && this->vy == 0) {
+                    PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::MalePlayer_Idle[this->getFrame() + (this->facing == Direction::Right ? 3 : 0)]);
+                }
+                else {
+                    PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::MalePlayer_Walking[this->getFrame() + (this->facing == Direction::Right ? 4 : 0)]);
+                }
+
             }
             else {
-                PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::Player_Walking[this->getFrame() + (this->facing == Direction::Right ? 4 : 0)]);
+
+                if (this->isFalling()) {
+                    PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::FemalePlayer_Jumping[this->facing == Direction::Right]);
+                }
+                else if (this->vx == 0 && this->vy == 0) {
+                    PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::FemalePlayer_Idle[this->getFrame() + (this->facing == Direction::Right ? 3 : 0)]);
+                }
+                else {
+                    PD::drawBitmap(x - this->game->camera.x - 2, y - 1 - this->game->camera.y, Images::FemalePlayer_Walking[this->getFrame() + (this->facing == Direction::Right ? 4 : 0)]);
+                }
+
             }
             break;
 

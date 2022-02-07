@@ -30,15 +30,15 @@ void AISprite::activate(const uint8_t * data, int tX, int tY) {
             this->y = y - 4;
             this->vx = 0;
             this->vy = 0;            
-            this->autoExpire = random(12, 24) * 5;
+            this->autoExpire = ((Utils::hash(this->game->seed) % 12) + 12) * 5;
             break;
             
         case ObjectTypes::Coin:
             x = x + 6;
             y = y - 4;
-            this->vx = random(-2, 3);
-            this->vy = random(-4, 0);
-            this->autoExpire = random(12, 24) * 5;
+            this->vx = (Utils::hash(this->game->seed) % 5) - 2;
+            this->vy = -(Utils::hash(this->game->seed) % 4);
+            this->autoExpire = ((Utils::hash(this->game->seed) % 12) + 12) * 5;
             break;
 
         default: 

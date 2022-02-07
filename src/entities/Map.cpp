@@ -4,9 +4,10 @@
 
 void Map::generateRoom(uint8_t roomNum) {
    
-    srand(this->game->seeds[(this->game->mapNumber + roomNum) % Constants::GameSeeds] * this->game->mapNumber + roomNum);
+    this->game->seed = this->game->seeds[(this->game->mapNumber + roomNum) % Constants::GameSeeds] * this->game->mapNumber + roomNum;
+
     rooms[roomNum % Constants::MapRooms].clearRoom();
-    uint8_t floor = random(Constants::RoomHeight - 3, Constants::RoomHeight);
+    uint8_t floor = (Utils::hash(this->game->seed) % 3) + (Constants::RoomHeight - 3);
 
     uint8_t upperPlatform_X = Constants::NoPlatform;
     uint8_t upperPlatform_Row = 0;
@@ -30,10 +31,10 @@ void Map::generateRoom(uint8_t roomNum) {
 
         if (upperPlatform_X == Constants::NoPlatform && !largeGapFinished && gap == 0) {
 
-            if (x >= 3 && x < 9 && roomNum < this->lastRoom && random(0, 10) == 0) {
+            if (x >= 3 && x < 9 && roomNum < this->lastRoom && Utils::hash(this->game->seed) % 10 == 0) {
                 upperPlatform_X = 0;
                 upperPlatform_Floor = floor;
-                upperPlatform_Row = random(0, 5);
+                upperPlatform_Row = Utils::hash(this->game->seed) % 5;
             }
 
         }
@@ -63,12 +64,12 @@ void Map::generateRoom(uint8_t roomNum) {
 
                 if (upperPlatform_X == Constants::NoPlatform) {
 
-                    if (random(10) == 0) { 
-                        gap = random(2,5);
+                    if (Utils::hash(this->game->seed) % 10 == 0) { 
+                        gap = (Utils::hash(this->game->seed) % 3) + 2;
                         if (gap == 4) largeGap = true;
                     }
-                    else if (random(5) == 0) {
-                        if (!random(1) && floor < Constants::RoomHeight - 1) floor++;
+                    else if (Utils::hash(this->game->seed) % 5 == 0) {
+                        if (floor < Constants::RoomHeight - 1) floor++;
                         else floor--;
                     }
                     else {
@@ -79,11 +80,11 @@ void Map::generateRoom(uint8_t roomNum) {
 
                 if (tSpawnBarrier > spawnBarrier) {
 
-                    if (!random(5)) {
+                    if (!(Utils::hash(this->game->seed) % 5)) {
 
                         uint8_t yLocation = floor - 2;
 
-                        if (upperPlatform_X > 0 && upperPlatform_X < 3 && random(0, 8) == 0) {
+                        if (upperPlatform_X > 0 && upperPlatform_X < 3 && (Utils::hash(this->game->seed) % 8) == 0) {
 
                             yLocation = upperPlatform_Floor - Constants::UpperPlatform[(upperPlatform_Row * 4) + upperPlatform_X] - 1;
                             this->game->addMob(Data::Spider, tSpawnBarrier + x, yLocation);
@@ -91,7 +92,7 @@ void Map::generateRoom(uint8_t roomNum) {
                         }
                         else {
 
-                            switch (random(30)) {
+                            switch (Utils::hash(this->game->seed) % 30) {
 
                                 case 0 ... 9:
                                     this->game->addMob(Data::Spider, tSpawnBarrier + x, yLocation);
@@ -146,9 +147,9 @@ void Map::generateRoom(uint8_t roomNum) {
                 largeGapFinished = false;
             }
 
-            if (random(0, 5) == 0) {
+            if (Utils::hash(this->game->seed) % 5 == 0) {
 
-                this->game->addMob(Data::Fireball, tSpawnBarrier + x, 16, floor - random(1, 4));
+                this->game->addMob(Data::Fireball, tSpawnBarrier + x, 16, floor - ((Utils::hash(this->game->seed) % 4) + 1));
 
             }
 
@@ -226,10 +227,10 @@ void Map::newMap() {
 
     // Seed for level length
 
-    srand(this->game->seeds[ this->game->mapNumber % Constants::GameSeeds ] * this->game->mapNumber);
-    uint16_t lowEnd = Constants::MinLevelWidth + random(this->game->mapNumber);
-    uint16_t highEnd = random(lowEnd, lowEnd + this->game->mapNumber);
-    this->lastRoom = lowEnd == highEnd ? lowEnd : random(lowEnd, highEnd);
+    this->game->seed = this->game->seeds[ this->game->mapNumber % Constants::GameSeeds ] * this->game->mapNumber;
+    uint16_t lowEnd = Constants::MinLevelWidth + (Utils::hash(this->game->seed) % this->game->mapNumber);
+    uint16_t highEnd = (Utils::hash(this->game->seed) % this->game->mapNumber) + lowEnd;
+    this->lastRoom = lowEnd == highEnd ? lowEnd : (Utils::hash(this->game->seed) % highEnd - lowEnd) + lowEnd;
 
     for (uint8_t a = 0; a < Constants::MapRooms; a++) {
         generateRoom(a);

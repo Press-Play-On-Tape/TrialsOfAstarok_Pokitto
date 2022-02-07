@@ -14,6 +14,7 @@ class GameCookie : public Pokitto::Cookie {
 		SoundSettings sfx;
 		uint8_t seeds[5];
 		Slot slots[Constants::NumberOfScores];
+		Sex sex = Sex::Male;
 
 	public:
 
@@ -31,6 +32,7 @@ class GameCookie : public Pokitto::Cookie {
 				slots[i].score = 5 - i;
 			}
 
+			this->sex = Sex::Male;
 			this->saveCookie();
 
 		}
