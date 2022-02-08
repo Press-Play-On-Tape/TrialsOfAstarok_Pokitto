@@ -12,11 +12,12 @@ void Map::generateRoom(uint8_t roomNum) {
     uint8_t upperPlatform_X = Constants::NoPlatform;
     uint8_t upperPlatform_Row = 0;
     uint8_t upperPlatform_Floor = 0;
+
     int8_t gap = 0;
     bool largeGap = false;
     bool largeGapFinished = false;
-    bool chestCreatable = false;
     int tSpawnBarrier = roomNum * Constants::RoomWidth;
+    uint8_t flatFloor = 0;
 
 
     // If this is the first room on a level, add the sign ..
@@ -26,6 +27,7 @@ void Map::generateRoom(uint8_t roomNum) {
     }
 
     for (int x = 0; x < Constants::RoomWidth; x++) {
+
 
         // Should we launch an upper platform?
 
@@ -60,31 +62,48 @@ void Map::generateRoom(uint8_t roomNum) {
 
             if (roomNum && (roomNum < this->lastRoom)) {
 
-                chestCreatable = false;
-
                 if (upperPlatform_X == Constants::NoPlatform) {
 
                     if (Utils::hash(this->game->seed) % 10 == 0) { 
                         gap = (Utils::hash(this->game->seed) % 3) + 2;
                         if (gap == 4) largeGap = true;
+                        flatFloor = 0;
                     }
                     else if (Utils::hash(this->game->seed) % 5 == 0) {
                         if (floor < Constants::RoomHeight - 1) floor++;
                         else floor--;
+                        flatFloor = 0;
                     }
                     else {
-                        chestCreatable = true;
+                        flatFloor++;
                     }
 
                 }
 
                 if (tSpawnBarrier > spawnBarrier) {
 
-                    if (!(Utils::hash(this->game->seed) % 5)) {
+                    if (!(Utils::hash(this->game->seed) % 3)) {
 
                         uint8_t yLocation = floor - 2;
+                        uint8_t randomMax;
 
-                        if (upperPlatform_X > 0 && upperPlatform_X < 3 && (Utils::hash(this->game->seed) % 8) == 0) {
+                        switch (this->game->mapNumber) {
+
+                            case 0 ... 3:
+                                randomMax = 12;
+                                break;
+
+                            case 4 ... 6:
+                                randomMax = 10;
+                                break;
+
+                            default:
+                                randomMax = 8;
+                                break;
+
+                        }
+
+                        if (upperPlatform_X > 0 && upperPlatform_X < 3 && (Utils::hash(this->game->seed) % randomMax) == 0) {
 
                             yLocation = upperPlatform_Floor - Constants::UpperPlatform[(upperPlatform_Row * 4) + upperPlatform_X] - 1;
                             this->game->addMob(Data::Spider, tSpawnBarrier + x, yLocation);
@@ -92,7 +111,25 @@ void Map::generateRoom(uint8_t roomNum) {
                         }
                         else {
 
-                            switch (Utils::hash(this->game->seed) % 30) {
+                            uint8_t randomMax;
+
+                            switch (this->game->mapNumber) {
+
+                                case 0 ... 3:
+                                    randomMax = 50;
+                                    break;
+
+                                case 4 ... 6:
+                                    randomMax = 40;
+                                    break;
+
+                                default:
+                                    randomMax = 30;
+                                    break;
+
+                            }
+
+                            switch (Utils::hash(this->game->seed) % randomMax) {
 
                                 case 0 ... 9:
                                     this->game->addMob(Data::Spider, tSpawnBarrier + x, yLocation);
@@ -113,16 +150,19 @@ void Map::generateRoom(uint8_t roomNum) {
                                     break;
 
                                 case 26 ... 27:
-                                    if (chestCreatable) {
-                                        this->addObject(ObjectTypes::Chest_Closed, tSpawnBarrier + x - 1, floor - 1);
+                                    if (flatFloor >= 2) {
+
+                                        this->addObject(ObjectTypes::Chest_Closed, tSpawnBarrier + x, floor - 1);
                                     }
                                     break;
 
-                                default:
+                                case 28 ... 29:
                                     if (roomNum > 8) {
                                         this->game->addMob(Data::Bolt, tSpawnBarrier + x, 2);
                                     }
                                     break;
+
+                                default: break;
 
                             }
 
@@ -169,7 +209,6 @@ void Map::generateRoom(uint8_t roomNum) {
         }
 
     }
-
 
     // If this is the last room in a map, then add a pipe so we can leave ..
 

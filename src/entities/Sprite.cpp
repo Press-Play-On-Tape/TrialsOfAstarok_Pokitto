@@ -2,8 +2,8 @@
 
 #include "../AstarokGame.h"
 
-uint8_t Sprite::getFlags()      { return pgm_read_byte(this->spriteData + SpriteFlags); }
-uint8_t Sprite::getType()       { return pgm_read_byte(this->spriteData + SpriteType); }
+uint8_t Sprite::getFlags()      { return pgm_read_byte(this->spriteData + SpriteDataLayout::Flags); }
+uint8_t Sprite::getType()       { return pgm_read_byte(this->spriteData + SpriteDataLayout::Type); }
 
 int16_t Sprite::getRightX()     { return this->x + this->getWidth() - 1; }
 int16_t Sprite::getTopY()       { return this->y; }
@@ -275,7 +275,7 @@ void Sprite::move() {
 
         default:
 
-            if (this->getFlags() & 1) {
+            if (this->getFlags() & FLAG_IGNORE_AI) {
                 x += vx;
                 y += vy;
                 return;

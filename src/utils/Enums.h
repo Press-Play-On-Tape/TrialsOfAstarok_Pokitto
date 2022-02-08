@@ -109,10 +109,10 @@ enum Hearts {
 };
 
 enum SpriteDataLayout {
-	SpriteType,
-	SpriteFlags,
-	SpriteSpeed,
-	SpriteIntelligence,
+	Type,
+	Flags,
+	Speed,
+	Intelligence,
 };
 
 enum Direction { Up, Down, Left, Right, None };
