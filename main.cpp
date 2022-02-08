@@ -26,6 +26,7 @@ int main() {
     PD::setInvisibleColor(149);
     PC::setFrameRate(40);
     PD::textWrap = false;
+    PD::setFont(font3x5);
 
 
     // Has the cookie been initialised?

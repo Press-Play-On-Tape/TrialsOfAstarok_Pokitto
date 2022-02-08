@@ -3,6 +3,124 @@
 #include "utils/Enums.h"
 #include "utils/GameCookie.h"
 
+
+void AstarokGame::renderSign() {
+    
+    PD::drawBitmap(21, 13, Images::SignPost_Large);
+    PD::setColor(0, 0x67);
+
+    switch (this->mapNumber) {
+
+        case 1:
+            PD::setCursor(28, 31);
+            PD::print("Run that way");
+            PD::setCursor(28, 38);
+            PD::print("to reach the");
+            PD::setCursor(27, 45);
+            PD::print("end of level!");
+            break;            
+
+        case 2:
+            PD::setCursor(28, 31);
+            PD::print(" You've gone");
+            PD::setCursor(28, 38);
+            PD::print("underground,");
+            PD::setCursor(28, 45);
+            PD::print("  look out!");
+            break;
+
+        case 3:
+            PD::setCursor(28, 31);
+            PD::print("You are back");
+            PD::setCursor(28, 38);
+            PD::print("above ground");
+            PD::setCursor(28, 45);
+            PD::print("-keep going!");
+            break;
+
+        case 4:
+            PD::setCursor(26, 31);
+            PD::print("  The levels");
+            PD::setCursor(26, 38);
+            PD::print("get harder as");
+            PD::setCursor(26, 45);
+            PD::print("you progress!");
+            break;
+
+        case 5:
+            PD::setCursor(28, 31);
+            PD::print("The enemies");
+            PD::setCursor(28, 38);
+            PD::print("get a little");
+            PD::setCursor(28, 45);
+            PD::print("bit smarter!");
+            break;
+
+        case 6:
+            PD::setCursor(26, 31);
+            PD::print(" Beat others");
+            PD::setCursor(26, 38);
+            PD::print("to become the");
+            PD::setCursor(26, 45);
+            PD::print("  champion!");
+            break;   
+
+        default:
+
+            switch ((this->mapNumber - 6) % 4) {
+
+                case 0:        
+                    PD::setCursor(28, 31);
+                    PD::print(" Welcome to");
+                    PD::setCursor(28, 38);
+                    PD::print(" level ");
+
+                    if (this->mapNumber < 100) PD::print("0");
+                    if (this->mapNumber < 10)  PD::print("0");
+                    PD::print(this->mapNumber);
+                    PD::print(".");
+                    PD::setCursor(28, 45);
+                    PD::print(" Good luck!");
+                    break;
+
+                case 1:
+                    PD::setCursor(29, 31);
+                    PD::print("You must be");
+                    PD::setCursor(33, 38);
+                    PD::print("tired but");
+                    PD::setCursor(26, 45);
+                    PD::print("keep running!");
+                    break;   
+
+                case 2:
+                    PD::setCursor(28, 31);
+                    PD::print("Amazing job.");
+                    PD::setCursor(33, 38);
+                    PD::print("You could");
+                    PD::setCursor(28, 45);
+                    PD::print("be champion!");
+                    break; 
+
+                case 4:
+                    PD::setCursor(28, 31);
+                    PD::print("Can you hear");
+                    PD::setCursor(26, 38);
+                    PD::print("the town folk");
+                    PD::setCursor(34, 45);
+                    PD::print("cheering?");
+                    break;   
+
+            }
+
+            break;
+        
+
+    }
+
+    PD::setColor(0, 0);
+
+}
+
 void AstarokGame::renderTrialOver() {
 
     PD::drawBitmap(6, 20, Images::GameOver);
@@ -79,7 +197,6 @@ void AstarokGame::renderPause() {
         }
 
     }
-
 
 }
 
@@ -312,8 +429,6 @@ void AstarokGame::draw() {
     drawMap_Foreground(); 
     drawHUD();
     renderPause();
-
-    //arduboy->drawRect(player.getLeftX() - this->camera.x, player.getTopY() - this->camera.y, player.getWidth() - 3, player.getHeight(), BLACK);
 
 
     // Particles?

@@ -43,12 +43,11 @@ void Game::loop() {
 
             PD::clear();
             splashScreen();
-            //arduboy.display(false);
             break;
 
         case GameState::Title_Init:
 
-//            sound.tones(Sounds::Theme);
+            sounds.playTheme(2, this->cookie->sfx);
             PD::clear();
             this->gameState = GameState::Title;
             [[fallthrough]]
@@ -57,7 +56,6 @@ void Game::loop() {
 
             PD::clear();
             titleScreen();
-            //arduboy.display(true);
             break;
 
         case GameState::IntroText_Init:
@@ -70,7 +68,6 @@ void Game::loop() {
 
             PD::clear();
             introText();
-            //arduboy.display(true);
             break;
 
         case GameState::Seed_Init:
@@ -83,7 +80,6 @@ void Game::loop() {
 
             PD::clear();
             seed();
-            //arduboy.display(true);
             break;
 
         case GameState::Game_Init:
@@ -128,6 +124,23 @@ void Game::loop() {
 
             game.draw();
             game.playMiniGame(this->gameState);
+            break;
+
+        case GameState::Display_Sign:
+
+            if (game.mapNumber % 2) {
+                PD::setColor(0xd6);
+                PD::fillRect(0, 0, 110, 44);
+                PD::setColor(0x07);
+                PD::fillRect(0, 44, 110, 44);
+            }
+            else {
+                PD::clear();
+            }
+
+            game.draw();
+            game.displaySign(this->gameState);
+            game.renderSign();
             break;
 
         case GameState::HighScore_Check:

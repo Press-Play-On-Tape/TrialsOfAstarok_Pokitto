@@ -20,6 +20,7 @@ void Game::checkHighScoreSlot(uint16_t score) {
             }
             
             writeHighScoreEntry(highScoreVars);
+            this->sounds.playTheme(3, cookie->sfx);
             return;
 
         }

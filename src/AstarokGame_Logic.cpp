@@ -292,7 +292,7 @@ void AstarokGame::cycle(GameState &gameState) {
                     default: break;
 
                 }
-                
+
                 if (Utils::collide(playerRect, objRect)) {
                         
                     switch (obj.getType()) {
@@ -326,7 +326,24 @@ void AstarokGame::cycle(GameState &gameState) {
                                 this->ballDelay = 4;
 
                             }
+                            
+                            break;
 
+                        case ObjectTypes::Sign:
+                            
+                            if (this->signDelay == 0) {
+
+                                if (PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1)) {
+
+                                    PC::buttons.pollButtons();                                
+                                    gameState = GameState::Display_Sign;
+
+                                }
+
+                            }
+                            else {
+                                this->signDelay--;
+                            }
                             break;
 
                         default: break;
@@ -722,5 +739,17 @@ void AstarokGame::playMiniGame(GameState &gameState) {
             break;
 
     }
+
+}
+
+void AstarokGame::displaySign(GameState &gameState) {
+
+    if (PC::buttons.pressed(BTN_B)) {
+
+        PC::buttons.pollButtons();
+        gameState = GameState::Game_Play;
+        this->signDelay = 10;
+
+    } 
 
 }

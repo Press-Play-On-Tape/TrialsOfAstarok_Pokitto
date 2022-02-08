@@ -53,8 +53,8 @@ enum GameState {
 	SplashScreen,
 	Title_Init,
 	Title,
-  IntroText_Init,
-  IntroText,
+    IntroText_Init,
+    IntroText,
 	Seed_Init,
 	Seed,
 	Game_Init,
@@ -63,6 +63,7 @@ enum GameState {
 	HighScore_Check,
 	HighScore_Flash,
 	HighScore_NoFlash,
+    Display_Sign,
 };
 
 enum TitleScreenMode {

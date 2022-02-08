@@ -85,7 +85,6 @@ void Game::seed() {
                 game.seeds[a] = Utils::hash(game.seed);
             }
 
-            //sound.tones(Sounds::ButtonPress);
             gameState = GameState::Game_Init;
 
         }

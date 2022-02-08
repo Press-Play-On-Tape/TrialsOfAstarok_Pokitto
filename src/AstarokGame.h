@@ -46,6 +46,7 @@ class AstarokGame {
 
     private:
         uint8_t               cameraOffset;
+        uint8_t               signDelay;
         Direction             cameraPan;
 
         Particle particles[Constants::ParticlesMax];
@@ -62,7 +63,9 @@ class AstarokGame {
         uint8_t getSpareMobCount();
         void renderTrialOver();
         void renderPause();
+        void renderSign();
         void playMiniGame(GameState &gameState);
+        void displaySign(GameState &gameState);
 
     private:  // Methods
         void startLevel();

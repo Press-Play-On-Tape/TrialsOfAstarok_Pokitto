@@ -15,6 +15,7 @@ void Game::drawBackground() {
 
 void Game::titleScreen() {
 
+    PD::setColor(0, 0);
     PD::drawBitmap(15, 16, Images::Title);
     PD::drawBitmap(26, 12, Images::Underground_Chain);
     PD::drawBitmap(81, 12, Images::Underground_Chain);    
@@ -81,12 +82,12 @@ void Game::titleScreen() {
 
             if (this->cookie->sfx != SoundSettings::Both && this->cookie->sfx != SoundSettings::Music) {
 
-                // this->playTheme();
+                this->sounds.muteTheme();
                 
             }
             else {
 
-                // this->playTheme();
+                this->sounds.playTheme(2, this->cookie->sfx);
 
             }
 
@@ -99,12 +100,12 @@ void Game::titleScreen() {
 
             if (this->cookie->sfx != SoundSettings::Both && this->cookie->sfx != SoundSettings::Music) {
 
-                // this->muteTheme();
+                this->sounds.muteTheme();
                 
             }
             else {
 
-                // this->playTheme();
+                this->sounds.playTheme(2, this->cookie->sfx);
                 
             }
             

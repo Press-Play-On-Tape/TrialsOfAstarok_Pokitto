@@ -7,6 +7,7 @@
 #include "puff/Puffs.h"
 #include "runes/Runes.h"
 #include "scenery/Scenery.h"
+#include "sign/Signs.h"
 #include "splash/Splash.h"
 #include "sprites/Sprites.h"
 #include "titles/Titles.h"

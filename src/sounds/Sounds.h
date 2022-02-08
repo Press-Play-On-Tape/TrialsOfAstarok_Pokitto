@@ -11,6 +11,7 @@
 #include "06_Jump.h"
 #include "07_Bump.h"
 #include "08_OpenChest.h"
+#include "09_Game_Over.h"
 
 struct Sounds {
 
@@ -24,7 +25,7 @@ struct Sounds {
         Jump,
         Die,
         OneUp,
-        ButtonPress
+        ButtonPress,
     };
 
 
@@ -32,7 +33,7 @@ struct Sounds {
 
     void playTheme(uint8_t themeToPlay, SoundSettings soundSettings) {
 
-        constexpr char sounds[2][19] = { "music/Astaro01.raw", "music/Astaro02.raw" };
+        constexpr char sounds[4][19] = { "music/Astaro01.raw", "music/Astaro02.raw", "music/Astaro03.raw", "music/Astaro04.raw" };
 
         switch (soundSettings) {
 
@@ -41,7 +42,14 @@ struct Sounds {
 
                 if (this->mainThemeFile.openRO(sounds[themeToPlay])) {
                     auto& music = Audio::play<0>(this->mainThemeFile);
-                    music.setLoop(true);
+                    
+                    if (themeToPlay <= 2) {
+                        music.setLoop(true);
+                    }
+                    else {
+                        music.setLoop(false);
+                    }
+
                 }
 
                 break;
@@ -98,7 +106,12 @@ struct Sounds {
 
                     case Sounds::Effects::ButtonPress:
                         Audio::play<1>(sfx_04_Beep, 255, 1);        
-                        break;                        
+                        break;           
+
+                    // case Sounds::Effects::GameOver:
+                    //     Audio::play<1>(sfx_09_Game_Over, 255, 1);        
+                    //     break;                        
+
                 }
 
                 break;
