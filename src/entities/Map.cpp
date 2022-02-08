@@ -225,31 +225,31 @@ void Map::generateRoom(uint8_t roomNum) {
 
 void Map::addExit(ObjectTypes exitType, int x, int y) {
 
-  addObject(exitType, x, y);
+    addObject(exitType, x, y);
 
 }
 
 void Map::addSign(int x, int y) {
 
-  addObject(ObjectTypes::Sign,  x,   y);
+    addObject(ObjectTypes::Sign,  x,   y);
 
 }
 
 void Map::addObject(ObjectTypes type, int tX, int tY) {
 
-  if (checkObject(tX, tY)) {
-    return;
-  }
-  else {
-   
-    objects[this->objectIndex].x = tX;
-    objects[this->objectIndex].y = tY;
-    objects[this->objectIndex].type = type;
-    this->objectIndex++;
+    if (checkObject(tX, tY)) {
+        return;
+    }
+    else {
 
-    if (this->objectIndex == Constants::MapObjects) this->objectIndex = 0;
+        objects[this->objectIndex].x = tX;
+        objects[this->objectIndex].y = tY;
+        objects[this->objectIndex].type = type;
+        this->objectIndex++;
 
-  }
+        if (this->objectIndex == Constants::MapObjects) this->objectIndex = 0;
+
+    }
 
 }
 
@@ -267,9 +267,7 @@ void Map::newMap() {
     // Seed for level length
 
     this->game->seed = this->game->seeds[ this->game->mapNumber % Constants::GameSeeds ] * this->game->mapNumber;
-    uint16_t lowEnd = Constants::MinLevelWidth + (Utils::hash(this->game->seed) % this->game->mapNumber);
-    uint16_t highEnd = (Utils::hash(this->game->seed) % this->game->mapNumber) + lowEnd;
-    this->lastRoom = lowEnd == highEnd ? lowEnd : (Utils::hash(this->game->seed) % highEnd - lowEnd) + lowEnd;
+    this->lastRoom = Constants::MinLevelWidth + (Utils::hash(this->game->seed) % this->game->mapNumber); 
 
     for (uint8_t a = 0; a < Constants::MapRooms; a++) {
         generateRoom(a);
@@ -292,8 +290,8 @@ void Map::loadMap() {
 
 bool Map::isTile(int x, int y) {
 
-  int room = (x / Constants::RoomWidth) % Constants::MapRooms;
-  return rooms[room].readTile(x % Constants::RoomWidth, y);
+    int room = (x / Constants::RoomWidth) % Constants::MapRooms;
+    return rooms[room].readTile(x % Constants::RoomWidth, y);
 
 }
 

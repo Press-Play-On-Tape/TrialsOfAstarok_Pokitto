@@ -11,21 +11,13 @@ using PS = Pokitto::Sound;
 
 namespace Utils {
 
-    // static uint32_t hash(uint32_t &value)
-    // {
-    //   value ^= (value << 13);
-    //   value ^= (value >> 17);
-    //   value ^= (value << 5);
-    //   return value;
-    // }
-    static uint16_t hash(uint16_t &value)
+    static uint32_t hash(uint32_t &value)
     {
       value ^= (value << 13);
-      value ^= (value >> 7);
+      value ^= (value >> 17);
       value ^= (value << 5);
       return value;
     }
-
 
     static inline bool collide(Rect rect1, Rect rect2) {
         return !(rect2.x                >= rect1.x + rect1.width  ||
