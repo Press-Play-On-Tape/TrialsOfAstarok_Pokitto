@@ -383,9 +383,9 @@ void AstarokGame::cycle(GameState &gameState) {
                 switch (obj.getType()) {
 
                     case ObjectTypes::Fireball:
-                        if (this->event == EventType::Playing) {
+                        //if (this->event == EventType::Playing) {
                             obj.move();
-                        }
+                        //}
                         break;
 
                     case ObjectTypes::Health:
@@ -730,13 +730,16 @@ void AstarokGame::playMiniGame(GameState &gameState) {
 
         case 6:
 
+            this->seed = PC::frameCount;
+
             for (int i = 0; i < Constants::ParticlesMax; i++) {
                 
                 particles[i].setX((this->chestObj->x * Constants::TileSize) - this->camera.x + 8 + (Utils::hash(this->seed) % 7));
                 particles[i].setY((this->chestObj->y * Constants::TileSize) - this->camera.y - 5 - (Utils::hash(this->seed) % 7));
-                particles[i].setVelX((Utils::hash(this->seed) % 11) - 5);
+                particles[i].setVelX((Utils::hash(this->seed) % 12) - 7);
                 particles[i].setVelY((Utils::hash(this->seed) % 4) + 1);
-                particles[i].setCounter((Utils::hash(this->seed) % 45) + 30);
+                particles[i].setCounter((Utils::hash(this->seed) % 45) + 40);
+                particles[i].setColor(i % 3);
             
             }
                         

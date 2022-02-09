@@ -17,7 +17,7 @@ struct Particle {
         float velx = 0;
         float vely = 0;
         uint8_t counter = 0;
-        uint8_t pSize = 1;
+        uint8_t color = 1;
 
     public:
 
@@ -28,18 +28,20 @@ struct Particle {
         int16_t getX()                          { return this->x; }
         int16_t getY()                          { return this->y; }
         int8_t getCounter()                     { return this->counter; }
-        uint8_t getSize()                       { return this->pSize; }
+        uint8_t getColor()                      { return this->color; }
 
         void setX(int16_t val)                  { this->x = val; }
         void setY(int16_t val)                  { this->y = val; }
         void setCounter(int16_t val)            { this->counter = val; }
         void setVelX(float val)                 { this->velx = val; }
         void setVelY(float val)                 { this->vely = val; }
-        void setSize(uint8_t val)               { this->pSize = val; }
+        void setColor(uint8_t val)              { this->color = val; }
 
     public:
 
         void update() {
+
+            if (counter == 0) return;
 
 
             // move your particle based on direction, whatever ..
@@ -47,11 +49,11 @@ struct Particle {
             const uint8_t boundL = 0;
             const uint8_t boundR = 110;
             const uint8_t maxR = 88;
-            this->vely -= gravity * this->pSize;
+            this->vely -= gravity; 
             this->velx *= cF;
 
-            if (this->x > boundR - this->pSize ){
-                this->x = boundR - this->pSize ;
+            if (this->x > boundR - 2 ){
+                this->x = boundR - 2 ;
                 this->velx = -this->velx;
             }
 
@@ -80,8 +82,8 @@ struct Particle {
 
             }           
 
-            this->x += static_cast<int8_t>(this->velx);
-            this->y -= static_cast<int8_t>(this->vely);
+            this->x += static_cast<int16_t>(this->velx);
+            this->y -= static_cast<int16_t>(this->vely);
 
             if (this->counter > 0) this->counter--;
 

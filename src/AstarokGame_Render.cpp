@@ -452,19 +452,19 @@ void AstarokGame::draw() {
 
         if (this->particles[i].render()) { // the dot should be rendered
 
-            uint8_t pSize = particles[i].getSize();
+            uint8_t pSize = particles[i].getColor();
 
             switch (pSize) {
 
-                case 1:
+                case 0:
                     PD::drawBitmap(this->particles[i].getX(), this->particles[i].getY(), Images::Pixel_01);
                     break;
 
-                case 2:
+                case 1:
                     PD::drawBitmap(this->particles[i].getX(), this->particles[i].getY(), Images::Pixel_02);
                     break;
 
-                case 3:
+                case 2:
                     PD::drawBitmap(this->particles[i].getX(), this->particles[i].getY(), Images::Pixel_03);
                     break;
 
