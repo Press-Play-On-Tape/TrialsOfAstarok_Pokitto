@@ -57,6 +57,8 @@ enum GameState {
     IntroText,
 	Seed_Init,
 	Seed,
+	PlayerSelect_Init,
+	PlayerSelect,
 	Game_Init,
 	Game_Play,
 	Game_Mini,
@@ -69,7 +71,7 @@ enum GameState {
 enum TitleScreenMode {
 	Play,
 	HighScore,
-  SoundEffects
+    SoundEffects
 };
 
 inline TitleScreenMode &operator++(TitleScreenMode &c ) {

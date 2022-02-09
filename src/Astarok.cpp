@@ -82,6 +82,18 @@ void Game::loop() {
             seed();
             break;
 
+        case GameState::PlayerSelect_Init:
+
+            PD::clear();
+            playerSelect_Init();
+            [[fallthrough]]
+
+        case GameState::PlayerSelect:
+
+            PD::clear();
+            playerSelect();
+            break;
+
         case GameState::Game_Init:
 
             PD::clear();

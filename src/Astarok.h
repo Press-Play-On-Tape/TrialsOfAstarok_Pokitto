@@ -28,6 +28,7 @@ class Game {
         HighScoreVars highScoreVars;
         IntroTextVars introTextVars;
         SeedVars seedVars;
+        PlayerSelectVars playerSelectVars;
 
         GameCookie *cookie;
         Sounds sounds;
@@ -50,6 +51,9 @@ class Game {
 
         void seed_Init();
         void seed();
+
+        void playerSelect_Init();
+        void playerSelect();
 
         void splashScreen_Init();
         void splashScreen();

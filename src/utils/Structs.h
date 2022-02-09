@@ -32,6 +32,27 @@ struct Slot {
 
 };
 
+struct PlayerSelectVars {
+
+    uint8_t index = 0;
+    uint8_t counter = 0;
+    int8_t vy = 0;
+    uint8_t y = 0;
+
+    uint8_t maleIdle = 0;
+    uint8_t femaleIdle = 0;
+
+    void reset(Sex sex) {
+
+        this->index = sex == Sex::Male ? 0 : 1;
+        this->counter = 0;
+        this->maleIdle = 2;
+        this->femaleIdle = 0;
+
+    }
+
+};
+
 struct SplashScreenVars {
 
     uint8_t counter = 0;

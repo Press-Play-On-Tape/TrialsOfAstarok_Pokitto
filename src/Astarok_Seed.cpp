@@ -85,7 +85,7 @@ void Game::seed() {
                 game.seeds[a] = Utils::hash(game.seed);
             }
 
-            gameState = GameState::Game_Init;
+            gameState = GameState::PlayerSelect_Init;
 
         }
 
