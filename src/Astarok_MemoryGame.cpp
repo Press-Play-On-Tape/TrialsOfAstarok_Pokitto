@@ -35,7 +35,7 @@ void Game::memoryGame() {
 
         if (PC::buttons.pressed(BTN_B)) {
 printf("BTN_B\n");
-            if (memoryGameVars.status[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] == Constants::MemoryGame_Status_Hide) {
+            if (memoryGameVars.status[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] == MemoryGameStatus::Hide) {
 
                 memoryGameVars.spinIndex[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] = 16;
                 
@@ -63,8 +63,8 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
 
             if (memoryGameVars.selections[1] != 255) {
 
-                memoryGameVars.status[memoryGameVars.selections[0]] = Constants::MemoryGame_Status_Flash;
-                memoryGameVars.status[memoryGameVars.selections[1]] = Constants::MemoryGame_Status_Flash;
+                memoryGameVars.status[memoryGameVars.selections[0]] = MemoryGameStatus::FlashRune;
+                memoryGameVars.status[memoryGameVars.selections[1]] = MemoryGameStatus::FlashRune;
 
 // for (uint8_t i = 0; i < 18; i++) {
 //     printf("%i ", memoryGameVars.status[i]);
@@ -121,7 +121,7 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
 // }
 //            PD::drawBitmap(14 + (x * 14), 34 + (y * 16), Images::Rune_Frame_00);
 
-            if (memoryGameVars.status[x + (y * 6)] < Constants::MemoryGame_Status_Flash || ((memoryGameVars.status[x + (y * 6)] == Constants::MemoryGame_Status_Flash) && (memoryGameVars.flashCounter % 32 >= 16))) {
+            if (memoryGameVars.status[x + (y * 6)] < MemoryGameStatus::FlashRune || ((memoryGameVars.status[x + (y * 6)] == MemoryGameStatus::FlashRune) && (memoryGameVars.flashCounter % 32 >= 16))) {
 
 
                 if (memoryGameVars.spinIndex[x + (y * 6)] > 0) {
@@ -130,7 +130,7 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
                 else {
                     PD::drawBitmap(14 + (x * 14), 34 + (y * 16), Images::Rune_Frame_00);
 
-                    if (memoryGameVars.status[x + (y * 6)] != Constants::MemoryGame_Status_Hide) {
+                    if (memoryGameVars.status[x + (y * 6)] != MemoryGameStatus::Hide) {
                         PD::drawBitmap(17 + (x * 14), 38 + (y * 16), Images::Runes[memoryGameVars.runes[x + (y * 6)]]);
                     }
 
@@ -148,7 +148,7 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
 // }
 
 if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
-    PD::drawBitmap(14 + (memoryGameVars.cursor.x * 14), 34 + (memoryGameVars.cursor.y * 16), Images::Cursor);
+    PD::drawBitmap(18 + (memoryGameVars.cursor.x * 14), 42 + (memoryGameVars.cursor.y * 16), Images::Cursor);
 }
 
 
@@ -176,6 +176,7 @@ if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
     if (memoryGameVars.isGameOver()) {
 
         gameState = GameState::Game_Play;
+        game.chestObj->deactivate();
 
     }
 

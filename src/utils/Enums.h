@@ -157,3 +157,10 @@ enum Sex {
   Male = 0,
   Female,
 };
+
+enum MemoryGameStatus {
+  Hide = 0,
+  Show,
+  FlashRune,
+  Delete,
+};    

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Constants.h"
+#include "Enums.h"
 
 struct Point {
     int16_t x;
@@ -36,7 +37,7 @@ struct MemoryGameVars {
 
     uint8_t runes[18];
     uint8_t spinIndex[18];
-    uint8_t status[18]; 
+    MemoryGameStatus status[18]; 
 
     uint8_t selections[2];
     uint8_t flashCounter = 0;
@@ -50,7 +51,7 @@ struct MemoryGameVars {
 
             this->runes[i] = 255;
             this->spinIndex[i] = 0;
-            this->status[i] = Constants::MemoryGame_Status_Hide;
+            this->status[i] = MemoryGameStatus::Hide;
 
         }
 
@@ -95,11 +96,11 @@ printf("\n");
 
                 if (this->spinIndex[i] == 0) {
 printf("aaaaa\n");                    
-                    this->status[i] = Constants::MemoryGame_Status_Hide;
+                    this->status[i] = MemoryGameStatus::Hide;
                 }
                 else if (this->spinIndex[i] == 8) {
 printf("bbbbb\n");                    
-                    this->status[i] = Constants::MemoryGame_Status_Show;
+                    this->status[i] = MemoryGameStatus::Show;
                     this->spinIndex[i] = 0;
                 } 
                 
@@ -115,12 +116,12 @@ printf("bbbbb\n");
 
                 if (this->runes[this->selections[0]] == this->runes[this->selections[1]]) {
 
-                    this->status[this->selections[0]] = Constants::MemoryGame_Status_Delete;
-                    this->status[this->selections[1]] = Constants::MemoryGame_Status_Delete;
+                    this->status[this->selections[0]] = MemoryGameStatus::Delete;
+                    this->status[this->selections[1]] = MemoryGameStatus::Delete;
 
                     for (uint8_t i = 0; i < 18; i++) {
 
-                        if (this->status[i] != Constants::MemoryGame_Status_Delete) {
+                        if (this->status[i] != MemoryGameStatus::Delete) {
 
                             this->cursor.x = i % 6;
                             this->cursor.y = i / 6;
@@ -135,6 +136,8 @@ printf("bbbbb\n");
 
                     this->spinIndex[this->selections[0]] = 8;
                     this->spinIndex[this->selections[1]] = 8;
+                    this->status[this->selections[0]] = MemoryGameStatus::Hide;
+                    this->status[this->selections[1]] = MemoryGameStatus::Hide;
                     this->moves--;
 
                 }
@@ -154,7 +157,7 @@ printf("bbbbb\n");
         
         for (uint8_t i = 0; i < 18; i++) {
 
-            if (this->status[i] != Constants::MemoryGame_Status_Delete) {
+            if (this->status[i] != MemoryGameStatus::Delete) {
 
                 return false;
 
