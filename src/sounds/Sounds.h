@@ -84,7 +84,7 @@ struct Sounds {
                         break;
                     
                     case Sounds::Effects::PickUpCoin:
-                        Audio::play<1>(sfx_01_Coin, 255, 1);        
+                        // Audio::play<1>(sfx_01_Coin, 255, 1);        
                         break;
 
                     case Sounds::Effects::LandOnTop:

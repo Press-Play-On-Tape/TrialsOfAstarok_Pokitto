@@ -24,7 +24,7 @@ void Game::playerSelect() {
     PD::drawBitmap(103, 37, Images::Torch[Utils::getFrameCount(16) / 4]);
 
     
-    PD::drawBitmap(25, 16, Images::EnterRunes_Text);
+    PD::drawBitmap(21, 16, Images::SelectPlayer);
     PD::drawBitmap(15, 31, Images::EnterRunes_00);
     PD::drawBitmap(15, 57, Images::EnterRunes_02);
     PD::drawBitmap(88, 31, Images::EnterRunes_01);

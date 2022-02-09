@@ -32,6 +32,159 @@ struct Slot {
 
 };
 
+struct MemoryGameVars {
+
+    uint8_t runes[18];
+    uint8_t spinIndex[18];
+    uint8_t status[18]; 
+
+    uint8_t selections[2];
+    uint8_t flashCounter = 0;
+    uint8_t moves = 3;
+    
+    Point cursor = { 0, 0 };
+
+    void reset() {
+
+        for (uint8_t i = 0; i < 18; i++) {
+
+            this->runes[i] = 255;
+            this->spinIndex[i] = 0;
+            this->status[i] = Constants::MemoryGame_Status_Hide;
+
+        }
+
+        for (uint8_t i = 0; i < 18; i++) {
+
+            while (true) {
+
+                uint8_t j = random(0, 18);
+
+                if (this->runes[j] == 255) {
+                    this->runes[j] = i < 12 ? i % 6 : (i - 12) % 3;
+                    break;
+                }
+
+            }
+
+        }
+
+        this->cursor.x = 0;
+        this->cursor.y = 0;
+
+        this->selections[0] = 255;
+        this->selections[1] = 255;
+
+        this->moves = 3;
+
+for (uint8_t i = 0; i < 18; i++) {
+    printf("%i ", runes[i]);
+}
+printf("\n");
+
+    }
+
+
+    void decSpinIndex() {
+
+        for (uint8_t i = 0; i < 18; i++) {
+                
+            if (this->spinIndex[i] > 0) {
+
+                this->spinIndex[i]--;
+
+                if (this->spinIndex[i] == 0) {
+printf("aaaaa\n");                    
+                    this->status[i] = Constants::MemoryGame_Status_Hide;
+                }
+                else if (this->spinIndex[i] == 8) {
+printf("bbbbb\n");                    
+                    this->status[i] = Constants::MemoryGame_Status_Show;
+                    this->spinIndex[i] = 0;
+                } 
+                
+            }
+
+        }
+
+        if (this->flashCounter > 0) {
+            
+            this->flashCounter--;
+
+            if (this->flashCounter == 0) {
+
+                if (this->runes[this->selections[0]] == this->runes[this->selections[1]]) {
+
+                    this->status[this->selections[0]] = Constants::MemoryGame_Status_Delete;
+                    this->status[this->selections[1]] = Constants::MemoryGame_Status_Delete;
+
+                    for (uint8_t i = 0; i < 18; i++) {
+
+                        if (this->status[i] != Constants::MemoryGame_Status_Delete) {
+
+                            this->cursor.x = i % 6;
+                            this->cursor.y = i / 6;
+                            break;
+
+                        }
+
+                    }
+                    
+                }
+                else {
+
+                    this->spinIndex[this->selections[0]] = 8;
+                    this->spinIndex[this->selections[1]] = 8;
+                    this->moves--;
+
+                }
+
+                this->selections[0] = 255;
+                this->selections[1] = 255;
+
+            }
+
+        }
+        
+    }
+
+    bool isGameOver() {
+
+        if (this->moves == 0) return true;
+        
+        for (uint8_t i = 0; i < 18; i++) {
+
+            if (this->status[i] != Constants::MemoryGame_Status_Delete) {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+
+    bool isTileSpinning() {
+        
+        for (uint8_t i = 0; i < 18; i++) {
+
+            if (this->spinIndex[i] > 0) {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+};
+
 struct PlayerSelectVars {
 
     uint8_t index = 0;
@@ -117,7 +270,6 @@ struct HighScoreVars {
         this->spinCountdown--;
         
     }
-
 
 };
 

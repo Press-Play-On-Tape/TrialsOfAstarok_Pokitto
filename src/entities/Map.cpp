@@ -108,6 +108,9 @@ void Map::generateRoom(uint8_t roomNum) {
                     
 
                     // Place items on lower platform?
+if (x == 4) {
+    this->addObject(ObjectTypes::MemoryMan, tSpawnBarrier + x, floor - 1);
+}
 
                     if (!(Utils::hash(this->game->seed) % 3)) {
 
@@ -149,7 +152,6 @@ void Map::generateRoom(uint8_t roomNum) {
 
                             case 26 ... 27:
                                 if (flatFloor >= 2) {
-
                                     this->addObject(ObjectTypes::Chest_Closed, tSpawnBarrier + x, floor - 1);
                                 }
                                 break;

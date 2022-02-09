@@ -1,0 +1,184 @@
+#include "Astarok.h"
+
+void Game::memoryGame_Init() {
+
+    memoryGameVars.reset();
+    
+    gameState = GameState::MemoryGame;
+
+}
+
+void Game::memoryGame() {
+
+
+// printf("%i %i\n", memoryGameVars.selections[0], memoryGameVars.selections[1]);
+    // Controls
+
+    if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
+
+        if (PC::buttons.pressed(BTN_LEFT) && memoryGameVars.cursor.x > 0) {
+            memoryGameVars.cursor.x--;
+        }
+
+        if (PC::buttons.pressed(BTN_RIGHT) && memoryGameVars.cursor.x < 5) {
+            memoryGameVars.cursor.x++;
+        }
+
+        if (PC::buttons.pressed(BTN_UP) && memoryGameVars.cursor.y > 0) {
+            memoryGameVars.cursor.y--;
+        }
+
+        if (PC::buttons.pressed(BTN_DOWN) && memoryGameVars.cursor.y < 2) {
+            memoryGameVars.cursor.y++;
+        }
+
+
+        if (PC::buttons.pressed(BTN_B)) {
+printf("BTN_B\n");
+            if (memoryGameVars.status[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] == Constants::MemoryGame_Status_Hide) {
+
+                memoryGameVars.spinIndex[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] = 16;
+                
+                if (memoryGameVars.selections[0] == 255) {
+                    memoryGameVars.selections[0] = memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6);
+                }
+                else{
+                    memoryGameVars.selections[1] = memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6);
+                }
+printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.selections[1]);
+            }
+            // else {
+            //     memoryGameVars.spinIndex[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] = 8;
+
+            // }
+
+
+        }
+
+    }
+
+
+    if (memoryGameVars.flashCounter == 0 && !memoryGameVars.isTileSpinning()) {
+
+
+            if (memoryGameVars.selections[1] != 255) {
+
+                memoryGameVars.status[memoryGameVars.selections[0]] = Constants::MemoryGame_Status_Flash;
+                memoryGameVars.status[memoryGameVars.selections[1]] = Constants::MemoryGame_Status_Flash;
+
+// for (uint8_t i = 0; i < 18; i++) {
+//     printf("%i ", memoryGameVars.status[i]);
+// }
+// printf("\n");
+
+                if (memoryGameVars.runes[memoryGameVars.selections[0]] == memoryGameVars.runes[memoryGameVars.selections[1]]) {
+
+                    memoryGameVars.flashCounter = 96;
+
+                    game.score = game.score + Constants::Points_Skill;
+                    sounds.playSoundEffect(Sounds::Effects::PickUpCoin, cookie->sfx);
+
+                }
+                else {
+// printf("no match\n");
+
+                    memoryGameVars.flashCounter = 48;
+
+                }
+
+            }
+
+
+    }
+
+    PD::drawBitmap(8, 11, Images::Intro_Brick_00);
+    PD::drawBitmap(89, 11, Images::Intro_Brick_01);
+
+    PD::drawBitmap(26, 11, Images::Torch[Utils::getFrameCount(16) / 4]);
+    PD::drawBitmap(76, 11, Images::Torch[Utils::getFrameCount(16) / 4]);
+
+    
+    PD::drawBitmap(39, 1, Images::MemoryGame);
+    PD::drawBitmap(8, 30, Images::EnterRunes_00);
+    PD::drawBitmap(8, 76, Images::EnterRunes_02);
+    PD::drawBitmap(95, 30, Images::EnterRunes_01);
+    PD::drawBitmap(95, 76, Images::EnterRunes_03);
+
+    PD::setColor(0xf8);
+    PD::drawFastHLine(14, 30, 81);
+    PD::drawFastHLine(14, 83, 81);
+
+// printf("render me ");
+// for (uint8_t i = 0; i < 18; i++) {
+//     printf("%i ", memoryGameVars.status[i]);
+// }
+// printf("\n");
+    for (uint8_t y = 0; y < 3; y++) {
+
+        for (uint8_t x = 0; x < 6; x++) {
+// if (memoryGameVars.flashCounter % 8 == 0) {            
+// printf("%i ", memoryGameVars.status[x + (y * 6)]);
+// }
+//            PD::drawBitmap(14 + (x * 14), 34 + (y * 16), Images::Rune_Frame_00);
+
+            if (memoryGameVars.status[x + (y * 6)] < Constants::MemoryGame_Status_Flash || ((memoryGameVars.status[x + (y * 6)] == Constants::MemoryGame_Status_Flash) && (memoryGameVars.flashCounter % 32 >= 16))) {
+
+
+                if (memoryGameVars.spinIndex[x + (y * 6)] > 0) {
+                    PD::drawBitmap(14 + (x * 14), 34 + (y * 16), Images::Rune_Frame[16 - memoryGameVars.spinIndex[x + (y * 6)]]);
+                }
+                else {
+                    PD::drawBitmap(14 + (x * 14), 34 + (y * 16), Images::Rune_Frame_00);
+
+                    if (memoryGameVars.status[x + (y * 6)] != Constants::MemoryGame_Status_Hide) {
+                        PD::drawBitmap(17 + (x * 14), 38 + (y * 16), Images::Runes[memoryGameVars.runes[x + (y * 6)]]);
+                    }
+
+                }
+
+            }
+
+        }
+
+
+    }
+
+// if (memoryGameVars.flashCounter % 8 == 0) {            
+// printf("- %i\n", memoryGameVars.flashCounter % 8);
+// }
+
+if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
+    PD::drawBitmap(14 + (memoryGameVars.cursor.x * 14), 34 + (memoryGameVars.cursor.y * 16), Images::Cursor);
+}
+
+
+
+    // Render HUD
+
+    uint8_t digits[5] = {};
+    int16_t tmpScore = game.score + game.player.x / Constants::TileSize; 
+    Utils::extractDigits(digits, static_cast<uint16_t>(tmpScore));
+
+    for (uint8_t x = 5; x > 0; x--) {
+        PD::drawBitmap(((5 - x) * 5), 1, Images::Numbers[digits[x - 1]]);
+    }
+
+
+    if (memoryGameVars.moves >= 3) { PD::drawBitmap(87, 0, Images::Moves_Full); }  else { PD::drawBitmap(87, 0, Images::Moves_Empty); }
+    if (memoryGameVars.moves >= 2) { PD::drawBitmap(95, 0, Images::Moves_Full); }  else { PD::drawBitmap(95, 0, Images::Moves_Empty); }
+    if (memoryGameVars.moves >= 1) { PD::drawBitmap(103, 0, Images::Moves_Full); } else { PD::drawBitmap(103, 0, Images::Moves_Empty); }
+
+
+    // Housekeeping ..
+
+    memoryGameVars.decSpinIndex();
+
+    if (memoryGameVars.isGameOver()) {
+
+        gameState = GameState::Game_Play;
+
+    }
+
+
+}
+

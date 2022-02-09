@@ -62,6 +62,8 @@ enum GameState {
 	Game_Init,
 	Game_Play,
 	Game_Mini,
+	MemoryGame_Init,
+	MemoryGame,
 	HighScore_Check,
 	HighScore_Flash,
 	HighScore_NoFlash,
@@ -138,6 +140,7 @@ enum ObjectTypes {
   Coin,
   Chest_Closed,
   Chest_Open,
+  MemoryMan,
 };
 
 enum EventType {

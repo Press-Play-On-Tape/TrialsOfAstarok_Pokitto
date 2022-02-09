@@ -49,6 +49,7 @@ namespace Images {
     #include "Sound_SFX_White.h"
 
     #include "PlayerSelector.h"
+    #include "SelectPlayer.h"
 
     const uint8_t * const Torch[] = { 
         Torch_00,

@@ -329,6 +329,17 @@ void AstarokGame::cycle(GameState &gameState) {
                             
                             break;
 
+                        case ObjectTypes::MemoryMan:
+                            
+                            if (PC::buttons.pressed(BTN_B) || PC::buttons.repeat(BTN_B, 1)) {
+                                
+                                gameState = GameState::MemoryGame_Init;
+                                this->chestObj = &obj;
+
+                            }
+                            
+                            break;
+
                         case ObjectTypes::Sign:
                             
                             if (this->signDelay == 0) {

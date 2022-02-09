@@ -14,10 +14,10 @@ using PD = Pokitto::Display;
 AstarokGame game();
 GameState gameState = GameState::SplashScreen_Init;
 
-TitleScreenVars titleScreenVars;
-HighScoreVars highScoreVars;
-IntroTextVars introTextVars;
-SeedVars seedVars;
+// TitleScreenVars titleScreenVars;
+// HighScoreVars highScoreVars;
+// IntroTextVars introTextVars;
+// SeedVars seedVars;
 
 void Game::setup(GameCookie *cookie) {
 
@@ -92,6 +92,18 @@ void Game::loop() {
 
             PD::clear();
             playerSelect();
+            break;
+
+        case GameState::MemoryGame_Init:
+
+            PD::clear();
+            memoryGame_Init();
+            [[fallthrough]]
+
+        case GameState::MemoryGame:
+
+            PD::clear();
+            memoryGame();
             break;
 
         case GameState::Game_Init:

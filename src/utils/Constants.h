@@ -1,6 +1,6 @@
 #pragma once
 
-#define _NO_DEATH
+#define NO_DEATH
 #define SOUNDS
 #define COOKIE_INITIALISED 44
 
@@ -44,4 +44,10 @@ namespace Constants {
                                                     3, 3, 4, 4, 
                                                   };   
 
+    constexpr uint8_t MemoryGame_Status_Hide    = 0;
+    constexpr uint8_t MemoryGame_Status_Show    = 1;
+    constexpr uint8_t MemoryGame_Status_Flash   = 2;
+    constexpr uint8_t MemoryGame_Status_Delete  = 3;
+
+                             
 }

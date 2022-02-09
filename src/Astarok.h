@@ -29,6 +29,7 @@ class Game {
         IntroTextVars introTextVars;
         SeedVars seedVars;
         PlayerSelectVars playerSelectVars;
+        MemoryGameVars memoryGameVars;
 
         GameCookie *cookie;
         Sounds sounds;
@@ -57,6 +58,9 @@ class Game {
 
         void splashScreen_Init();
         void splashScreen();
+
+        void memoryGame_Init();
+        void memoryGame();
 
         void drawBackground();
         void titleScreen();
