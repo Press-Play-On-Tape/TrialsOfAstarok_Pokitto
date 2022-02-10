@@ -14,11 +14,6 @@ using PD = Pokitto::Display;
 AstarokGame game();
 GameState gameState = GameState::SplashScreen_Init;
 
-// TitleScreenVars titleScreenVars;
-// HighScoreVars highScoreVars;
-// IntroTextVars introTextVars;
-// SeedVars seedVars;
-
 void Game::setup(GameCookie *cookie) {
 
     this->cookie = cookie;

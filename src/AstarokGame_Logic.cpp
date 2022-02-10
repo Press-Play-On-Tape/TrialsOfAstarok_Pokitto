@@ -1,13 +1,8 @@
 #include "AstarokGame.h"
-
 #include "utils/Utils.h"
-
 
 using PC = Pokitto::Core;
 using PD = Pokitto::Display;
-
-// extern File mainThemeFile;
-// extern Audio::RAWFileSource *music;
 
 AstarokGame::AstarokGame() {
 
@@ -376,6 +371,7 @@ void AstarokGame::cycle(GameState &gameState) {
 
         for (AISprite &obj : this->mobs) {
 
+
             // Adjust explode counter if explostion is in action ..
 
             obj.updateExplosion();
@@ -385,9 +381,7 @@ void AstarokGame::cycle(GameState &gameState) {
                 switch (obj.getType()) {
 
                     case ObjectTypes::Fireball:
-                        //if (this->event == EventType::Playing) {
-                            obj.move();
-                        //}
+                        obj.move();
                         break;
 
                     case ObjectTypes::Health:
@@ -467,7 +461,6 @@ void AstarokGame::cycle(GameState &gameState) {
                                             #ifndef NO_DEATH
                                             this->event = EventType::Flash; 
                                             this->eventCounter = Constants::EventCounter_Flash;
-                                            // this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                                             #endif
 
                                         }
@@ -663,33 +656,28 @@ void AstarokGame::playMiniGame(GameState &gameState) {
     PD::drawBitmap(x, y, Images::Frame);
     PD::drawBitmap(x + this->ballX + 4, y + 5, Images::Ball);
 
+    switch (this->ballDirection) {
 
-    // if (PC::frameCount % 3 > 0) {
+        case Direction::Left:
+            this->ballX = this->ballX - increments[ballIdx];
+            this->ballIdx--;
+            if (this->ballIdx == 0) {
+                this->ballDirection = Direction::Right;
+            }
+            break;
 
-        switch (this->ballDirection) {
+        case Direction::Right:
+            this->ballX = this->ballX + increments[ballIdx];
+            this->ballIdx++;
+            if (this->ballIdx == 10) {
+                this->ballDirection = Direction::Left;
+            }
+            break;
+        
+        default:
+            break;
 
-            case Direction::Left:
-                this->ballX = this->ballX - increments[ballIdx];
-                this->ballIdx--;
-                if (this->ballIdx == 0) {
-                    this->ballDirection = Direction::Right;
-                }
-                break;
-
-            case Direction::Right:
-                this->ballX = this->ballX + increments[ballIdx];
-                this->ballIdx++;
-                if (this->ballIdx == 10) {
-                    this->ballDirection = Direction::Left;
-                }
-                break;
-            
-            default:
-                break;
-
-        }
-
-    // }
+    }
 
     switch (this->ballDelay) {
         

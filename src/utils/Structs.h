@@ -78,11 +78,6 @@ struct MemoryGameVars {
 
         this->moves = 3;
 
-// for (uint8_t i = 0; i < 18; i++) {
-//     printf("%i ", runes[i]);
-// }
-// printf("\n");
-
     }
 
 
@@ -355,10 +350,6 @@ struct SeedVars {
     }
 
     void reset() {
-
-        for (uint8_t i = 0; i < 5; i++) {
-            //this->seed[i] = static_cast<uint8_t>(EEPROM.read(Constants::EEPROM_Seeds + i));
-        }
 
         this->arrowDown = 0;
         this->arrowUp = 0;

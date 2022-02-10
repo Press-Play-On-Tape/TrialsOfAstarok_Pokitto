@@ -55,14 +55,12 @@ void Game::seed() {
         if (PC::buttons.pressed(BTN_UP)) {
             seedVars.incValue();
             cookie->seeds[seedVars.index] = seedVars.seed[seedVars.index];
-            cookie->saveCookie();
             this->sounds.playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
         }
 
         if (PC::buttons.pressed(BTN_DOWN)) { 
             seedVars.decValue();
             cookie->seeds[seedVars.index] = seedVars.seed[seedVars.index];
-            cookie->saveCookie();
             this->sounds.playSoundEffect(Sounds::Effects::ButtonPress, this->cookie->sfx);
         }
 
@@ -77,7 +75,6 @@ void Game::seed() {
 
         if (PC::buttons.pressed(BTN_A) || PC::buttons.pressed(BTN_B)) {
 
-            cookie->sex = (cookie->sex == Sex::Male ? Sex::Female : Sex::Male);
             cookie->saveCookie();
 
             game.seed = seedVars.getSeedValue();
