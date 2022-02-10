@@ -16,6 +16,7 @@ namespace Images {
     #include "Platform_01.h"
     #include "TBrick_Outside.h"
     #include "TBrick_Underground.h"
+    #include "Water.h"
 
     const uint8_t * const Tile_Brick[] = { 
         TBrick_Underground,

@@ -436,11 +436,25 @@ void Sprite::draw() {
             break;
 
         case ObjectTypes::Fireball:
-            if (this->vy > 0) {
-                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Fireball_Down);
+            if (this->game->mapNumber % 2 == 0) {
+
+                if (this->vy > 0) {
+                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Fireball_Down);
+                }
+                else {
+                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Fireball_Up);
+                }
+
             }
             else {
-                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Fireball_Up);
+
+                if (this->vy > 0) {
+                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Pirahna_Down);
+                }
+                else {
+                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Pirahna_Up);
+                }
+
             }
             break;
 

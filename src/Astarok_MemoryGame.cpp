@@ -11,7 +11,6 @@ void Game::memoryGame_Init() {
 void Game::memoryGame() {
 
 
-// printf("%i %i\n", memoryGameVars.selections[0], memoryGameVars.selections[1]);
     // Controls
 
     if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
@@ -32,9 +31,8 @@ void Game::memoryGame() {
             memoryGameVars.cursor.y++;
         }
 
+        if (PC::buttons.pressed(BTN_A)) {
 
-        if (PC::buttons.pressed(BTN_B)) {
-printf("BTN_B\n");
             if (memoryGameVars.status[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] == MemoryGameStatus::Hide) {
 
                 memoryGameVars.spinIndex[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] = 16;
@@ -45,13 +43,8 @@ printf("BTN_B\n");
                 else{
                     memoryGameVars.selections[1] = memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6);
                 }
-printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.selections[1]);
+
             }
-            // else {
-            //     memoryGameVars.spinIndex[memoryGameVars.cursor.x + (memoryGameVars.cursor.y * 6)] = 8;
-
-            // }
-
 
         }
 
@@ -73,7 +66,7 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
 
                 if (memoryGameVars.runes[memoryGameVars.selections[0]] == memoryGameVars.runes[memoryGameVars.selections[1]]) {
 
-                    memoryGameVars.flashCounter = 96;
+                    memoryGameVars.flashCounter = 120;
 
                     game.score = game.score + Constants::Points_Skill;
                     sounds.playSoundEffect(Sounds::Effects::PickUpCoin, cookie->sfx);
@@ -82,7 +75,8 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
                 else {
 // printf("no match\n");
 
-                    memoryGameVars.flashCounter = 48;
+                    memoryGameVars.flashCounter = 72;
+                    sounds.playSoundEffect(Sounds::Effects::Fail, cookie->sfx);
 
                 }
 
@@ -98,7 +92,7 @@ printf("selections %i %i\n", memoryGameVars.selections[0], memoryGameVars.select
     PD::drawBitmap(76, 11, Images::Torch[Utils::getFrameCount(16) / 4]);
 
     
-    PD::drawBitmap(39, 1, Images::MemoryGame);
+    PD::drawBitmap(38, 0, Images::MemoryGame);
     PD::drawBitmap(8, 30, Images::EnterRunes_00);
     PD::drawBitmap(8, 76, Images::EnterRunes_02);
     PD::drawBitmap(95, 30, Images::EnterRunes_01);
@@ -176,10 +170,9 @@ if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
     if (memoryGameVars.isGameOver()) {
 
         gameState = GameState::Game_Play;
-        game.chestObj->deactivate();
+        game.chestObj->deactivate(true);
 
     }
-
 
 }
 

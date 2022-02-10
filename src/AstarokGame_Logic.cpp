@@ -273,6 +273,8 @@ void AstarokGame::cycle(GameState &gameState) {
         for (InteractiveObject &obj : this->level.objects) {
 
             if (obj.x >= 0) {
+                
+                obj.updateExplosion();
 
                 Rect playerRect = this->player.getRect();
                 Rect objRect = { obj.x * Constants::TileSize, obj.y * Constants::TileSize, Constants::TileSize, Constants::TileSize };
@@ -307,7 +309,7 @@ void AstarokGame::cycle(GameState &gameState) {
 
                         case ObjectTypes::Coin:
 
-                            obj.deactivate();
+                            obj.deactivate(false);
                             this->score += Constants::Points_Coin;
                             this->sounds->playSoundEffect(Sounds::Effects::PickUpCoin, this->cookie->sfx);
 

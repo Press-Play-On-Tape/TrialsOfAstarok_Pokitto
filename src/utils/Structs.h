@@ -78,10 +78,10 @@ struct MemoryGameVars {
 
         this->moves = 3;
 
-for (uint8_t i = 0; i < 18; i++) {
-    printf("%i ", runes[i]);
-}
-printf("\n");
+// for (uint8_t i = 0; i < 18; i++) {
+//     printf("%i ", runes[i]);
+// }
+// printf("\n");
 
     }
 
@@ -95,11 +95,11 @@ printf("\n");
                 this->spinIndex[i]--;
 
                 if (this->spinIndex[i] == 0) {
-printf("aaaaa\n");                    
+
                     this->status[i] = MemoryGameStatus::Hide;
                 }
                 else if (this->spinIndex[i] == 8) {
-printf("bbbbb\n");                    
+
                     this->status[i] = MemoryGameStatus::Show;
                     this->spinIndex[i] = 0;
                 } 

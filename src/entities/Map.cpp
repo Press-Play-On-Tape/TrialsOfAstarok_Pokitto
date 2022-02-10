@@ -259,7 +259,7 @@ void Map::newMap() {
     this->firstRoom = 0; 
     this->spawnBarrier = 0;
 
-    for (uint8_t a = 0; a < Constants::MapObjects; a++) objects[a].deactivate();
+    for (uint8_t a = 0; a < Constants::MapObjects; a++) objects[a].deactivate(false);
     for (uint8_t a = 0; a < Constants::SpriteCap; a++) this->game->mobs[a].deactivate(false);
 
     // Seed for level length
@@ -305,6 +305,18 @@ uint8_t Map::checkObject(int x, int y) {
     }
 
     return 0;
+}
+
+
+InteractiveObject *Map::getObject(int x, int y) {
+
+    if (y < 0) return nullptr;
+
+    for (InteractiveObject &obj : this->objects) {
+        if ((obj.x == x) && (obj.y == y)) return &obj;
+    }
+
+    return nullptr;
 }
 
 int16_t Map::minXPixel() { return this->firstRoom * Constants::RoomWidth * Constants::TileSize; }

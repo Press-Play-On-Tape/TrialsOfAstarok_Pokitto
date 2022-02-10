@@ -14,6 +14,8 @@ namespace Images {
     #include "Bolt.h"
     #include "Fireball_Up.h"
     #include "Fireball_Down.h"
+    #include "Pirahna_Up.h"
+    #include "Pirahna_Down.h"
     #include "MemoryMan.h"
 
 };

@@ -12,10 +12,12 @@
 #include "07_Bump.h"
 #include "08_OpenChest.h"
 #include "09_Game_Over.h"
+#include "10_Fail.h"
 
 struct Sounds {
 
     File mainThemeFile;
+    File soundEffectFile;
     Audio::RAWFileSource *music;
 
     enum class Effects : uint8_t {
@@ -26,6 +28,7 @@ struct Sounds {
         Die,
         OneUp,
         ButtonPress,
+        Fail,
     };
 
 
@@ -84,7 +87,7 @@ struct Sounds {
                         break;
                     
                     case Sounds::Effects::PickUpCoin:
-                        // Audio::play<1>(sfx_01_Coin, 255, 1);        
+                        playSoundEffect_FromSD(soundEffect);
                         break;
 
                     case Sounds::Effects::LandOnTop:
@@ -108,9 +111,9 @@ struct Sounds {
                         Audio::play<1>(sfx_04_Beep, 255, 1);        
                         break;           
 
-                    // case Sounds::Effects::GameOver:
-                    //     Audio::play<1>(sfx_09_Game_Over, 255, 1);        
-                    //     break;                        
+                    case Sounds::Effects::Fail:
+                        Audio::play<1>(sfx_10_Fail, 255, 1);        
+                        break;           
 
                 }
 
@@ -121,5 +124,17 @@ struct Sounds {
         }
 
     }    
+
+
+    void playSoundEffect_FromSD(Sounds::Effects soundEffect) {
+
+        constexpr char sounds[1][19] = { "music/Astaro05.raw" }; // Coins
+
+        if (this->soundEffectFile.openRO(sounds[0])) {
+            this->music = &Audio::play<1>(soundEffectFile);
+            this->music->setLoop(false);
+        }
+
+    }
     
 };

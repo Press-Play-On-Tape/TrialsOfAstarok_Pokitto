@@ -279,10 +279,13 @@ void AstarokGame::drawMap_Background() {
             PD::drawBitmap((i * 110) - backgroundXOffset, backgroundYOffset + 8, Images::Sky_Background);
         }
 
+        for (int8_t i = -(PC::frameCount % 16) / 4; i < 110; i = i + 24) {
+            PD::drawBitmap(i, 182 - this->camera.y, Images::Water);
+        }
+
     }
     else {
 
-        // for (uint8_t i = 0; i <= 165; i += 55) {
         for (uint16_t i = 0; i <= 220; i += 110) {
 
             PD::drawBitmap(i + 2 - backgroundXOffset, backgroundYOffset, Images::Underground_Chain);
@@ -315,43 +318,70 @@ void AstarokGame::drawMap_Background() {
             }
             else {
 
-                ObjectTypes tile = static_cast<ObjectTypes>(this->level.checkObject(x, y));
+                InteractiveObject *obj = this->level.getObject(x, y);
 
-                switch (tile) {
+                if (obj != nullptr) {
+                        
+                    switch (obj->getType()) {
 
-                    // case ObjectTypes::QBlock ... ObjectTypes::Bricks:
-                    //     PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::SpriteImages[tile]);
-                    //     break;
+                        // case ObjectTypes::QBlock ... ObjectTypes::Bricks:
+                        //     PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::SpriteImages[tile]);
+                        //     break;
 
-                    case ObjectTypes::AboveGroundExit:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x - 36, y * Constants::TileSize - this->camera.y - 24, Images::Outside_Exit_00);
-                        break;
+                        case ObjectTypes::AboveGroundExit:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x - 36, y * Constants::TileSize - this->camera.y - 24, Images::Outside_Exit_00);
+                            }
+                            break;
 
-                    case ObjectTypes::UnderGroundExit:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x - 13, y * Constants::TileSize - this->camera.y - 4, Images::Underground_Exit_00);
-                        break;
+                        case ObjectTypes::UnderGroundExit:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x - 13, y * Constants::TileSize - this->camera.y - 4, Images::Underground_Exit_00);
+                            }
+                            break;
 
-                    case ObjectTypes::Sign:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x - 4, y * Constants::TileSize - this->camera.y - 4, Images::SignPost[this->mapNumber % 2]);
-                        break;
+                        case ObjectTypes::Sign:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x - 4, y * Constants::TileSize - this->camera.y - 4, Images::SignPost[this->mapNumber % 2]);
+                            }
+                            break;
 
-                    case ObjectTypes::Coin:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Coins[Utils::getFrameCount(16) / 4]);
-                        break;
+                        case ObjectTypes::Coin:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Coins[Utils::getFrameCount(16) / 4]);
+                            }
+                            break;
 
-                    case ObjectTypes::Chest_Closed:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 3, Images::Chest_Closed);
-                        break;
+                        case ObjectTypes::Chest_Closed:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 3, Images::Chest_Closed);
+                            }
+                            break;
 
-                    case ObjectTypes::Chest_Open:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 2, Images::Chest_Open);
-                        break;
+                        case ObjectTypes::Chest_Open:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 2, Images::Chest_Open);
+                            }
+                            break;
 
-                    case ObjectTypes::MemoryMan:
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 3, Images::MemoryMan);
-                        break;
+                        case ObjectTypes::MemoryMan:
+                            if (obj->getActive() || obj->explodeCounter > 16) {
+                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::MemoryMan);
+                            }
+                            break;
 
-                    default: break;
+                        default: break;
+
+                    }
+
+
+                    if (obj->explodeCounter > 0) {
+
+                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, 
+                                    Images::Puffs[(((21 - obj->explodeCounter) / 3) * 2) + (this->mapNumber % 2 ? 1 : 0)]); 
+
+                    }
+
                 }
 
             }
