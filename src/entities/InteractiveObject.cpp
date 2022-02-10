@@ -43,6 +43,6 @@ void InteractiveObject::updateExplosion() {
 
 bool InteractiveObject::getActive() {
 
-    return (this->x >= 0);
+    return (this->x >= 0 && this->explodeCounter == 0);
 
 }

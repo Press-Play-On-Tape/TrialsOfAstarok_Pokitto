@@ -273,14 +273,13 @@ void AstarokGame::drawMap_Background() {
     int16_t backgroundXOffset = (this->camera.x / 4) % 110;
     int16_t backgroundYOffset = this->camera.y / 12;
 
+
+    // Render backgrounds ..
+
     if (this->mapNumber % 2 == MapLevel::AboveGround) {
 
         for (uint8_t i = 0; i < 2; i++) {
             PD::drawBitmap((i * 110) - backgroundXOffset, backgroundYOffset + 8, Images::Sky_Background);
-        }
-
-        for (int8_t i = -(PC::frameCount % 16) / 4; i < 110; i = i + 24) {
-            PD::drawBitmap(i, 182 - this->camera.y, Images::Water);
         }
 
     }
@@ -299,6 +298,96 @@ void AstarokGame::drawMap_Background() {
 
     }
 
+
+    // Render interactive tiles ..
+
+    for (int x = (this->camera.x / Constants::TileSize) - 12; x < (this->camera.x / Constants::TileSize) + 17; x++) {
+
+        for (int y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
+
+            InteractiveObject *obj = this->level.getObject(x, y);
+
+            if (obj != nullptr) {
+                    
+                switch (obj->getType()) {
+
+                    case ObjectTypes::AboveGroundExit:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x - 36, y * Constants::TileSize - this->camera.y - 24, Images::Outside_Exit_00);
+                        }
+                        break;
+
+                    case ObjectTypes::UnderGroundExit:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x - 13, y * Constants::TileSize - this->camera.y - 4, Images::Underground_Exit_00);
+                        }
+                        break;
+
+                    case ObjectTypes::Sign:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x - 4, y * Constants::TileSize - this->camera.y - 4, Images::SignPost[this->mapNumber % 2]);
+                        }
+                        break;
+
+                    case ObjectTypes::Coin:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Coins[Utils::getFrameCount(16) / 4]);
+                        }
+                        break;
+
+                    case ObjectTypes::Chest_Closed:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 3, Images::Chest_Closed);
+                        }
+                        break;
+
+                    case ObjectTypes::Chest_Open:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 2, Images::Chest_Open);
+                        }
+                        break;
+
+                    case ObjectTypes::MemoryMan:
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 5, Images::MemoryMan);
+                        }
+                        break;
+
+                    default: break;
+
+                }
+
+                if (obj->explodeCounter > 0) {
+
+                    PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, 
+                                Images::Puffs[(((21 - obj->explodeCounter) / 3) * 2) + (this->mapNumber % 2 ? 1 : 0)]); 
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+
+void AstarokGame::drawMap_Background_2() {
+
+    // Rneder water ..
+
+    if (this->mapNumber % 2 == MapLevel::AboveGround) {
+
+        for (int8_t i = -(PC::frameCount % 16) / 4; i < 110; i = i + 24) {
+            PD::drawBitmap(i, 182 - this->camera.y, Images::Water);
+        }
+
+    }
+
+
+    // Render tiles last ..
+
     for (int x = (this->camera.x / Constants::TileSize) - 12; x < (this->camera.x / Constants::TileSize) + 17; x++) {
 
         for (int y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
@@ -312,75 +401,6 @@ void AstarokGame::drawMap_Background() {
                 }
                 else {
                     PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Platform[this->mapNumber % 2 == MapLevel::AboveGround]);
-
-                }
-
-            }
-            else {
-
-                InteractiveObject *obj = this->level.getObject(x, y);
-
-                if (obj != nullptr) {
-                        
-                    switch (obj->getType()) {
-
-                        // case ObjectTypes::QBlock ... ObjectTypes::Bricks:
-                        //     PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::SpriteImages[tile]);
-                        //     break;
-
-                        case ObjectTypes::AboveGroundExit:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x - 36, y * Constants::TileSize - this->camera.y - 24, Images::Outside_Exit_00);
-                            }
-                            break;
-
-                        case ObjectTypes::UnderGroundExit:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x - 13, y * Constants::TileSize - this->camera.y - 4, Images::Underground_Exit_00);
-                            }
-                            break;
-
-                        case ObjectTypes::Sign:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x - 4, y * Constants::TileSize - this->camera.y - 4, Images::SignPost[this->mapNumber % 2]);
-                            }
-                            break;
-
-                        case ObjectTypes::Coin:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::Coins[Utils::getFrameCount(16) / 4]);
-                            }
-                            break;
-
-                        case ObjectTypes::Chest_Closed:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 3, Images::Chest_Closed);
-                            }
-                            break;
-
-                        case ObjectTypes::Chest_Open:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 2, Images::Chest_Open);
-                            }
-                            break;
-
-                        case ObjectTypes::MemoryMan:
-                            if (obj->getActive() || obj->explodeCounter > 16) {
-                                PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, Images::MemoryMan);
-                            }
-                            break;
-
-                        default: break;
-
-                    }
-
-
-                    if (obj->explodeCounter > 0) {
-
-                        PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y, 
-                                    Images::Puffs[(((21 - obj->explodeCounter) / 3) * 2) + (this->mapNumber % 2 ? 1 : 0)]); 
-
-                    }
 
                 }
 
@@ -467,8 +487,9 @@ void AstarokGame::drawPlayer() {
 void AstarokGame::draw() {
 
     drawMap_Background(); 
-    drawPlayer(); 
     drawMobs(); 
+    drawMap_Background_2(); 
+    drawPlayer(); 
     drawMap_Foreground(); 
     drawHUD();
     renderPause();

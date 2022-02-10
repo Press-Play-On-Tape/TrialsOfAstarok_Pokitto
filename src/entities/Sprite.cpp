@@ -449,10 +449,10 @@ void Sprite::draw() {
             else {
 
                 if (this->vy > 0) {
-                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Pirahna_Down);
+                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Pirahna_Down[(PC::frameCount % 12) / 6]);
                 }
                 else {
-                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Pirahna_Up);
+                    PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Pirahna_Up[(PC::frameCount % 12) / 6]);
                 }
 
             }

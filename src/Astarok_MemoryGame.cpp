@@ -141,9 +141,9 @@ void Game::memoryGame() {
 // printf("- %i\n", memoryGameVars.flashCounter % 8);
 // }
 
-if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
-    PD::drawBitmap(18 + (memoryGameVars.cursor.x * 14), 42 + (memoryGameVars.cursor.y * 16), Images::Cursor);
-}
+    if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
+        PD::drawBitmap(18 + (memoryGameVars.cursor.x * 14), 42 + (memoryGameVars.cursor.y * 16), Images::Cursor);
+    }
 
 
 
@@ -158,9 +158,9 @@ if (!memoryGameVars.isTileSpinning() && memoryGameVars.flashCounter == 0) {
     }
 
 
-    if (memoryGameVars.moves >= 3) { PD::drawBitmap(87, 0, Images::Moves_Full); }  else { PD::drawBitmap(87, 0, Images::Moves_Empty); }
-    if (memoryGameVars.moves >= 2) { PD::drawBitmap(95, 0, Images::Moves_Full); }  else { PD::drawBitmap(95, 0, Images::Moves_Empty); }
-    if (memoryGameVars.moves >= 1) { PD::drawBitmap(103, 0, Images::Moves_Full); } else { PD::drawBitmap(103, 0, Images::Moves_Empty); }
+    if (memoryGameVars.moves >= 3) { PD::drawBitmap(89, 1, Images::Moves_Empty); }  else { PD::drawBitmap(89, 1, Images::Moves_Full); }
+    if (memoryGameVars.moves >= 2) { PD::drawBitmap(96, 1, Images::Moves_Empty); }  else { PD::drawBitmap(96, 1, Images::Moves_Full); }
+    if (memoryGameVars.moves >= 1) { PD::drawBitmap(103, 1, Images::Moves_Empty); } else { PD::drawBitmap(103, 1, Images::Moves_Full); }
 
 
     // Housekeeping ..

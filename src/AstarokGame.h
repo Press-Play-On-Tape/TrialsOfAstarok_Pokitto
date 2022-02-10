@@ -72,6 +72,7 @@ class AstarokGame {
         bool testCollision(Sprite * player, AISprite * sprite);
         void die(GameState &gameState);
         void drawMap_Background();
+        void drawMap_Background_2();
         void drawMap_Foreground();
         void drawHUD();
         void drawPlayer();
