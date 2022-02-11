@@ -44,29 +44,12 @@ class AstarokGame {
         bool                  pause = false;
         uint32_t              seed = 0;
 
-
-
-uint8_t death_loc = 0;
-uint8_t death_loc_Map;
-uint8_t death_loc_Room;
-uint8_t death_Sprite_Type;
-uint8_t death_Sprite;
-int16_t death_SX;
-int16_t death_SY;
-int16_t death_EC;
-bool death_IA;
-int16_t death_PX;
-int16_t death_PY; 
-
-
-
     private:
         uint8_t               cameraOffset;
         uint8_t               signDelay;
         Direction             cameraPan;
 
         Particle particles[Constants::ParticlesMax];
-
 
     public:  // Constructor
         AstarokGame();

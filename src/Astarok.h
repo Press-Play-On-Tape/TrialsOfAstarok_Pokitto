@@ -34,10 +34,6 @@ class Game {
         GameCookie *cookie;
         Sounds sounds;
 
-    // public:
-    //     File mainThemeFile;
-    //     Audio::RAWFileSource *music;
-
     public:
         void setup(GameCookie *cookie);
         void loop();

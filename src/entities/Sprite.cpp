@@ -476,6 +476,10 @@ void Sprite::draw() {
             }
             break;
 
+        case ObjectTypes::Bolt:
+            PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Bolt);
+            break;
+
         default:
             if (this->autoExpire > 20 || (this->autoExpire / 4) % 2 == 0) {
                 PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Default);

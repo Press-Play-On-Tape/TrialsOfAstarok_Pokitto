@@ -27,7 +27,7 @@ void AstarokGame::newGame() {
 
     this->score = -2;
     this->lives = 1;
-    this->mapNumber = 1;
+    this->mapNumber = 2;
     this->player.init(Data::Astarok, 24, spawnY());
 
     this->startLevel();
@@ -555,16 +555,6 @@ this->death_PY = player.y;
 
                     this->lives = 0;
                     this->event = EventType::Death_Init; 
-this->death_loc = 3;
-this->death_loc_Map = this->mapNumber;
-this->death_Sprite_Type = 255;
-this->death_Sprite = 255;
-this->death_SX = 0;
-this->death_SY = 0;
-this->death_EC = 0;
-this->death_IA = 0;
-this->death_PX = player.x;
-this->death_PY = player.y;                    
                     this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                     this->eventCounter = Constants::EventCounter_Death - 3; 
 

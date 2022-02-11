@@ -3,8 +3,7 @@
 
 
 void Map::generateRoom(uint8_t roomNum) {
-
-this->game->death_loc_Room = roomNum;   
+ 
     this->game->seed = this->game->seeds[(this->game->mapNumber + roomNum) % Constants::GameSeeds] * this->game->mapNumber + roomNum;
 
     rooms[roomNum % Constants::MapRooms].clearRoom();
@@ -19,6 +18,7 @@ this->game->death_loc_Room = roomNum;
     bool largeGapFinished = false;
     int tSpawnBarrier = roomNum * Constants::RoomWidth;
     uint8_t flatFloor = 0;
+    bool memoryMan = false;
 
 
     // If this is the first room on a level, add the sign ..
@@ -153,23 +153,7 @@ this->game->death_loc_Room = roomNum;
 
                             case 26 ... 27:
                                 if (flatFloor >= 2) {
-
-                                    if (this->game->mapNumber % 2 == 0) {
-                                            
-                                        if (random(0, 2) == 0) {
-                                            this->addObject(ObjectTypes::MemoryMan, tSpawnBarrier + x, floor - 1);
-                                        }
-                                        else {
-                                            this->addObject(ObjectTypes::Chest_Closed, tSpawnBarrier + x, floor - 1);
-                                        }
-
-                                    }
-                                    else {
-
-                                        this->addObject(ObjectTypes::Chest_Closed, tSpawnBarrier + x, floor - 1);
-
-                                    }
-
+                                    this->addObject(ObjectTypes::Chest_Closed, tSpawnBarrier + x, floor - 1);
                                 }
                                 break;
 
@@ -184,10 +168,22 @@ this->game->death_loc_Room = roomNum;
                         }
 
                     }
+                    else {
+
+                        if (this->game->mapNumber % 4 == 2 && roomNum == 2 && memoryMan == false) {
+
+                            this->addObject(ObjectTypes::MemoryMan, tSpawnBarrier + x, floor - 1);
+                            memoryMan = true;
+
+                        }
+
+                    }
 
                 }
 
             }
+
+
 
         }
         else {
