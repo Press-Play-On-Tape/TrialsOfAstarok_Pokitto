@@ -475,7 +475,13 @@ void Sprite::draw() {
                 PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Health);
             }
             break;
-            
+
+        default:
+            if (this->autoExpire > 20 || (this->autoExpire / 4) % 2 == 0) {
+                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Default);
+            }
+            break;
+
     }
 
 }

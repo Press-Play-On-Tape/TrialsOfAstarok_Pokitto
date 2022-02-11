@@ -19,6 +19,7 @@ namespace Images {
     #include "Pirahna_Down_00.h"
     #include "Pirahna_Down_01.h"
     #include "MemoryMan.h"
+    #include "Default.h"
 
     const uint8_t * const Pirahna_Up[] = { 
         Pirahna_Up_00,

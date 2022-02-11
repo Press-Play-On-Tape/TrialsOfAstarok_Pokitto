@@ -3,7 +3,8 @@
 
 
 void Map::generateRoom(uint8_t roomNum) {
-   
+
+this->game->death_loc_Room = roomNum;   
     this->game->seed = this->game->seeds[(this->game->mapNumber + roomNum) % Constants::GameSeeds] * this->game->mapNumber + roomNum;
 
     rooms[roomNum % Constants::MapRooms].clearRoom();

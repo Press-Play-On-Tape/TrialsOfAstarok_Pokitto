@@ -134,6 +134,38 @@ void AstarokGame::renderTrialOver() {
 
     PD::drawBitmap(6, 20, Images::GameOver);
 
+    PD::setColor(0, 0);
+    PD::fillRect(5, 5, 90, 40);
+
+    PD::setColor(7, 0);
+
+    PD::setCursor(8, 10);
+    PD::print((uint16_t)death_loc);
+    PD::print(", MP: ");
+    PD::print((uint16_t)death_loc_Map);
+    PD::print(", RM: ");
+    PD::print((uint16_t)death_loc_Room);
+    PD::print(",");
+    PD::print((uint16_t)death_Sprite_Type);
+    PD::print(",");
+    PD::print((uint16_t)death_Sprite);
+
+    PD::setCursor(8, 19);
+    PD::print("Sprite:");
+    PD::print(death_SX);
+    PD::print(",");
+    PD::print(death_SY);
+    PD::print(",");
+    PD::print(death_EC);
+    PD::print(",");
+    PD::print(death_IA ? "T":"F");
+
+    PD::setCursor(8, 28);
+    PD::print("Player:");
+    PD::print(death_PX);
+    PD::print(",");
+    PD::print(death_PY);
+
 }
 
 void AstarokGame::renderPause() {
@@ -354,6 +386,9 @@ void AstarokGame::drawMap_Background() {
                         break;
 
                     default: break;
+                        if (obj->getActive() || obj->explodeCounter > 16) {
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 5, Images::Default);
+                        }
 
                 }
 
