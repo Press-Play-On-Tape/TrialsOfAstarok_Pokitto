@@ -27,7 +27,7 @@ void AstarokGame::newGame() {
 
     this->score = -2;
     this->lives = 1;
-    this->mapNumber = 2;
+    this->mapNumber = 1;
     this->player.init(Data::Astarok, 24, spawnY());
 
     this->startLevel();
@@ -449,17 +449,6 @@ void AstarokGame::cycle(GameState &gameState) {
                                             if (this->eventCounter == 0) {
                                                 
                                                 this->event = EventType::Death_Init; 
-this->death_loc = 1;
-this->death_loc_Map = this->mapNumber;
-this->death_Sprite_Type = 255;
-this->death_Sprite = 255;
-this->death_SX = 0;
-this->death_SY = 0;
-this->death_EC = 0;
-this->death_IA = 0;
-this->death_PX = player.x;
-this->death_PY = player.y;
-
                                                 this->eventCounter = Constants::EventCounter_Death;   
                                                 this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                                                 obj.deactivate(true);
@@ -511,17 +500,6 @@ this->death_PY = player.y;
 
                                 #ifndef NO_DEATH
                                 this->event = EventType::Death_Init; 
-this->death_loc = 2;
-this->death_loc_Map = this->mapNumber;
-this->death_Sprite_Type = 0;
-this->death_Sprite = obj.getType();
-this->death_SX = obj.x;
-this->death_SY = obj.y;
-this->death_EC = obj.explodeCounter;
-this->death_IA = obj.getActive();
-this->death_PX = player.x;
-this->death_PY = player.y;
-                                
                                 this->eventCounter = Constants::EventCounter_Death;
                                 this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                                 #endif
