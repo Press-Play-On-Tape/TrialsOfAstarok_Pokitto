@@ -1,7 +1,6 @@
 #pragma once
 
 #include <LibAudio>
-#include "../Utils/SFXVolumeSource.hpp"
 
 #include "01_Coin.h"
 #include "02_Die.h"
@@ -83,7 +82,7 @@ struct Sounds {
                 switch (soundEffect) {
                     
                     case Sounds::Effects::OpenChest:
-                        Audio::play<1>(sfx_08_OpenChest, 255, 1);        
+                        Audio::play<1>(sfx_08_OpenChest);        
                         break;
                     
                     case Sounds::Effects::PickUpCoin:
@@ -91,28 +90,28 @@ struct Sounds {
                         break;
 
                     case Sounds::Effects::LandOnTop:
-                        Audio::play<1>(sfx_05_Stomp, 255, 1);        
+                        Audio::play<1>(sfx_05_Stomp);        
                         break;
 
                     case Sounds::Effects::Jump:
-                        Audio::play<1>(sfx_06_Jump, 255, 1);        
+                        Audio::play<1>(sfx_06_Jump);        
                         break;
 
                     case Sounds::Effects::Die:
                         Audio::stop<0>();
-                        Audio::play<1>(sfx_02_Die, 255, 1);        
+                        Audio::play<1>(sfx_02_Die);        
                         break;
 
                     case Sounds::Effects::OneUp:
-                        Audio::play<1>(sfx_03_One_Up, 255, 1);        
+                        Audio::play<1>(sfx_03_One_Up);        
                         break;
 
                     case Sounds::Effects::ButtonPress:
-                        Audio::play<1>(sfx_04_Beep, 255, 1);        
+                        Audio::play<1>(sfx_04_Beep);        
                         break;           
 
                     case Sounds::Effects::Fail:
-                        Audio::play<1>(sfx_10_Fail, 255, 1);        
+                        Audio::play<1>(sfx_10_Fail);        
                         break;           
 
                 }
