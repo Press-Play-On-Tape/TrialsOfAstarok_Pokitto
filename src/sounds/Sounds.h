@@ -13,11 +13,25 @@
 #include "09_Game_Over.h"
 #include "10_Fail.h"
 
+
 struct Sounds {
 
     File mainThemeFile;
     File soundEffectFile;
     Audio::RAWFileSource *music;
+
+    // uint16_t volume = 256;
+
+    // void connectVolumeControl(uint32_t lastChannel){
+    //     Audio::connect(
+    //         lastChannel,
+    //         nullptr,
+    //         +[](uint8_t *buffer, void *){
+    //             for(int i=0; i<512; ++i) 
+    //                 buffer[i] = buffer[i] * volume >> 8;
+    //         }
+    //     );
+    // }
 
     enum class Effects : uint8_t {
         OpenChest,
@@ -29,6 +43,7 @@ struct Sounds {
         ButtonPress,
         Fail,
     };
+
 
 
     // Sound effects.
@@ -82,7 +97,7 @@ struct Sounds {
                 switch (soundEffect) {
                     
                     case Sounds::Effects::OpenChest:
-                        Audio::play<1>(sfx_08_OpenChest);        
+                        Audio::play<2>(sfx_08_OpenChest);        
                         break;
                     
                     case Sounds::Effects::PickUpCoin:
@@ -90,28 +105,28 @@ struct Sounds {
                         break;
 
                     case Sounds::Effects::LandOnTop:
-                        Audio::play<1>(sfx_05_Stomp);        
+                        Audio::play<2>(sfx_05_Stomp);        
                         break;
 
                     case Sounds::Effects::Jump:
-                        Audio::play<1>(sfx_06_Jump);        
+                        Audio::play<2>(sfx_06_Jump);        
                         break;
 
                     case Sounds::Effects::Die:
                         Audio::stop<0>();
-                        Audio::play<1>(sfx_02_Die);        
+                        Audio::play<3>(sfx_02_Die);        
                         break;
 
                     case Sounds::Effects::OneUp:
-                        Audio::play<1>(sfx_03_One_Up);        
+                        Audio::play<2>(sfx_03_One_Up);        
                         break;
 
                     case Sounds::Effects::ButtonPress:
-                        Audio::play<1>(sfx_04_Beep);        
+                        Audio::play<2>(sfx_04_Beep);        
                         break;           
 
                     case Sounds::Effects::Fail:
-                        Audio::play<1>(sfx_10_Fail);        
+                        Audio::play<2>(sfx_10_Fail);        
                         break;           
 
                 }
@@ -130,7 +145,7 @@ struct Sounds {
         constexpr char sounds[1][19] = { "music/Astaro05.raw" }; // Coins
 
         if (this->soundEffectFile.openRO(sounds[0])) {
-            this->music = &Audio::play<1>(soundEffectFile);
+            this->music = &Audio::play<2>(soundEffectFile);
             this->music->setLoop(false);
         }
 

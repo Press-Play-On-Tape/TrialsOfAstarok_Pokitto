@@ -349,7 +349,7 @@ void AstarokGame::drawMap_Background() {
 
                     case ObjectTypes::MemoryMan:
                         if (obj->getActive() || obj->explodeCounter > 16) {
-                            PD::drawBitmap(x * Constants::TileSize - this->camera.x, y * Constants::TileSize - this->camera.y - 5, Images::MemoryMan);
+                            PD::drawBitmap(x * Constants::TileSize - this->camera.x - 2, y * Constants::TileSize - this->camera.y - 5, Images::MemoryMan);
                         }
                         break;
 

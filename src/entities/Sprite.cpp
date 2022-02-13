@@ -467,7 +467,7 @@ void Sprite::draw() {
 
         case ObjectTypes::Starman:
 
-            PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Starman);
+            PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y + 1, Images::Starman);
             break;
 
         case ObjectTypes::Health:

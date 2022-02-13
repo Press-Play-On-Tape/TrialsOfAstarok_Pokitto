@@ -14,10 +14,11 @@ void Map::generateRoom(uint8_t roomNum) {
     uint8_t upperPlatform_Floor = 0;
 
     int8_t gap = 0;
+    uint8_t flatFloor = 0;
+    uint8_t oldFloor = 0;
     bool largeGap = false;
     bool largeGapFinished = false;
     int tSpawnBarrier = roomNum * Constants::RoomWidth;
-    uint8_t flatFloor = 0;
     bool memoryMan = false;
 
 
@@ -56,6 +57,8 @@ void Map::generateRoom(uint8_t roomNum) {
 
 
             // Fill the map data from the current floor to the bottom of the map ..
+
+            oldFloor = floor;
 
             for (int b = floor; b < Constants::RoomHeight; b++) {
                 rooms[roomNum % Constants::MapRooms].setTile(x, b);
@@ -172,7 +175,7 @@ void Map::generateRoom(uint8_t roomNum) {
 
                         if (this->game->mapNumber % 4 == 2 && roomNum == 2 && memoryMan == false) {
 
-                            this->addObject(ObjectTypes::MemoryMan, tSpawnBarrier + x, floor - 1);
+                            this->addObject(ObjectTypes::MemoryMan, tSpawnBarrier + x, oldFloor - 1);
                             memoryMan = true;
 
                         }
@@ -182,8 +185,6 @@ void Map::generateRoom(uint8_t roomNum) {
                 }
 
             }
-
-
 
         }
         else {
