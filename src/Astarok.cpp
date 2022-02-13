@@ -20,6 +20,8 @@ void Game::setup(GameCookie *cookie) {
     this->game.sounds = &this->sounds;
     this->game.cookie = this->cookie;
 
+    this->sounds.connectVolumeControl(1);
+
 }
 
 void Game::loop() {
@@ -42,7 +44,7 @@ void Game::loop() {
 
         case GameState::Title_Init:
 
-            sounds.playTheme(2, this->cookie->sfx);
+            sounds.playTheme(2, this->cookie->sfx, true, true);
             PD::clear();
             this->gameState = GameState::Title;
             [[fallthrough]]
@@ -188,5 +190,7 @@ void Game::loop() {
             break;
 
     }
+
+    sounds.updateFades();
 
 }

@@ -3,6 +3,7 @@
         "__config": "cpp",
         "__nullptr": "cpp",
         "*.tcc": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "libaudio": "cpp"
     }
 }

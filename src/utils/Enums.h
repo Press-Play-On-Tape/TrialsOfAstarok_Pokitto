@@ -1,5 +1,12 @@
 #pragma once
 
+enum class FadeMode : uint8_t {
+    None,
+    FadeIn,
+    FadeOut,
+    Transition
+};
+
 enum class SoundSettings : uint8_t {
     Both,
     Music,

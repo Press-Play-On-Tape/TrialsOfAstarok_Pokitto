@@ -407,40 +407,40 @@ void AstarokGame::cycle(GameState &gameState) {
 
                 // Have we touched another object?
 
-                if (obj.getActive() && testCollision(&player, &obj)) {
-                
-                    uint8_t type = obj.getType();
+                if (event != EventType::Flash && event != EventType::Death && event != EventType::Death_Init) {
 
-                    switch (type) {
+                    if (obj.getActive() && testCollision(&player, &obj)) {
+                    
+                        uint8_t type = obj.getType();
 
-                        case ObjectTypes::Health:
-                            obj.deactivate(true);
-                            this->score += Constants::Points_Health;
-                            this->sounds->playSoundEffect(Sounds::Effects::OneUp, this->cookie->sfx);
-                            if (this->lives < 3) this->lives++;
-                            break;
+                        switch (type) {
 
-                        case ObjectTypes::Coin:
-                            obj.deactivate(false);
-                            this->score += Constants::Points_Coin;
-                            this->sounds->playSoundEffect(Sounds::Effects::PickUpCoin, this->cookie->sfx);
-                            break;
-                            
-                        default: break;
+                            case ObjectTypes::Health:
+                                obj.deactivate(true);
+                                this->score += Constants::Points_Health;
+                                this->sounds->playSoundEffect(Sounds::Effects::OneUp, this->cookie->sfx);
+                                if (this->lives < 3) this->lives++;
+                                break;
 
-                    }
+                            case ObjectTypes::Coin:
+                                obj.deactivate(false);
+                                this->score += Constants::Points_Coin;
+                                this->sounds->playSoundEffect(Sounds::Effects::PickUpCoin, this->cookie->sfx);
+                                break;
+                                
+                            default: break;
 
-                    if (obj.getActive()) { // May have been deativated just above (ie. a health) ..
+                        }
 
-                        if (isFalling) { // And therefore landing on top of an object
+                        if (obj.getActive()) { // May have been deativated just above (ie. a health) ..
 
-                            switch (type) {
+                            if (isFalling) { // And therefore landing on top of an object
 
-                                case ObjectTypes::Fireball:
+                                switch (type) {
 
-                                    #ifndef NO_DEATH
+                                    case ObjectTypes::Fireball:
 
-                                    if (event != EventType::Flash) {
+                                        #ifndef NO_DEATH
 
                                         if (this->lives > 0) this->lives--; 
 
@@ -465,53 +465,53 @@ void AstarokGame::cycle(GameState &gameState) {
 
                                         }
 
-                                    }
+                                        #endif
 
+                                        break;
+
+                                    default:
+
+                                        obj.deactivate(true);
+                                        this->score += Constants::Points_Skill;
+                                        this->sounds->playSoundEffect(Sounds::Effects::LandOnTop, this->cookie->sfx);
+
+
+                                        // Get a bounce if we are pressing 'A' ..
+
+                                        if ((PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1))) { 
+                                            this->player.vy = -8;
+                                        }
+                                        else { 
+                                            this->player.vy = -3; 
+                                        } 
+
+                                        break;
+
+                                }
+
+                            }
+                            else if (this->eventCounter == 0) {
+
+                                if (this->lives > 0) this->lives--; 
+
+                                if (this->lives == 0) {
+
+                                    #ifndef NO_DEATH
+                                    this->event = EventType::Death_Init; 
+                                    this->eventCounter = Constants::EventCounter_Death;
+                                    this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
                                     #endif
 
-                                    break;
+                                }
+                                else {
 
-                                default:
+                                    #ifndef NO_DEATH
+                                    this->event = EventType::Flash; 
+                                    this->eventCounter = Constants::EventCounter_Flash;
+                                    // this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
+                                    #endif
 
-                                    obj.deactivate(true);
-                                    this->score += Constants::Points_Skill;
-                                    this->sounds->playSoundEffect(Sounds::Effects::LandOnTop, this->cookie->sfx);
-
-
-                                    // Get a bounce if we are pressing 'A' ..
-
-                                    if ((PC::buttons.pressed(BTN_A) || PC::buttons.repeat(BTN_A, 1))) { 
-                                        this->player.vy = -8;
-                                    }
-                                    else { 
-                                        this->player.vy = -3; 
-                                    } 
-
-                                    break;
-
-                            }
-
-                        }
-                        else if (this->eventCounter == 0) {
-
-                            if (this->lives > 0) this->lives--; 
-
-                            if (this->lives == 0) {
-
-                                #ifndef NO_DEATH
-                                this->event = EventType::Death_Init; 
-                                this->eventCounter = Constants::EventCounter_Death;
-                                this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
-                                #endif
-
-                            }
-                            else {
-
-                                #ifndef NO_DEATH
-                                this->event = EventType::Flash; 
-                                this->eventCounter = Constants::EventCounter_Flash;
-                                // this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
-                                #endif
+                                }
 
                             }
 

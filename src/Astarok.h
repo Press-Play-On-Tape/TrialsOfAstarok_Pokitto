@@ -11,6 +11,7 @@
 #include "font/Font4x6.h"
 #include "src/utils/DuelPalette.h"
 #include "src/sounds/Sounds.h"
+#include "Utils/SFXVolumeSource.hpp"
 
 using PC=Pokitto::Core;
 using PD=Pokitto::Display;
