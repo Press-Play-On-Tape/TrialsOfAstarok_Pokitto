@@ -407,7 +407,7 @@ void AstarokGame::cycle(GameState &gameState) {
 
                 // Have we touched another object?
 
-                if (event != EventType::Flash && event != EventType::Death && event != EventType::Death_Init) {
+                if (event != EventType::Death && event != EventType::Death_Init) {
 
                     if (obj.getActive() && testCollision(&player, &obj)) {
                     
@@ -440,32 +440,36 @@ void AstarokGame::cycle(GameState &gameState) {
 
                                     case ObjectTypes::Fireball:
 
-                                        #ifndef NO_DEATH
+                                        if (event != EventType::Flash) { // If we are not already dead ..
 
-                                        if (this->lives > 0) this->lives--; 
+                                            #ifndef NO_DEATH
 
-                                        if (this->lives == 0) {
+                                            if (this->lives > 0) this->lives--; 
 
-                                            if (this->eventCounter == 0) {
-                                                
-                                                this->event = EventType::Death_Init; 
-                                                this->eventCounter = Constants::EventCounter_Death;   
-                                                this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
-                                                obj.deactivate(true);
+                                            if (this->lives == 0) {
+
+                                                if (this->eventCounter == 0) {
+                                                    
+                                                    this->event = EventType::Death_Init; 
+                                                    this->eventCounter = Constants::EventCounter_Death;   
+                                                    this->sounds->playSoundEffect(Sounds::Effects::Die, this->cookie->sfx);
+                                                    obj.deactivate(true);
+
+                                                }
+
+                                            }
+                                            else {
+
+                                                #ifndef NO_DEATH
+                                                this->event = EventType::Flash; 
+                                                this->eventCounter = Constants::EventCounter_Flash;
+                                                #endif
 
                                             }
 
-                                        }
-                                        else {
-
-                                            #ifndef NO_DEATH
-                                            this->event = EventType::Flash; 
-                                            this->eventCounter = Constants::EventCounter_Flash;
                                             #endif
 
                                         }
-
-                                        #endif
 
                                         break;
 

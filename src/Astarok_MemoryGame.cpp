@@ -62,7 +62,7 @@ void Game::memoryGame() {
 
                 memoryGameVars.flashCounter = 120;
 
-                game.score = game.score + Constants::Points_Skill;
+                game.score = game.score + Constants::Points_Match;
                 sounds.playSoundEffect(Sounds::Effects::PickUpCoin, cookie->sfx);
 
             }

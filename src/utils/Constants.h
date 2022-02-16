@@ -23,6 +23,7 @@ namespace Constants {
     constexpr uint8_t Points_Health             = 100;
     constexpr uint8_t Points_Skill              = 20;
     constexpr uint8_t Points_Coin               = 20;
+    constexpr uint8_t Points_Match              = 100;
 
     constexpr uint8_t No_Slot                   = 255;
     constexpr uint8_t NumberOfScores            = 3;
