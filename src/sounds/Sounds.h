@@ -33,7 +33,7 @@ struct Sounds {
             lastChannel,
             nullptr,
             +[](uint8_t *buffer, void *){
-                for(int i=0; i<512; ++i) 
+                for(int16_t i=0; i<512; ++i) 
                     buffer[i] = buffer[i] * volume >> 8;
             }
         );

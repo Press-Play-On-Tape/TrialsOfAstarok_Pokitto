@@ -15,12 +15,12 @@ class Map {
         void newMap();
         void loadMap();
         void generateRoom(uint8_t roomNum);
-        void addObject(ObjectTypes type, int x, int y);
-        uint8_t checkObject(int x, int y);
-        InteractiveObject *getObject(int x, int y);
-        bool isTile(int x, int y);
-        void addSign(int x, int y);
-        void addExit(ObjectTypes exitType, int x, int y);
+        void addObject(ObjectTypes type, int16_t x, int16_t y);
+        uint8_t checkObject(int16_t x, int16_t y);
+        InteractiveObject *getObject(int16_t x, int16_t y);
+        bool isTile(int16_t x, int16_t y);
+        void addSign(int16_t x, int16_t y);
+        void addExit(ObjectTypes exitType, int16_t x, int16_t y);
 
         int16_t minXPixel();
         int16_t maxXPixel();

@@ -1,7 +1,7 @@
 #include "Room.h"
 
 void Room::clearRoom() {
-    for (int a = 0; a < Constants::RoomBytes; a++) data[a] = 0;
+    for (int16_t a = 0; a < Constants::RoomBytes; a++) data[a] = 0;
 }
 
 void Room::setTile(uint8_t x, uint8_t y) {

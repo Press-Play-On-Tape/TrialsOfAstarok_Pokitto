@@ -18,7 +18,7 @@ void Map::generateRoom(uint8_t roomNum) {
     uint8_t oldFloor = 0;
     bool largeGap = false;
     bool largeGapFinished = false;
-    int tSpawnBarrier = roomNum * Constants::RoomWidth;
+    int16_t tSpawnBarrier = roomNum * Constants::RoomWidth;
     bool memoryMan = false;
 
 
@@ -28,7 +28,7 @@ void Map::generateRoom(uint8_t roomNum) {
         addSign(1, floor - 1);
     }
 
-    for (int x = 0; x < Constants::RoomWidth; x++) {
+    for (int16_t x = 0; x < Constants::RoomWidth; x++) {
 
 
         // Should we launch an upper platform?
@@ -60,7 +60,7 @@ void Map::generateRoom(uint8_t roomNum) {
 
             oldFloor = floor;
 
-            for (int b = floor; b < Constants::RoomHeight; b++) {
+            for (int16_t b = floor; b < Constants::RoomHeight; b++) {
                 rooms[roomNum % Constants::MapRooms].setTile(x, b);
             }
 
@@ -235,19 +235,19 @@ void Map::generateRoom(uint8_t roomNum) {
 
 }
 
-void Map::addExit(ObjectTypes exitType, int x, int y) {
+void Map::addExit(ObjectTypes exitType, int16_t x, int16_t y) {
 
     addObject(exitType, x, y);
 
 }
 
-void Map::addSign(int x, int y) {
+void Map::addSign(int16_t x, int16_t y) {
 
     addObject(ObjectTypes::Sign,  x,   y);
 
 }
 
-void Map::addObject(ObjectTypes type, int tX, int tY) {
+void Map::addObject(ObjectTypes type, int16_t tX, int16_t tY) {
 
     if (checkObject(tX, tY)) {
         return;
@@ -289,7 +289,7 @@ void Map::newMap() {
 
 void Map::loadMap() {
 
-    int roomBeforePlayerIsIn = (this->game->player.x / (Constants::RoomWidth*Constants::TileSize)) - 1;
+    int16_t roomBeforePlayerIsIn = (this->game->player.x / (Constants::RoomWidth*Constants::TileSize)) - 1;
 
     if (roomBeforePlayerIsIn < 0) roomBeforePlayerIsIn = 0;
 
@@ -300,9 +300,9 @@ void Map::loadMap() {
 
 }
 
-bool Map::isTile(int x, int y) {
+bool Map::isTile(int16_t x, int16_t y) {
 
-    int room = (x / Constants::RoomWidth) % Constants::MapRooms;
+    int16_t room = (x / Constants::RoomWidth) % Constants::MapRooms;
     return rooms[room].readTile(x % Constants::RoomWidth, y);
 
 }
@@ -310,7 +310,7 @@ bool Map::isTile(int x, int y) {
 
 // Return first object found at coordinates x, y ..
 
-uint8_t Map::checkObject(int x, int y) {
+uint8_t Map::checkObject(int16_t x, int16_t y) {
 
     if (y < 0) return 0;
 
@@ -322,7 +322,7 @@ uint8_t Map::checkObject(int x, int y) {
 }
 
 
-InteractiveObject *Map::getObject(int x, int y) {
+InteractiveObject *Map::getObject(int16_t x, int16_t y) {
 
     if (y < 0) return nullptr;
 

@@ -45,7 +45,7 @@ uint8_t Sprite::getHeight() {
 
 }
 
-void Sprite::init(const uint8_t * data, int tX, int tY) {
+void Sprite::init(const uint8_t * data, int16_t tX, int16_t tY) {
 
     this->spriteData = data;
     this->x = tX; 
@@ -286,7 +286,7 @@ void Sprite::move() {
             }
 
             if (vy > 0) { // Down
-                for (int a = 0; a < vy; a++) {
+                for (int16_t a = 0; a < vy; a++) {
                     if (isFalling()) {
                         y++;
                     }
@@ -307,7 +307,7 @@ void Sprite::move() {
 
                 applyGravity();
 
-                for (int a = 0; a > vy; a--) {
+                for (int16_t a = 0; a > vy; a--) {
                     if (this->collisionCheckY(Direction::Up)) { 
                         vy = 0; 
                         break; 
@@ -321,7 +321,7 @@ void Sprite::move() {
 
             if (vx > 0) { // Right
 
-                for (int a = 0; a < vx; a++) {
+                for (int16_t a = 0; a < vx; a++) {
 
                     if (this->getRightX() > this->game->level.maxXPixel()) break;
 
@@ -344,7 +344,7 @@ void Sprite::move() {
 
             if (vx < 0) { // Left
 
-                for (int a = 0; a > vx; a--)  {
+                for (int16_t a = 0; a > vx; a--)  {
 
                     if (x < this->game->level.minXPixel() + 1) break;
 

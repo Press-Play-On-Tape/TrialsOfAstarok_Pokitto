@@ -16,7 +16,7 @@ class Sprite {
 
     public:
 
-        void init(const uint8_t * data, int tX, int tY);
+        void init(const uint8_t * data, int16_t tX, int16_t tY);
         bool isFalling();
         void move();
         bool jump();

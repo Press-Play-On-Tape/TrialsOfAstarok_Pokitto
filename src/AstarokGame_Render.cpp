@@ -301,9 +301,9 @@ void AstarokGame::drawMap_Background() {
 
     // Render interactive tiles ..
 
-    for (int x = (this->camera.x / Constants::TileSize) - 12; x < (this->camera.x / Constants::TileSize) + 17; x++) {
+    for (int16_t x = (this->camera.x / Constants::TileSize) - 12; x < (this->camera.x / Constants::TileSize) + 17; x++) {
 
-        for (int y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
+        for (int16_t y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
 
             InteractiveObject *obj = this->level.getObject(x, y);
 
@@ -391,9 +391,9 @@ void AstarokGame::drawMap_Background_2() {
 
     // Render tiles last ..
 
-    for (int x = (this->camera.x / Constants::TileSize) - 12; x < (this->camera.x / Constants::TileSize) + 17; x++) {
+    for (int16_t x = (this->camera.x / Constants::TileSize) - 12; x < (this->camera.x / Constants::TileSize) + 17; x++) {
 
-        for (int y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
+        for (int16_t y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
 
             if (this->level.isTile(x, y)) {
 
@@ -417,9 +417,9 @@ void AstarokGame::drawMap_Background_2() {
 
 void AstarokGame::drawMap_Foreground() {
 
-    for (int x = this->camera.x / Constants::TileSize; x < (this->camera.x / Constants::TileSize) + 17; x++) {
+    for (int16_t x = this->camera.x / Constants::TileSize; x < (this->camera.x / Constants::TileSize) + 17; x++) {
 
-        for (int y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
+        for (int16_t y = this->camera.y / Constants::TileSize; y < (this->camera.y / Constants::TileSize) + 9; y++) {
 
             if (!this->level.isTile(x, y)) {
 

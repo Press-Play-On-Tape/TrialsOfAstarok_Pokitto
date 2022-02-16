@@ -19,7 +19,7 @@ inline SoundSettings &operator++(SoundSettings &c ) {
     return c;
 }
 
-inline SoundSettings operator++(SoundSettings &c, int ) {
+inline SoundSettings operator++(SoundSettings &c, int) {
     SoundSettings result = c;
     ++c;
     return result;
@@ -35,7 +35,7 @@ inline SoundSettings &operator--(SoundSettings &c ) {
     return c;
 }
 
-inline SoundSettings operator--(SoundSettings &c, int ) {
+inline SoundSettings operator--(SoundSettings &c, int) {
     SoundSettings result = c;
     --c;
     return result;
@@ -88,7 +88,7 @@ inline TitleScreenMode &operator++(TitleScreenMode &c ) {
     return c;
 }
 
-inline TitleScreenMode operator++(TitleScreenMode &c, int ) {
+inline TitleScreenMode operator++(TitleScreenMode &c, int) {
     TitleScreenMode result = c;
     ++c;
     return result;
@@ -104,7 +104,7 @@ inline TitleScreenMode &operator--(TitleScreenMode &c ) {
     return c;
 }
 
-inline TitleScreenMode operator--(TitleScreenMode &c, int ) {
+inline TitleScreenMode operator--(TitleScreenMode &c, int) {
     TitleScreenMode result = c;
     --c;
     return result;

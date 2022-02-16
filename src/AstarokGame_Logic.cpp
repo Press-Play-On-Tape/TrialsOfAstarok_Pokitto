@@ -609,7 +609,7 @@ void AstarokGame::die(GameState &gameState) {
 
 uint8_t AstarokGame::addMob(const uint8_t *data, int16_t x, uint8_t y, uint8_t maxHeight) {
 
-    int distances[Constants::SpriteCap];
+    int16_t distances[Constants::SpriteCap];
 
     for (uint8_t a = 0; a < Constants::SpriteCap; a++) {
 
@@ -726,7 +726,7 @@ void AstarokGame::playMiniGame(GameState &gameState) {
 
             this->seed = PC::frameCount;
 
-            for (int i = 0; i < Constants::ParticlesMax; i++) {
+            for (int16_t i = 0; i < Constants::ParticlesMax; i++) {
                 
                 particles[i].setX((this->chestObj->x * Constants::TileSize) - this->camera.x + 8 + (Utils::hash(this->seed) % 7));
                 particles[i].setY((this->chestObj->y * Constants::TileSize) - this->camera.y - 5 - (Utils::hash(this->seed) % 7));

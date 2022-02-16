@@ -22,7 +22,7 @@ uint8_t AISprite::getIntelligence() {
 
 }
 
-void AISprite::activate(const uint8_t * data, int tX, int tY) {
+void AISprite::activate(const uint8_t * data, int16_t tX, int16_t tY) {
 
     this->active = true;
     this->facing = Direction::Left;
