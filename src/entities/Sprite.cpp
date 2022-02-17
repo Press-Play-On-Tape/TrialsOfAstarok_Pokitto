@@ -2,8 +2,19 @@
 
 #include "../AstarokGame.h"
 
-uint8_t Sprite::getFlags()      { return pgm_read_byte(this->spriteData + SpriteDataLayout::Flags); }
-uint8_t Sprite::getType()       { return pgm_read_byte(this->spriteData + SpriteDataLayout::Type); }
+uint8_t Sprite::getFlags() { 
+    
+    if (this->spriteData == nullptr) { return 0; }
+    return pgm_read_byte(this->spriteData + SpriteDataLayout::Flags); 
+    
+}
+
+uint8_t Sprite::getType() { 
+    
+    if (this->spriteData == nullptr) { return 0; }
+    return pgm_read_byte(this->spriteData + SpriteDataLayout::Type); 
+    
+}
 
 int16_t Sprite::getRightX()     { return this->x + this->getWidth() - 1; }
 int16_t Sprite::getTopY()       { return this->y; }
