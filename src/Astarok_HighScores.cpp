@@ -38,8 +38,8 @@ void Game::writeHighScoreEntry(HighScoreVars &highScoreVars) {
 
     for (uint8_t j = Constants::NumberOfScores - 1; j > highScoreVars.slot; j--) {          
 
-        Slot slot1 = this->cookie->slots[j - 1];
-        Slot slot2 = this->cookie->slots[j];
+        Slot &slot1 = this->cookie->slots[j - 1];
+        Slot &slot2 = this->cookie->slots[j];
 
         for (uint8_t k = 0; k < 5; k++) {
 
@@ -94,6 +94,7 @@ void Game::highScores() {
 
     PD::drawBitmap(9, 6, Images::Torch[Utils::getFrameCount(16) / 4]);
     PD::drawBitmap(95, 6, Images::Torch[Utils::getFrameCount(16) / 4]);
+    PD::drawBitmap(92, 81, Images::Version);
 
 
     for (uint8_t i = 0; i < Constants::NumberOfScores; i++) {

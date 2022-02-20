@@ -50,6 +50,7 @@ namespace Images {
 
     #include "PlayerSelector.h"
     #include "SelectPlayer.h"
+    #include "Version.h"
 
     const uint8_t * const Torch[] = { 
         Torch_00,
