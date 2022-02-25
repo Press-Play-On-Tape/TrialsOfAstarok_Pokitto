@@ -439,10 +439,10 @@ void Sprite::draw() {
 
         case ObjectTypes::Spider:
             if (this->facing == Direction::Right) {
-                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Spider_RH);
+                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Spider_RH[(PC::frameCount % 12) / 6]);
             }
             else {
-                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Spider_LH);
+                PD::drawBitmap(x - this->game->camera.x, y - this->game->camera.y, Images::Spider_LH[(PC::frameCount % 12) / 6]);
             }
             break;
 
