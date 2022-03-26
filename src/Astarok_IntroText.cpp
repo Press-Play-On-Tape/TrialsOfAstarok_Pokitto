@@ -12,7 +12,7 @@ const uint8_t PROGMEM IntroText_01[] = { 7, 'C','o','m','p','e','t','e',' ','i',
 
 
 const uint8_t PROGMEM IntroText_02[] = { 8,'Y','o','u','r',' ','c','h','o','i','c','e',' ','o','f',' ','r','u','n','e','s','~',6,'w','i','l','l',' ','s','e','l','e','c','t',' ',
-                            'd','i','f','f','e','r','e','n','t','~',11,'c','o','u','r','s','e','s',' ','.','.',' ','s','o','m','e',' ','a','r','e','~',12,'e','a','s','i','e','r',
+                            'd','i','f','f','e','r','e','n','t','~',11,'c','o','u','r','s','e','s','.','.','.',' ','s','o','m','e',' ','a','r','e','~',12,'e','a','s','i','e','r',
                             ' ','t','h','a','n',' ','o','t','h','e','r','s','!' };
 
 const uint8_t * const IntroTexts[] = { IntroText_00, IntroText_01, IntroText_02 }; 
